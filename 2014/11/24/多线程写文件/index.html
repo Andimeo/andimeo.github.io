@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>多线程写文件 | Andimeo&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近在准备Tango的面试，猎头给的参考资料中有这么一道题目：
+
+
+四个线程，一线程输出1，二线程输出2，三线程输出3，四线程输出4。分别向四个文件输出，使文件的内容如下：
+
+file1：123412341234…………
+file2：234123412341…………
+file3：341234123412…………
+file4：412341234123…………
+
+
+
+
+后来查了一下，发现这又是一道早些">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程写文件">
+<meta property="og:url" content="http://andimeo.info/2014/11/24/多线程写文件/">
+<meta property="og:site_name" content="Andimeo's Blog">
+<meta property="og:description" content="最近在准备Tango的面试，猎头给的参考资料中有这么一道题目：
+
+
+四个线程，一线程输出1，二线程输出2，三线程输出3，四线程输出4。分别向四个文件输出，使文件的内容如下：
+
+file1：123412341234…………
+file2：234123412341…………
+file3：341234123412…………
+file4：412341234123…………
+
+
+
+
+后来查了一下，发现这又是一道早些">
+<meta property="og:image" content="/img/javaconcurrencyinpractice.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多线程写文件">
+<meta name="twitter:description" content="最近在准备Tango的面试，猎头给的参考资料中有这么一道题目：
+
+
+四个线程，一线程输出1，二线程输出2，三线程输出3，四线程输出4。分别向四个文件输出，使文件的内容如下：
+
+file1：123412341234…………
+file2：234123412341…………
+file3：341234123412…………
+file4：412341234123…………
+
+
+
+
+后来查了一下，发现这又是一道早些">
+<meta name="twitter:creator" content="@https://twitter.com/Andimeo">
+<link rel="publisher" href="https://plus.google.com/108731813092358327718/posts">
+
+  
+    <link rel="alternative" href="/atom.xml" title="Andimeo&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-51886409-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+<meta name="baidu-site-verification" content="uOXemKmg1J" />
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fd2101ee427cf5a274a307e4dd6701133' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/">Andimeo&#39;s Blog</a>
+    <div class="collapse navbar-collapse nav-menu">
+      <ul class="nav navbar-nav">
+      
+        <li>
+          <a href="/archives">
+            <i class="fa fa-archive"></i>
+            Archives
+          </a>
+        </li>
+      
+        <li>
+          <a href="/categories">
+            <i class="fa fa-folder"></i>
+            Categories
+          </a>
+        </li>
+      
+        <li>
+          <a href="/tags">
+            <i class="fa fa-tags"></i>
+            Tags
+          </a>
+        </li>
+      
+        <li>
+          <a href="/about">
+            <i class="fa fa-user"></i>
+            About
+          </a>
+        </li>
+      
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+          <li><a id="rss-link" href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+        <li> 
+      <a title="Don't quit medicine!" href='javascript:(function() {
+  function c() {
+    var e = document.createElement("link");
+    e.setAttribute("type", "text/css");
+    e.setAttribute("rel", "stylesheet");
+    e.setAttribute("href", f);
+    e.setAttribute("class", l);
+    document.body.appendChild(e)
+  }
+ 
+  function h() {
+    var e = document.getElementsByClassName(l);
+    for (var t = 0; t < e.length; t++) {
+      document.body.removeChild(e[t])
+    }
+  }
+ 
+  function p() {
+    var e = document.createElement("div");
+    e.setAttribute("class", a);
+    document.body.appendChild(e);
+    setTimeout(function() {
+      document.body.removeChild(e)
+    }, 100)
+  }
+ 
+  function d(e) {
+    return {
+      height : e.offsetHeight,
+      width : e.offsetWidth
+    }
+  }
+ 
+  function v(i) {
+    var s = d(i);
+    return s.height > e && s.height < n && s.width > t && s.width < r
+  }
+ 
+  function m(e) {
+    var t = e;
+    var n = 0;
+    while (!!t) {
+      n += t.offsetTop;
+      t = t.offsetParent
+    }
+    return n
+  }
+ 
+  function g() {
+    var e = document.documentElement;
+    if (!!window.innerWidth) {
+      return window.innerHeight
+    } else if (e && !isNaN(e.clientHeight)) {
+      return e.clientHeight
+    }
+    return 0
+  }
+ 
+  function y() {
+    if (window.pageYOffset) {
+      return window.pageYOffset
+    }
+    return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+  }
+ 
+  function E(e) {
+    var t = m(e);
+    return t >= w && t <= b + w
+  }
+ 
+  function S() {
+    var e = document.createElement("audio");
+    e.setAttribute("class", l);
+    e.src = i;
+    e.loop = false;
+    e.addEventListener("canplay", function() {
+      setTimeout(function() {
+        x(k)
+      }, 500);
+      setTimeout(function() {
+        N();
+        p();
+        for (var e = 0; e < O.length; e++) {
+          T(O[e])
+        }
+      }, 15500)
+    }, true);
+    e.addEventListener("ended", function() {
+      N();
+      h()
+    }, true);
+    e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+    document.body.appendChild(e);
+    e.play()
+  }
+ 
+  function x(e) {
+    e.className += " " + s + " " + o
+  }
+ 
+  function T(e) {
+    e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+  }
+ 
+  function N() {
+    var e = document.getElementsByClassName(s);
+    var t = new RegExp("\\b" + s + "\\b");
+    for (var n = 0; n < e.length; ) {
+      e[n].className = e[n].className.replace(t, "")
+    }
+  }
+ 
+  var e = 30;
+  var t = 30;
+  var n = 350;
+  var r = 350;
+  var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+  var s = "mw-harlem_shake_me";
+  var o = "im_first";
+  var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+  var a = "mw-strobe_light";
+  var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+  var l = "mw_added_css";
+  var b = g();
+  var w = y();
+  var C = document.getElementsByTagName("*");
+  var k = null;
+  for (var L = 0; L < C.length; L++) {
+    var A = C[L];
+    if (v(A)) {
+      if (E(A)) {
+        k = A;
+        break
+      }
+    }
+  }
+  if (A === null) {
+    console.warn("Could not find a node of the right size. Please try a different page.");
+    return
+  }
+  c();
+  S();
+  var O = [];
+  for (var L = 0; L < C.length; L++) {
+    var A = C[L];
+    if (v(A)) {
+      O.push(A)
+    }
+  }
+})()    '>Don't quit medicine!</a> </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="clearfix"></div>
+
+      <div id='content' class="container">
+
+        <div class="page-header-wrapper">
+          <!--[if lt IE 9]><div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>提示:</strong>您的浏览器版本太低了,建议升级到 <strong><a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" title="IE9">IE9</a></strong> 以上,本站使用<a href="https://www.google.com/intl/zh-CN/chrome/">Chrome浏览器</a>可以获得最好的显示效果.</div><![endif]-->
+          <div class="page-header">
+            <h1 class="title">
+          
+            多线程写文件
+          
+            </h1>
+        </div>
+      </div>
+      
+      <section id="main"
+        
+      ><article id="post-v014p8y6e58uaglz" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc"><span class="toc-header">Contents</span><ol class="article-toc"><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#利用object内部的instrinsic-lock"><span class="article-toc-text">利用Object内部的instrinsic lock</span></a></li><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#利用cyclicbarrier"><span class="article-toc-text">利用CyclicBarrier</span></a></li><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#利用reentrant-lock和condition"><span class="article-toc-text">利用Reentrant Lock和Condition</span></a></li></ol></div><p>最近在准备Tango的面试，猎头给的参考资料中有这么一道题目：</p>
+<blockquote>
+
+<p>四个线程，一线程输出1，二线程输出2，三线程输出3，四线程输出4。分别向四个文件输出，使文件的内容如下：</p>
+<ul>
+<li>file1：123412341234…………</li>
+<li>file2：234123412341…………</li>
+<li>file3：341234123412…………</li>
+<li>file4：412341234123…………</li>
+</ul>
+</blockquote>
+
+
+<p>后来查了一下，发现这又是一道早些年Google的经典面试题。</p>
+<p>为了解决这道题目，也弥补一下自己稀缺的并发知识，于是在一周内啃完了《Java Concurrency in Practice》这本书。后来在面试中，和面试官聊到并发的话题时，随便扯扯书中说的CAS，面试官就不问什么了，呵呵。</p>
+<img src="/img/javaconcurrencyinpractice.jpg">
+
+<p>好了，言归正传，下面就来给出我对这道题目的三个解法：</p>
+<a id="more"></a>
+<h1 id="利用object内部的instrinsic-lock">利用Object内部的instrinsic lock</h1><p>第一种方法就是保证，对于线程i，要在文件j写i之前，要保证(i-1+4)%4 + 1已经写到了文件j中，即程序中的lastNums[index]=ln一定要成立。</p>
+<figure class="highlight"><pre><div class="line">import java.io.FileNotFoundException;</div><div class="line">import java.io.PrintWriter;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">WriteThreadv1</span> <span class="inheritance"><span class="keyword">extends</span></span> <span class="title">Thread</span> </span>{</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">index</span>;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> num;</div><div class="line">	<span class="keyword">private</span> PrintWriter[] writers;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] lastNums;</div><div class="line"></div><div class="line">	<span class="keyword">public</span> WriteThreadv1(<span class="keyword">int</span> <span class="keyword">index</span>, <span class="keyword">int</span> num, PrintWriter[] writers, <span class="keyword">int</span>[] lastNums) {</div><div class="line">		<span class="keyword">this</span>.<span class="keyword">index</span> = <span class="keyword">index</span>;</div><div class="line">		<span class="keyword">this</span>.num = num;</div><div class="line">		<span class="keyword">this</span>.writers = writers;</div><div class="line">		<span class="keyword">this</span>.lastNums = lastNums;</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> run() {</div><div class="line">		<span class="keyword">int</span> ln = (num - <span class="number">2</span> + <span class="number">4</span>) % <span class="number">4</span> + <span class="number">1</span>;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) {</div><div class="line">			synchronized (writers[<span class="keyword">index</span>]) {</div><div class="line">				<span class="keyword">while</span> (!(lastNums[<span class="keyword">index</span>] == -<span class="number">1</span> && <span class="keyword">index</span> == num - <span class="number">1</span>) && lastNums[<span class="keyword">index</span>] != ln)</div><div class="line">					<span class="keyword">try</span> {</div><div class="line">						writers[<span class="keyword">index</span>].wait();</div><div class="line">					} <span class="keyword">catch</span> (InterruptedException e) {</div><div class="line">						e.printStackTrace();</div><div class="line">					}</div><div class="line">				writers[<span class="keyword">index</span>].write(<span class="string">""</span> + num);</div><div class="line">				lastNums[<span class="keyword">index</span>] = num;</div><div class="line">				writers[<span class="keyword">index</span>].notifyAll();</div><div class="line">			}</div><div class="line">			<span class="keyword">index</span> = (<span class="keyword">index</span> - <span class="number">1</span> + <span class="number">4</span>) % <span class="number">4</span>;</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FourThreadv1</span> </span>{</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) throws FileNotFoundException, InterruptedException {</div><div class="line">		PrintWriter[] writers = <span class="keyword">new</span> PrintWriter[<span class="number">4</span>];</div><div class="line">		<span class="keyword">int</span>[] lastNums = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">4</span>];</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) {</div><div class="line">			writers[i] = <span class="keyword">new</span> PrintWriter(<span class="string">"D:/"</span> + (i + <span class="number">1</span>) + <span class="string">".txt"</span>);</div><div class="line">			lastNums[i] = -<span class="number">1</span>;</div><div class="line">		}</div><div class="line">		WriteThreadv1[] ts = <span class="keyword">new</span> WriteThreadv1[<span class="number">4</span>];</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) {</div><div class="line">			ts[i] = <span class="keyword">new</span> WriteThread(i, i + <span class="number">1</span>, writers, lastNums);</div><div class="line">			ts[i].start();</div><div class="line">		}</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) {</div><div class="line">			ts[i].join();</div><div class="line">			writers[i].close();</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div></pre></figure>
+
+<h1 id="利用cyclicbarrier">利用CyclicBarrier</h1><p>第二种方法直接利用了Java.util.concurrency中的CyclicBarrier，这个东西的用法就是，初始化一个值n，每一次调用这个barrier的await方法时，调用线程都会阻塞在此处，直到阻塞线程达到n个时，同时继续进行。然后再开始等待下一轮的await。</p>
+<p>利用这个东西，那就很轻松了，每次写之前都await一下，然后所有线程一起写。</p>
+<figure class="highlight"><pre><div class="line">import java.io.FileNotFoundException;</div><div class="line">import java.io.PrintWriter;</div><div class="line">import java.util.concurrent.BrokenBarrierException;</div><div class="line">import java.util.concurrent.CyclicBarrier;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">WriteThreadv2</span> <span class="inheritance"><span class="keyword">extends</span></span> <span class="title">Thread</span> </span>{</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">index</span>;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> num;</div><div class="line">	<span class="keyword">private</span> PrintWriter[] writers;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] lastNums;</div><div class="line">	<span class="keyword">private</span> CyclicBarrier barrier;</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> WriteThreadv2(<span class="keyword">int</span> <span class="keyword">index</span>, <span class="keyword">int</span> num, PrintWriter[] writers, <span class="keyword">int</span>[] lastNums, CyclicBarrier barrier) {</div><div class="line">		<span class="keyword">this</span>.<span class="keyword">index</span> = <span class="keyword">index</span>;</div><div class="line">		<span class="keyword">this</span>.num = num;</div><div class="line">		<span class="keyword">this</span>.writers = writers;</div><div class="line">		<span class="keyword">this</span>.lastNums = lastNums;</div><div class="line">		<span class="keyword">this</span>.barrier = barrier;</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> run() {</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) {</div><div class="line">			synchronized (writers[<span class="keyword">index</span>]) {</div><div class="line">				<span class="keyword">try</span> {</div><div class="line">					barrier.await();</div><div class="line">				} <span class="keyword">catch</span> (InterruptedException | BrokenBarrierException e) {</div><div class="line">					e.printStackTrace();</div><div class="line">				}</div><div class="line">				writers[<span class="keyword">index</span>].write(<span class="string">""</span> + num);</div><div class="line">				lastNums[<span class="keyword">index</span>] = num;</div><div class="line">			}</div><div class="line">			<span class="keyword">index</span> = (<span class="keyword">index</span> - <span class="number">1</span> + <span class="number">4</span>) % <span class="number">4</span>;</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FourThreadv2</span> </span>{</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) throws FileNotFoundException, InterruptedException {</div><div class="line">		PrintWriter[] writers = <span class="keyword">new</span> PrintWriter[<span class="number">4</span>];</div><div class="line">		<span class="keyword">int</span>[] lastNums = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">4</span>];</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) {</div><div class="line">			writers[i] = <span class="keyword">new</span> PrintWriter(<span class="string">"D:/"</span> + (i + <span class="number">1</span>) + <span class="string">".txt"</span>);</div><div class="line">			lastNums[i] = -<span class="number">1</span>;</div><div class="line">		}</div><div class="line">		WriteThreadv2[] ts = <span class="keyword">new</span> WriteThreadv2[<span class="number">4</span>];</div><div class="line">		CyclicBarrier barrier = <span class="keyword">new</span> CyclicBarrier(<span class="number">4</span>);</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) {</div><div class="line">			ts[i] = <span class="keyword">new</span> WriteThreadv2(i, i + <span class="number">1</span>, writers, lastNums, barrier);</div><div class="line">			ts[i].start();</div><div class="line">		}</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) {</div><div class="line">			ts[i].join();</div><div class="line">			writers[i].close();</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div></pre></figure>
+
+<h1 id="利用reentrant-lock和condition">利用Reentrant Lock和Condition</h1><p>这种方法与第一种方法没有本质区别，但是这里使用了ReentrantLock和Condition原语。第一种方法，在一次写入之后，需要notify所有wait的线程，而这种方法我们针对不同的文件不同的数字都有不同的Condition，所以当写了一个数字后，只需要signal等候当前数字的线程，理论上比第一种方法要好一些。</p>
+<figure class="highlight"><pre><div class="line">import java.io.FileNotFoundException;</div><div class="line">import java.io.PrintWriter;</div><div class="line">import java.util.concurrent.locks.Condition;</div><div class="line">import java.util.concurrent.locks.Lock;</div><div class="line">import java.util.concurrent.locks.ReentrantLock;</div><div class="line"></div><div class="line">class WriteThreadv3 extends Thread {</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> index;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> num;</div><div class="line">	<span class="keyword">private</span> PrintWriter[] writers;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] lastNums;</div><div class="line">	<span class="keyword">private</span> Lock <span class="keyword">lock</span>;</div><div class="line">	<span class="keyword">private</span> Condition[][] cond;</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="title">WriteThreadv3</span>(<span class="keyword">int</span> index, <span class="keyword">int</span> num, PrintWriter[] writers, <span class="keyword">int</span>[] lastNums, Lock <span class="keyword">lock</span>, Condition[][] cond) {</div><div class="line">		<span class="keyword">this</span>.index = index;</div><div class="line">		<span class="keyword">this</span>.num = num;</div><div class="line">		<span class="keyword">this</span>.writers = writers;</div><div class="line">		<span class="keyword">this</span>.lastNums = lastNums;</div><div class="line">		<span class="keyword">this</span>.<span class="keyword">lock</span> = <span class="keyword">lock</span>;</div><div class="line">		<span class="keyword">this</span>.cond = cond;</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>() {</div><div class="line">		<span class="keyword">int</span> ln = (num - <span class="number">2</span> + <span class="number">4</span>) % <span class="number">4</span> + <span class="number">1</span>;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) {</div><div class="line">			<span class="keyword">lock</span>.<span class="keyword">lock</span>();</div><div class="line">			<span class="keyword">try</span> {</div><div class="line">				<span class="keyword">while</span> (!(lastNums[index] == -<span class="number">1</span> && index == num - <span class="number">1</span>) && lastNums[index] != ln)</div><div class="line">					cond[index][ln-<span class="number">1</span>].<span class="keyword">await</span>();</div><div class="line">				writers[index].write(<span class="string">""</span> + num);</div><div class="line">				lastNums[index] = num;</div><div class="line">				cond[index][num-<span class="number">1</span>].signal();</div><div class="line">			} <span class="keyword">catch</span> (InterruptedException e) {</div><div class="line">				e.printStackTrace();</div><div class="line">			} <span class="keyword">finally</span> {</div><div class="line">				<span class="keyword">lock</span>.unlock();</div><div class="line">			}</div><div class="line">			index = (index - <span class="number">1</span> + <span class="number">4</span>) % <span class="number">4</span>;</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> FourThreadv3 {</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) throws FileNotFoundException, InterruptedException {</div><div class="line">		PrintWriter[] writers = <span class="keyword">new</span> PrintWriter[<span class="number">4</span>];</div><div class="line">		<span class="keyword">int</span>[] lastNums = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">4</span>];</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) {</div><div class="line">			writers[i] = <span class="keyword">new</span> PrintWriter(<span class="string">"D:/"</span> + (i + <span class="number">1</span>) + <span class="string">".txt"</span>);</div><div class="line">			lastNums[i] = -<span class="number">1</span>;</div><div class="line">		}</div><div class="line">		WriteThreadv3[] ts = <span class="keyword">new</span> WriteThreadv3[<span class="number">4</span>];</div><div class="line">		Lock <span class="keyword">lock</span> = <span class="keyword">new</span> ReentrantLock();</div><div class="line">		Condition[][] cond = <span class="keyword">new</span> Condition[<span class="number">4</span>][];</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; <span class="number">4</span>; i++) {</div><div class="line">			cond[i] = <span class="keyword">new</span> Condition[<span class="number">4</span>];</div><div class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; <span class="number">4</span>; j++)</div><div class="line">				cond[i][j] = <span class="keyword">lock</span>.newCondition();</div><div class="line">		}</div><div class="line">		</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) {</div><div class="line">			ts[i] = <span class="keyword">new</span> WriteThreadv3(i, i + <span class="number">1</span>, writers, lastNums, <span class="keyword">lock</span>, cond);</div><div class="line">			ts[i].start();</div><div class="line">		}</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) {</div><div class="line">			ts[i].<span class="keyword">join</span>();</div><div class="line">			writers[i].close();</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div></pre></figure>
+
+
+      
+    </div>
+  </div>
+</article>
+
+
+
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-title="多线程写文件" data-url="http://andimeo.info/2014/11/24/多线程写文件/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"andimeo"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+        
+          
+<aside id="sidebar">
+  
+    
+      
+<div class="widget-wrap center">
+  <ul class="pagination">
+    <li>
+      
+        <a href="/2014/12/31/2014，再见！MicroStrategy-再见！/" class="nav-prev">Prev</a>
+      
+    </li>
+    <li>
+      <a data-url="http://andimeo.info/2014/11/24/多线程写文件/" data-id="v014p8y6e58uaglz" data_title="多线程写文件"
+        data_summary="最近在准备Tango的面试，猎头给的参考资料中有这么一道题目：
+
+
+四个线程，一线程输出1，二线程输出2，三线程输出3，四线程输出4。分别向四个文件输出，使文件的内容如下：..." class="article-share-link">Share</a>
+    </li>
+    <li>
+      
+        <a href="/2014/11/07/生成圆内随机点/" class="nav-next">Next</a>
+      
+    </li>
+  </ul>
+</div>
+
+
+    
+      <div class="widget-wrap">
+  <div class="post-widget">
+    <i class="fa fa-clock-o"></i>
+    <time datetime="2014-11-24T07:31:22.000Z" itemprop="datePublished">Nov 24 2014</time>
+  </div>
+</div>
+
+    
+      
+  <div class="widget-wrap">
+    <div class="post-widget">
+      <i class="fa fa-folder"></i>
+      <a class="category-link" href="/categories/Java/">Java<span class="category-count">3</span></a>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="post-widget">
+      <i class="fa fa-tags"></i>
+      <a class="tag-link" href="/tags/Concurrency/">Concurrency<span class="tag-count">1</span></a>
+    </div>
+  </div>
+
+
+    
+  
+</aside>
+
+
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer container">
+    <div id="footer-info" class="inner">
+      <a href="/">Andimeo&#39;s Blog</a> &copy; 2016 Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and Theme by <a href="https://github.com/seff/nut" target="_blank">Nut</a>
+    </div>
+  </div>
+</footer>
+<a id="gotop" href="#">
+  <i class="fa fa-chevron-up"></i>
+</a>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="[object Object]" class="mobile-nav-link">0</a>
+  
+    <a href="[object Object]" class="mobile-nav-link">1</a>
+  
+    <a href="[object Object]" class="mobile-nav-link">2</a>
+  
+    <a href="[object Object]" class="mobile-nav-link">3</a>
+  
+</nav>
+
+    
+
+<script src="/js/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script src="/js/jquery.fitvids.js" type="text/javascript"></script>
+
+<script src="/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+<script type="text/x-mathjax-config"> 
+MathJax.Hub.Config({ 
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} 
+}); 
+</script>
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </div>
+</body>
+</html>

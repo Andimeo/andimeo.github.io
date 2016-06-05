@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>几种教科书里没有的排序 | Andimeo&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="今天开始看Lucene的源码了，从core模块的util开始看起。发现其中有几个排序的方法名字都没有听过，比如introsort、timsort。结合lucene的代码，又在网上进行了相关知识的搜索，发现在比较新的语言中，比如Java 7和python中，默认的排序算法已经不是教科书中的quicksort了。今天就记录一下新学到的这三个算法。
+Inplace Merge Sort还记得年初去Goo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="几种教科书里没有的排序">
+<meta property="og:url" content="http://andimeo.info/2015/05/03/几种教科书里没有的排序/">
+<meta property="og:site_name" content="Andimeo's Blog">
+<meta property="og:description" content="今天开始看Lucene的源码了，从core模块的util开始看起。发现其中有几个排序的方法名字都没有听过，比如introsort、timsort。结合lucene的代码，又在网上进行了相关知识的搜索，发现在比较新的语言中，比如Java 7和python中，默认的排序算法已经不是教科书中的quicksort了。今天就记录一下新学到的这三个算法。
+Inplace Merge Sort还记得年初去Goo">
+<meta property="og:image" content="/img/galloping_mode_timsort.svg.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="几种教科书里没有的排序">
+<meta name="twitter:description" content="今天开始看Lucene的源码了，从core模块的util开始看起。发现其中有几个排序的方法名字都没有听过，比如introsort、timsort。结合lucene的代码，又在网上进行了相关知识的搜索，发现在比较新的语言中，比如Java 7和python中，默认的排序算法已经不是教科书中的quicksort了。今天就记录一下新学到的这三个算法。
+Inplace Merge Sort还记得年初去Goo">
+<meta name="twitter:creator" content="@https://twitter.com/Andimeo">
+<link rel="publisher" href="https://plus.google.com/108731813092358327718/posts">
+
+  
+    <link rel="alternative" href="/atom.xml" title="Andimeo&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-51886409-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+<meta name="baidu-site-verification" content="uOXemKmg1J" />
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fd2101ee427cf5a274a307e4dd6701133' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/">Andimeo&#39;s Blog</a>
+    <div class="collapse navbar-collapse nav-menu">
+      <ul class="nav navbar-nav">
+      
+        <li>
+          <a href="/archives">
+            <i class="fa fa-archive"></i>
+            Archives
+          </a>
+        </li>
+      
+        <li>
+          <a href="/categories">
+            <i class="fa fa-folder"></i>
+            Categories
+          </a>
+        </li>
+      
+        <li>
+          <a href="/tags">
+            <i class="fa fa-tags"></i>
+            Tags
+          </a>
+        </li>
+      
+        <li>
+          <a href="/about">
+            <i class="fa fa-user"></i>
+            About
+          </a>
+        </li>
+      
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+          <li><a id="rss-link" href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+        <li> 
+      <a title="Don't quit medicine!" href='javascript:(function() {
+  function c() {
+    var e = document.createElement("link");
+    e.setAttribute("type", "text/css");
+    e.setAttribute("rel", "stylesheet");
+    e.setAttribute("href", f);
+    e.setAttribute("class", l);
+    document.body.appendChild(e)
+  }
+ 
+  function h() {
+    var e = document.getElementsByClassName(l);
+    for (var t = 0; t < e.length; t++) {
+      document.body.removeChild(e[t])
+    }
+  }
+ 
+  function p() {
+    var e = document.createElement("div");
+    e.setAttribute("class", a);
+    document.body.appendChild(e);
+    setTimeout(function() {
+      document.body.removeChild(e)
+    }, 100)
+  }
+ 
+  function d(e) {
+    return {
+      height : e.offsetHeight,
+      width : e.offsetWidth
+    }
+  }
+ 
+  function v(i) {
+    var s = d(i);
+    return s.height > e && s.height < n && s.width > t && s.width < r
+  }
+ 
+  function m(e) {
+    var t = e;
+    var n = 0;
+    while (!!t) {
+      n += t.offsetTop;
+      t = t.offsetParent
+    }
+    return n
+  }
+ 
+  function g() {
+    var e = document.documentElement;
+    if (!!window.innerWidth) {
+      return window.innerHeight
+    } else if (e && !isNaN(e.clientHeight)) {
+      return e.clientHeight
+    }
+    return 0
+  }
+ 
+  function y() {
+    if (window.pageYOffset) {
+      return window.pageYOffset
+    }
+    return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+  }
+ 
+  function E(e) {
+    var t = m(e);
+    return t >= w && t <= b + w
+  }
+ 
+  function S() {
+    var e = document.createElement("audio");
+    e.setAttribute("class", l);
+    e.src = i;
+    e.loop = false;
+    e.addEventListener("canplay", function() {
+      setTimeout(function() {
+        x(k)
+      }, 500);
+      setTimeout(function() {
+        N();
+        p();
+        for (var e = 0; e < O.length; e++) {
+          T(O[e])
+        }
+      }, 15500)
+    }, true);
+    e.addEventListener("ended", function() {
+      N();
+      h()
+    }, true);
+    e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+    document.body.appendChild(e);
+    e.play()
+  }
+ 
+  function x(e) {
+    e.className += " " + s + " " + o
+  }
+ 
+  function T(e) {
+    e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+  }
+ 
+  function N() {
+    var e = document.getElementsByClassName(s);
+    var t = new RegExp("\\b" + s + "\\b");
+    for (var n = 0; n < e.length; ) {
+      e[n].className = e[n].className.replace(t, "")
+    }
+  }
+ 
+  var e = 30;
+  var t = 30;
+  var n = 350;
+  var r = 350;
+  var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+  var s = "mw-harlem_shake_me";
+  var o = "im_first";
+  var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+  var a = "mw-strobe_light";
+  var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+  var l = "mw_added_css";
+  var b = g();
+  var w = y();
+  var C = document.getElementsByTagName("*");
+  var k = null;
+  for (var L = 0; L < C.length; L++) {
+    var A = C[L];
+    if (v(A)) {
+      if (E(A)) {
+        k = A;
+        break
+      }
+    }
+  }
+  if (A === null) {
+    console.warn("Could not find a node of the right size. Please try a different page.");
+    return
+  }
+  c();
+  S();
+  var O = [];
+  for (var L = 0; L < C.length; L++) {
+    var A = C[L];
+    if (v(A)) {
+      O.push(A)
+    }
+  }
+})()    '>Don't quit medicine!</a> </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="clearfix"></div>
+
+      <div id='content' class="container">
+
+        <div class="page-header-wrapper">
+          <!--[if lt IE 9]><div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>提示:</strong>您的浏览器版本太低了,建议升级到 <strong><a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" title="IE9">IE9</a></strong> 以上,本站使用<a href="https://www.google.com/intl/zh-CN/chrome/">Chrome浏览器</a>可以获得最好的显示效果.</div><![endif]-->
+          <div class="page-header">
+            <h1 class="title">
+          
+            几种教科书里没有的排序
+          
+            </h1>
+        </div>
+      </div>
+      
+      <section id="main"
+        
+      ><article id="post-iximkl2w14bhso5x" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc"><span class="toc-header">Contents</span><ol class="article-toc"><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#inplace-merge-sort"><span class="article-toc-text">Inplace Merge Sort</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#introsort"><span class="article-toc-text">Introsort</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#timsort"><span class="article-toc-text">Timsort</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#结语"><span class="article-toc-text">结语</span></a></li></ol></div><p>今天开始看Lucene的源码了，从core模块的util开始看起。发现其中有几个排序的方法名字都没有听过，比如introsort、timsort。结合lucene的代码，又在网上进行了相关知识的搜索，发现在比较新的语言中，比如Java 7和python中，默认的排序算法已经不是教科书中的quicksort了。今天就记录一下新学到的这三个算法。</p>
+<h2 id="inplace-merge-sort">Inplace Merge Sort</h2><p>还记得年初去Google面试的时候，一个北欧的面试官问过我，为什么大部分库函数实现排序时都选择了quicksort，而不是mergesort。当时临场反应，给出了面试官想要的答案，即quicksort可以in place执行，而mergesort需要额外的空间。可是今天看Lucene的代码时，在org.apache.lucene.util.Sorter中，看到了一个函数名叫mergeInPlace。难道被Google的面试官骗了，话说我面试别人的时候，还出过这道题。好的，看看Lucene是怎么做到in place的吧。</p>
+<a id="more"></a>
+<figure class="highlight"><pre><div class="line"><span class="keyword">void</span> mergeInPlace(<span class="keyword">int</span> <span class="keyword">from</span>, <span class="keyword">int</span> mid, <span class="keyword">int</span> to) {</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">from</span> == mid || mid == to || compare(mid - <span class="number">1</span>, mid) &lt;= <span class="number">0</span>) {</div><div class="line">      <span class="keyword">return</span>;</div><div class="line">    } <span class="keyword">else</span> <span class="keyword">if</span> (to - <span class="keyword">from</span> == <span class="number">2</span>) {</div><div class="line">      swap(mid - <span class="number">1</span>, mid);</div><div class="line">      <span class="keyword">return</span>;</div><div class="line">    }</div><div class="line">    <span class="comment">//1. from ... from' ... mid ... to ... to'</span></div><div class="line">    <span class="comment">//Suppose [from, mid) and [mid, to) are two sorted segments.</span></div><div class="line">    <span class="comment">//Obviously, after the two loops below, numbers in [from, from') are smaller than others,</span></div><div class="line">    <span class="comment">//numbers in [to, to') are greater than others. So we only need to focus on [from', to')</span></div><div class="line">    <span class="keyword">while</span> (compare(<span class="keyword">from</span>, mid) &lt;= <span class="number">0</span>) {</div><div class="line">      ++<span class="keyword">from</span>;</div><div class="line">    }</div><div class="line">    <span class="keyword">while</span> (compare(mid - <span class="number">1</span>, to - <span class="number">1</span>) &lt;= <span class="number">0</span>) {</div><div class="line">      --to;</div><div class="line">    }</div><div class="line">    <span class="comment">//2. Take the middle element of [from', mid) as a pivot named first_cut,</span></div><div class="line">    <span class="comment">//then find the lower_bound of it in [mid, to'), named second_cut    </span></div><div class="line">    <span class="keyword">int</span> first_cut, second_cut;</div><div class="line">    <span class="keyword">int</span> len11, len22;</div><div class="line">    <span class="keyword">if</span> (mid - <span class="keyword">from</span> &gt; to - mid) {</div><div class="line">      len11 = (mid - <span class="keyword">from</span>) &gt;&gt;&gt; <span class="number">1</span>;</div><div class="line">      first_cut = <span class="keyword">from</span> + len11;</div><div class="line">      second_cut = lower(mid, to, first_cut); <span class="comment">//lower_bound</span></div><div class="line">      len22 = second_cut - mid;</div><div class="line">    } <span class="keyword">else</span> {</div><div class="line">      len22 = (to - mid) &gt;&gt;&gt; <span class="number">1</span>;</div><div class="line">      second_cut = mid + len22;</div><div class="line">      first_cut = upper(<span class="keyword">from</span>, mid, second_cut); <span class="comment">//upper_bound</span></div><div class="line">      len11 = first_cut - <span class="keyword">from</span>;</div><div class="line">    }</div><div class="line">    <span class="comment">//3. We can tell that [from', first_cut), [mid, second_cut) are smaller than [first_cut],</span></div><div class="line">    <span class="comment">//while [first_cut, mid) and [second_cut, to') are greater than or equal to [first_cut].</span></div><div class="line">    <span class="comment">//Of course, [from, from') are also smaller than [first_cut], the same to [to', to].</span></div><div class="line">    <span class="comment">//So actually we partition the sequence into two parts, one is greater than the pivot,</span></div><div class="line">    <span class="comment">//while the other one is smaller than the pivot. (Similar as the partition phase of quicksort)</span></div><div class="line">    rotate(first_cut, mid, second_cut); <span class="comment">//reverse [first_cut, mid), [mid, second_cut), [first_cut, second_cut) respectively</span></div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> new_mid = first_cut + len22;</div><div class="line">    mergeInPlace(<span class="keyword">from</span>, first_cut, new_mid);</div><div class="line">    mergeInPlace(new_mid, second_cut, to);</div><div class="line">  }</div></pre></figure>
+
+<p>这段代码中用到了三个辅助函数，分别是lower、upper和rotate。lower和upper分别代表lower_boudn和upper_bound的意思，这里顺别复习了一下lower_bound和upper_bound的意义。lower_bound(l, r, val)是指[l, r)中大于等于val的第一个元素，而upper_bound(l, r, val)则指[l, r)中大于val的第一个元素。而rotate(l, m, r)则是分别反转[l, m), [m, r)和[l, r)三个区间各一次，典型的应用就是反转一个句子中的单词。</p>
+<p>仔细品味这里用的lower_bound和upper_bound，可以发现这个merge过程是stable的，所以这种排序也就是一种稳定排序。</p>
+<p>结合我在代码中穿插的注释，第一段代码，算是一个简单的优化，排除了一些已经就位的元素，接下来只需要对剩下的元素进行merge即可。</p>
+<p>第二段代码，则将[from&#39;, mid)的中点作为一个pivot，然后再[mid, to&#39;)中寻找pivot的lower_bound，这样就将整个区间分为了四个部分。结合第三段代码，恰好反转这四段的中间两端，则左边的两段都小于pivot，右边的两段则都大于等于pivot。所以，接下来分别在两段上递归调用mergeInPlace，即可。这整个过程其实非常像quicksort的过程。</p>
+<figure class="highlight"><pre><div class="line">举个例子：</div><div class="line"></div><div class="line"><span class="number">1</span> <span class="number">5</span> <span class="number">10</span> <span class="number">15</span> <span class="number">2</span> <span class="number">8</span> <span class="number">12</span> <span class="number">16</span></div><div class="line"></div><div class="line"><span class="variable">from =</span> <span class="number">0</span>, <span class="variable">to =</span> <span class="number">8</span>, <span class="variable">mid =</span> <span class="number">5</span></div><div class="line">经过第一段代码后：</div><div class="line">from' = <span class="number">1</span>, to' = <span class="number">7</span></div><div class="line">经过第二段代码后：</div><div class="line"><span class="variable">first_cut =</span> <span class="number">2</span>, <span class="variable">second_cut =</span> <span class="number">6</span></div><div class="line">经过第三段代码后，序列变为：</div><div class="line"><span class="number">1</span> <span class="number">5</span> <span class="number">2</span> <span class="number">8</span> <span class="number">10</span> <span class="number">15</span> <span class="number">12</span> <span class="number">16</span></div><div class="line">然后分别对[<span class="number">1</span> <span class="number">5</span> <span class="number">2</span> <span class="number">8</span>] 和 [<span class="number">10</span> <span class="number">15</span> <span class="number">12</span> <span class="number">16</span>]进行递归调用。</div></pre></figure>
+
+<p>至此，in place的mergesort就完成了。但是我很难说服自己这仍然是mergesort，这更像是将merge的过程变成了quicksort。当然比起普通的那个归并排序而言，复杂度也上升了。merge过程本来是O($n$)的复杂度，现在变成了O($nlogn$)，从而整体的复杂度也从O($nlogn$)变成了O($nlog^2n$)</p>
+<h2 id="introsort">Introsort</h2><blockquote>
+
+<p>Introsort or introspective sort is a hybrid sorting algorithm that provides both fast average performance and (asymptotically) optimal worst-case performance. It begins with quicksort and switches to heapsort when the recursion depth exceeds a level based on (the logarithm of) the number of elements being sorted. This combines the good parts of both algorithms, with practical performance comparable to quicksort on typical data sets and worst-case O($nlogn$) runtime due to the heap sort.</p>
+</blockquote>
+
+
+<p>上面是Wikipedia上对introsort的一段解释。简单的说，introsort是quicksort和heapsort的结合，当递归深度超过$logn$的时候，就不在继续递归，而转而执行heapsort，从而达到最坏情况O($nlogn$)的时间复杂度。下面就来看一下org.apache.lucene.util.IntroSorter中的实现。</p>
+<figure class="highlight"><pre><div class="line">void quicksort(int from, int to, int maxDepth) {</div><div class="line">  <span class="keyword">if</span> (to - from &lt; <span class="type">THRESHOLD</span>) {</div><div class="line">    <span class="built_in">insertionSort</span>(from, to);</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  } <span class="keyword">else</span> <span class="keyword">if</span> (--maxDepth &lt; <span class="number">0</span>) {</div><div class="line">    <span class="comment">//When the recursion depth reaches O(nlogn), stop recursion and sort with heapSort</span></div><div class="line">    heapSort(from, to);</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  }</div><div class="line"></div><div class="line">  final int mid = (from + to) &gt;&gt;&gt; <span class="number">1</span>;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (compare(from, mid) &gt; <span class="number">0</span>) {</div><div class="line">    <span class="built_in">swap</span>(from, mid);</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (compare(mid, to - <span class="number">1</span>) &gt; <span class="number">0</span>) {</div><div class="line">    <span class="built_in">swap</span>(mid, to - <span class="number">1</span>);</div><div class="line">    <span class="keyword">if</span> (compare(from, mid) &gt; <span class="number">0</span>) {</div><div class="line">      <span class="built_in">swap</span>(from, mid);</div><div class="line">    }</div><div class="line">  }</div><div class="line"></div><div class="line">  int <span class="keyword">left</span> = from + <span class="number">1</span>;</div><div class="line">  int <span class="keyword">right</span> = to - <span class="number">2</span>;</div><div class="line"></div><div class="line">  setPivot(mid);</div><div class="line">  <span class="keyword">for</span> (;;) {</div><div class="line">    <span class="keyword">while</span> (comparePivot(<span class="keyword">right</span>) &lt; <span class="number">0</span>) {</div><div class="line">      --<span class="keyword">right</span>;</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (<span class="keyword">left</span> &lt; <span class="keyword">right</span> && comparePivot(<span class="keyword">left</span>) &gt;= <span class="number">0</span>) {</div><div class="line">      ++<span class="keyword">left</span>;</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">left</span> &lt; <span class="keyword">right</span>) {</div><div class="line">      <span class="built_in">swap</span>(<span class="keyword">left</span>, <span class="keyword">right</span>);</div><div class="line">      --<span class="keyword">right</span>;</div><div class="line">    } <span class="keyword">else</span> {</div><div class="line">      <span class="keyword">break</span>;</div><div class="line">    }</div><div class="line">  }</div><div class="line"></div><div class="line">  quicksort(from, <span class="keyword">left</span> + <span class="number">1</span>, maxDepth);</div><div class="line">  quicksort(<span class="keyword">left</span> + <span class="number">1</span>, to, maxDepth);</div><div class="line">}</div></pre></figure>
+
+<p>首先，请无视setPivot和comparePivot两个函数，因为IntroSorter是一个抽象类，所以其中没有数据成员储存pivot，故而将这个方法的具体实现交给了它的子类来完成。comparePivot(i)即是比较pivot和[i]的大小。我们可以看到在函数的一开始即判断了maxDepth是否已经到达$logn$，如果到达了则转而使用堆排序。其余部分的实现没有什么特别值得注意的地方，就是普通的quicksort的实现。不过这里用了很直观的实现方法，没有像有些实现中将pivot的位置换来换去，获得了更短的代码长度，但是却丧失了可读性。</p>
+<p>综上，introsort似乎只是在quicksort的伤口处贴上了heapsort做的创可贴罢了，不过可以想到，quicksort的最坏情况出现的概率应该非常低，所以整体执行效率应该还是提升了的。Wikipedia上交代，c++的std::sort就是introsort，how astonishing it is!</p>
+<h2 id="timsort">Timsort</h2><blockquote>
+
+<p>Timsort is a hybrid sorting algorithm, derived from merge sort and insertion sort, designed to perform well on many kinds of real-world data. It was invented by Tim Peters in 2002 for use in the Python programming language. The algorithm finds subsets of the data that are already ordered, and uses that knowledge to sort the remainder more efficiently. This is done by merging an identified subset, called a run, with existing runs until certain criteria are fulfilled. Timsort has been Python&#39;s standard sorting algorithm since version 2.3. It is also used to sort arrays of non-primitive type in Java SE 7, on the Android platform, and in GNU Octave</p>
+</blockquote>
+
+
+<p>上面这段是Wikipedia上对Timsort的描述，从中我们可以知道Timsort是mergesort和insertionsort的结合。主要利用了原序列中已经有序的区间。而且python 2.3以后的标准排序算法和Java 7中非基本类型的排序算法都是用Timsort实现的。可见Timsort在工业界是很受追捧的，可是我竟然从来没有听过。。。汗</p>
+<p>经过一个下午的研究，我对Timsort的理解大致如下。首先找出根据序列中的递增、递降的子序列，将递降的子序列反转，则得到了若干个已经有序的子串。此处其实是非严格递增和严格递降，因为该算法最终也是一个稳定排序算法。对于这些子串，根据子串的长度关系，两两归并。考虑长度关系，等价于控制mergesort中的递归深度。保证时间复杂度仍然是O($nlogn$)这个级别。</p>
+<figure class="highlight"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sort</span>(<span class="keyword">int</span> <span class="keyword">from</span>, <span class="keyword">int</span> to) {</div><div class="line">  checkRange(<span class="keyword">from</span>, to);</div><div class="line">  <span class="keyword">if</span> (to - <span class="keyword">from</span> &lt;= <span class="number">1</span>) {</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  }</div><div class="line">  reset(<span class="keyword">from</span>, to);</div><div class="line">  <span class="keyword">do</span> {</div><div class="line">    ensureInvariants();</div><div class="line">    pushRunLen(nextRun());</div><div class="line">  } <span class="keyword">while</span> (runEnd(<span class="number">0</span>) &lt; to);</div><div class="line">  exhaustStack();</div><div class="line">  assert runEnd(<span class="number">0</span>) == to;</div><div class="line">}</div></pre></figure>
+
+<p>Timsort中的辅助函数非常多，我们先看看上面这段整个排序的骨干代码。checkRange用来保证from &lt; to。而reset则用于初始化一个子串栈，栈中的每个元素，为已经有序的一个子串的结束下标。ensureInvariants则用于合并栈中元素， 即归并这个过程。nextRun用于在原串中找到下一个有序子串。并且通过pushRunLen压栈。最后exhaustStack清栈，保证栈中仅存一个元素，即已经排序完成。下面我们分别看看这些函数的内容。</p>
+<figure class="highlight"><pre><div class="line">void reset(int <span class="keyword">from</span>, int <span class="keyword">to</span>) {</div><div class="line">  stackSize = <span class="number">0</span>;</div><div class="line">  Arrays.fill(runEnds, <span class="number">0</span>);</div><div class="line">  runEnds[<span class="number">0</span>] = <span class="keyword">from</span>;</div><div class="line">  this.<span class="keyword">to</span> = <span class="keyword">to</span>;</div><div class="line">  final int <span class="property">length</span> = <span class="keyword">to</span> - <span class="keyword">from</span>;</div><div class="line">  this.minRun = <span class="property">length</span> &lt;= THRESHOLD ? <span class="property">length</span> : minRun(<span class="property">length</span>);</div><div class="line">}</div></pre></figure>
+
+<p>首先来看reset函数干了什么。1.初始化栈，2. 设定minRun的值，这里一个run就是一个有序子串的意思，而minRun则限定了一个run的最小长度，如果长度不足minRun，则会通过binarySort来将长度为minRun的子串排序。这里的binarySort，我认为就是插入排序中，通过二分来找到要插入的位置而已。Wikipedia中也说Timsort是mergesort和insertionsort的结合，而lucene这里将其命名为binarySort。</p>
+<figure class="highlight"><pre><div class="line"><span class="keyword">void</span> ensureInvariants() {</div><div class="line">	<span class="comment">//runLen(i) returns the (stackSize - i - 1)th element</span></div><div class="line">	<span class="comment">//so runLen0 means the last element, runLen1 means the second to last element, same to runLen2</span></div><div class="line">    <span class="keyword">while</span> (stackSize &gt; <span class="number">1</span>) {</div><div class="line">      <span class="keyword">final</span> <span class="keyword">int</span> runLen0 = runLen(<span class="number">0</span>);</div><div class="line">      <span class="keyword">final</span> <span class="keyword">int</span> runLen1 = runLen(<span class="number">1</span>);</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (stackSize &gt; <span class="number">2</span>) {</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> runLen2 = runLen(<span class="number">2</span>);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (runLen2 &lt;= runLen1 + runLen0) {</div><div class="line">          <span class="comment">// merge the smaller of 0 and 2 with 1</span></div><div class="line">          <span class="keyword">if</span> (runLen2 &lt; runLen0) {</div><div class="line">            mergeAt(<span class="number">1</span>);</div><div class="line">          } <span class="keyword">else</span> {</div><div class="line">            mergeAt(<span class="number">0</span>);</div><div class="line">          }</div><div class="line">          <span class="keyword">continue</span>;</div><div class="line">        }</div><div class="line">      }</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (runLen1 &lt;= runLen0) {</div><div class="line">        mergeAt(<span class="number">0</span>);</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">      }</div><div class="line"></div><div class="line">      <span class="keyword">break</span>;</div><div class="line">    }</div><div class="line">}</div></pre></figure>
+
+<p>下面来看ensureInvariants，若栈中只有两个元素，若第一个的长度小于第二个的，则归并；弱栈中有超过两个元素，则考虑最后三个，将倒数第一个和倒数第三个中长度较小的那个和倒数第二个合并。直到栈中只有一个元素或两个元素。</p>
+<figure class="highlight"><pre><div class="line"><span class="keyword">void</span> mergeAt(<span class="keyword">int</span> n) {</div><div class="line">    <span class="keyword">assert</span> stackSize &gt;= <span class="number">2</span>;</div><div class="line">    merge(runBase(n + <span class="number">1</span>), runBase(n), runEnd(n));</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = n + <span class="number">1</span>; j &gt; <span class="number">0</span>; --j) {</div><div class="line">      setRunEnd(j, runEnd(j-<span class="number">1</span>));</div><div class="line">    }</div><div class="line">    --stackSize;</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="keyword">void</span> merge(<span class="keyword">int</span> lo, <span class="keyword">int</span> mid, <span class="keyword">int</span> hi) {</div><div class="line">    <span class="keyword">if</span> (compare(mid - <span class="number">1</span>, mid) &lt;= <span class="number">0</span>) {</div><div class="line">      <span class="keyword">return</span>;</div><div class="line">    }</div><div class="line">    <span class="comment">//Same trick as in in place merge</span></div><div class="line">    lo = upper2(lo, mid, mid);</div><div class="line">    hi = lower2(mid, hi, mid - <span class="number">1</span>);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (hi - mid &lt;= mid - lo && hi - mid &lt;= maxTempSlots) {</div><div class="line">      mergeHi(lo, mid, hi);</div><div class="line">    } <span class="keyword">else</span> <span class="keyword">if</span> (mid - lo &lt;= maxTempSlots) {</div><div class="line">      mergeLo(lo, mid, hi);</div><div class="line">    } <span class="keyword">else</span> {</div><div class="line">      mergeInPlace(lo, mid, hi);</div><div class="line">    }</div><div class="line">  }</div></pre></figure>
+
+<p>下面来看看merge的过程，mergeAt(i)即是merge倒数第i个和倒数第i-1个元素。merge之后，再更新栈。
+merge(lo, mid, hi)是将[lo, mid)和[mid, hi)的函数。我们看到这里用到了和mergeInPlace中一样的小优化。若有一部分的长度小于maxTempSlots，则使用长度为maxTempSlots的临时缓冲区来进行merge。否则进行mergeInPlace操作，这里的mergeInPlace就是本文阐述的第一个算法。</p>
+<blockquote>
+
+<p>NOTE:There are a few differences with the original implementation:<ul></ul></p>
+<p><li>The extra amount of memory to perform merges is
+configurable. This allows small merges to be very fast while large merges
+will be performed in-place (slightly slower). You can make sure that the
+fast merge routine will always be used by having <code>maxTempSlots</code>
+equal to half of the length of the slice of data to sort.</li></p>
+<p><li>Only the fast merge routine can gallop (the one that doesn&#39;t run
+in-place) and it only gallops on the longest slice.</li>
+</p>
+</blockquote>
+
+
+<p>在org.apache.lucene.util.TimSorter的类注释中，有上面一段话，第二个bullet我们等会再说。我们先看第一个bullet，在这里我们用来归并的内存是可配的，而我们可以通过将其配置为整个序列长度的一半，来使得所有merge都可以快速的进行。</p>
+<figure class="highlight"><pre><div class="line"><span class="keyword">void</span> mergeLo(<span class="keyword">int</span> lo, <span class="keyword">int</span> mid, <span class="keyword">int</span> hi) {</div><div class="line">    assert compare(lo, mid) &gt; <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> len1 = mid - lo;</div><div class="line">    <span class="comment">//copy [lo, lo+len1) to the temp storage</span></div><div class="line">    save(lo, len1);</div><div class="line">    <span class="comment">//move [mid] to position lo. We can be sure that [mid] is the smallest element in this range,</span></div><div class="line">    <span class="comment">//because of the optimistion trick performed in merge</span></div><div class="line">    <span class="keyword">copy</span>(mid, lo);</div><div class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = mid + <span class="number">1</span>, dest = lo + <span class="number">1</span>;</div><div class="line">    outer: <span class="keyword">for</span> (;;) {</div><div class="line">      <span class="comment">//GALLOP</span></div><div class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> <span class="keyword">count</span> = <span class="number">0</span>; <span class="keyword">count</span> &lt; MIN_GALLOP; ) {</div><div class="line">        <span class="keyword">if</span> (i &gt;= len1 || j &gt;= hi) {</div><div class="line">          <span class="keyword">break</span> outer;</div><div class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (compareSaved(i, j) &lt;= <span class="number">0</span>) {</div><div class="line">          restore(i++, dest++);</div><div class="line">          <span class="keyword">count</span> = <span class="number">0</span>;</div><div class="line">        } <span class="keyword">else</span> {</div><div class="line">          <span class="keyword">copy</span>(j++, dest++);</div><div class="line">          ++<span class="keyword">count</span>;</div><div class="line">        }</div><div class="line">      }</div><div class="line">      <span class="comment">// galloping...</span></div><div class="line">      <span class="keyword">int</span> <span class="keyword">next</span> = lowerSaved3(j, hi, i);</div><div class="line">      <span class="keyword">for</span> (; j &lt; <span class="keyword">next</span>; ++dest) {</div><div class="line">        <span class="keyword">copy</span>(j++, dest);</div><div class="line">      }</div><div class="line">      restore(i++, dest++);</div><div class="line">    }</div><div class="line">    <span class="comment">//TODO: The jump out condition must meet with j &gt;= hi, since the first half are strictly</span></div><div class="line">    <span class="comment">//greater than the last half. Because lo and hi are obtained by search [mid].</span></div><div class="line">    <span class="keyword">for</span> (; i &lt; len1; ++dest) {</div><div class="line">      restore(i++, dest);</div><div class="line">    }</div><div class="line">    assert j == dest;</div><div class="line">  }</div></pre></figure>
+
+<p>由于mergeLo和mergeHi的原理是一样的，所以我们这里只针对mergeLo进行说明。首先将第一段复制到临时存储区，然后将第二段的开头元素置于整个序列的开头，这里我们可以确定这个元素是两段中最小的一个。然后就是两个指针，一个指向临时存储区，一个指向序列的后半段，从mid+1开始，进行归并。不过需要注意的一点是，这里有一个count，一旦从序列第二段，即较长的那一段移到整个序列前端的元素个数达到MIN_GALLOP时，就对此时临时存储区中正在处理的元素，通过二分查找它在第二段元素中的lower_bound，然后将lower_bound前面的元素全部移到序列前端。</p>
+<p>这也就是org.apache.lucene.util.TimSorter的类注释中的第二个bullet。只有fast merge才有GALLOP机制，mergeInPlace没有这个机制。GALLOP在英文中的意思是飞快、飞速，在这里是一种优化手段。下面是一张关于GALLOP的示意图：</p>
+<img src="/img/galloping_mode_timsort.svg.png" width="400">
+
+<h2 id="结语">结语</h2><p>至此三种见诸于教科书外的排序算法讲完。下表是Wikipedia上各种排序算法的时间及空间比较：</p>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Timsort</th>
+<th>Introsort</th>
+<th>Mergesort</th>
+<th>Quicksort</th>
+<th>Insertion sort</th>
+<th>Selection sort</th>
+<th>Smoothsort</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Best Case</td>
+<td>O($n$)</td>
+<td></td>
+<td>O($nlogn$)</td>
+<td>O($nlogn$)</td>
+<td>O($n$)</td>
+<td>O($n^2$)</td>
+<td>O($n$)</td>
+</tr>
+<tr>
+<td>Average Case</td>
+<td>O($nlogn$)</td>
+<td>O($nlogn$)</td>
+<td>O($nlogn$)</td>
+<td>O($nlogn$)</td>
+<td>O($n^2$)</td>
+<td>O($n^2$)</td>
+<td>O($nlogn$)</td>
+</tr>
+<tr>
+<td>Worst Case</td>
+<td>O($nlogn$)</td>
+<td>O($nlogn$)</td>
+<td>O($nlogn$)</td>
+<td>O($n^2$)</td>
+<td>O($n^2$)</td>
+<td>O($n^2$)</td>
+<td>O($nlogn$)</td>
+</tr>
+<tr>
+<td>Space complexity</td>
+<td>O($n$)</td>
+<td></td>
+<td>O($n$)</td>
+<td>O($n$)</td>
+<td>O($1$)</td>
+<td>O($1$)</td>
+<td>O($1$)</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+  </div>
+</article>
+
+
+
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-title="几种教科书里没有的排序" data-url="http://andimeo.info/2015/05/03/几种教科书里没有的排序/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"andimeo"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+        
+          
+<aside id="sidebar">
+  
+    
+      
+<div class="widget-wrap center">
+  <ul class="pagination">
+    <li>
+      
+        <a href="/2015/05/12/Java Generics/" class="nav-prev">Prev</a>
+      
+    </li>
+    <li>
+      <a data-url="http://andimeo.info/2015/05/03/几种教科书里没有的排序/" data-id="iximkl2w14bhso5x" data_title="几种教科书里没有的排序"
+        data_summary="今天开始看Lucene的源码了，从core模块的util开始看起。发现其中有几个排序的方法名字都没有听过，比如introsort、timsort。结合lucene的代码，又在网上进行了相关知识的搜..." class="article-share-link">Share</a>
+    </li>
+    <li>
+      
+        <a href="/2014/12/31/2014，再见！MicroStrategy-再见！/" class="nav-next">Next</a>
+      
+    </li>
+  </ul>
+</div>
+
+
+    
+      <div class="widget-wrap">
+  <div class="post-widget">
+    <i class="fa fa-clock-o"></i>
+    <time datetime="2015-05-03T14:04:56.000Z" itemprop="datePublished">May 3 2015</time>
+  </div>
+</div>
+
+    
+      
+  <div class="widget-wrap">
+    <div class="post-widget">
+      <i class="fa fa-folder"></i>
+      <a class="category-link" href="/categories/算法/">算法<span class="category-count">1</span></a>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="post-widget">
+      <i class="fa fa-tags"></i>
+      <a class="tag-link" href="/tags/Lucene/">Lucene<span class="tag-count">1</span></a><a class="tag-link" href="/tags/排序/">排序<span class="tag-count">1</span></a><a class="tag-link" href="/tags/算法/">算法<span class="tag-count">1</span></a>
+    </div>
+  </div>
+
+
+    
+  
+</aside>
+
+
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer container">
+    <div id="footer-info" class="inner">
+      <a href="/">Andimeo&#39;s Blog</a> &copy; 2016 Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and Theme by <a href="https://github.com/seff/nut" target="_blank">Nut</a>
+    </div>
+  </div>
+</footer>
+<a id="gotop" href="#">
+  <i class="fa fa-chevron-up"></i>
+</a>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="[object Object]" class="mobile-nav-link">0</a>
+  
+    <a href="[object Object]" class="mobile-nav-link">1</a>
+  
+    <a href="[object Object]" class="mobile-nav-link">2</a>
+  
+    <a href="[object Object]" class="mobile-nav-link">3</a>
+  
+</nav>
+
+    
+
+<script src="/js/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script src="/js/jquery.fitvids.js" type="text/javascript"></script>
+
+<script src="/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+<script type="text/x-mathjax-config"> 
+MathJax.Hub.Config({ 
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} 
+}); 
+</script>
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </div>
+</body>
+</html>

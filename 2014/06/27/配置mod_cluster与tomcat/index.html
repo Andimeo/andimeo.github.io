@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>配置mod_cluster与tomcat | Andimeo&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="mod_cluster 和mod_jk,mod_proxy类似，是一个基于httpd的负载均衡项目。能够代理请求给基于Tomcat的网络服务器集群(支持任何独立的Tomcat，JBoss Web或者JBoss AS)。mod_cluster与 mod_jk和mod_proxy的区别是，mod_cluster为web服务器和httpd服务器之间提供后台通道。web服务器使用后台通道给httpd端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="配置mod_cluster与tomcat">
+<meta property="og:url" content="http://andimeo.info/2014/06/27/配置mod_cluster与tomcat/">
+<meta property="og:site_name" content="Andimeo's Blog">
+<meta property="og:description" content="mod_cluster 和mod_jk,mod_proxy类似，是一个基于httpd的负载均衡项目。能够代理请求给基于Tomcat的网络服务器集群(支持任何独立的Tomcat，JBoss Web或者JBoss AS)。mod_cluster与 mod_jk和mod_proxy的区别是，mod_cluster为web服务器和httpd服务器之间提供后台通道。web服务器使用后台通道给httpd端">
+<meta property="og:image" content="/img/mod_cluster.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="配置mod_cluster与tomcat">
+<meta name="twitter:description" content="mod_cluster 和mod_jk,mod_proxy类似，是一个基于httpd的负载均衡项目。能够代理请求给基于Tomcat的网络服务器集群(支持任何独立的Tomcat，JBoss Web或者JBoss AS)。mod_cluster与 mod_jk和mod_proxy的区别是，mod_cluster为web服务器和httpd服务器之间提供后台通道。web服务器使用后台通道给httpd端">
+<meta name="twitter:creator" content="@https://twitter.com/Andimeo">
+<link rel="publisher" href="https://plus.google.com/108731813092358327718/posts">
+
+  
+    <link rel="alternative" href="/atom.xml" title="Andimeo&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-51886409-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+<meta name="baidu-site-verification" content="uOXemKmg1J" />
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fd2101ee427cf5a274a307e4dd6701133' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/">Andimeo&#39;s Blog</a>
+    <div class="collapse navbar-collapse nav-menu">
+      <ul class="nav navbar-nav">
+      
+        <li>
+          <a href="/archives">
+            <i class="fa fa-archive"></i>
+            Archives
+          </a>
+        </li>
+      
+        <li>
+          <a href="/categories">
+            <i class="fa fa-folder"></i>
+            Categories
+          </a>
+        </li>
+      
+        <li>
+          <a href="/tags">
+            <i class="fa fa-tags"></i>
+            Tags
+          </a>
+        </li>
+      
+        <li>
+          <a href="/about">
+            <i class="fa fa-user"></i>
+            About
+          </a>
+        </li>
+      
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+          <li><a id="rss-link" href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+        <li> 
+      <a title="Don't quit medicine!" href='javascript:(function() {
+  function c() {
+    var e = document.createElement("link");
+    e.setAttribute("type", "text/css");
+    e.setAttribute("rel", "stylesheet");
+    e.setAttribute("href", f);
+    e.setAttribute("class", l);
+    document.body.appendChild(e)
+  }
+ 
+  function h() {
+    var e = document.getElementsByClassName(l);
+    for (var t = 0; t < e.length; t++) {
+      document.body.removeChild(e[t])
+    }
+  }
+ 
+  function p() {
+    var e = document.createElement("div");
+    e.setAttribute("class", a);
+    document.body.appendChild(e);
+    setTimeout(function() {
+      document.body.removeChild(e)
+    }, 100)
+  }
+ 
+  function d(e) {
+    return {
+      height : e.offsetHeight,
+      width : e.offsetWidth
+    }
+  }
+ 
+  function v(i) {
+    var s = d(i);
+    return s.height > e && s.height < n && s.width > t && s.width < r
+  }
+ 
+  function m(e) {
+    var t = e;
+    var n = 0;
+    while (!!t) {
+      n += t.offsetTop;
+      t = t.offsetParent
+    }
+    return n
+  }
+ 
+  function g() {
+    var e = document.documentElement;
+    if (!!window.innerWidth) {
+      return window.innerHeight
+    } else if (e && !isNaN(e.clientHeight)) {
+      return e.clientHeight
+    }
+    return 0
+  }
+ 
+  function y() {
+    if (window.pageYOffset) {
+      return window.pageYOffset
+    }
+    return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+  }
+ 
+  function E(e) {
+    var t = m(e);
+    return t >= w && t <= b + w
+  }
+ 
+  function S() {
+    var e = document.createElement("audio");
+    e.setAttribute("class", l);
+    e.src = i;
+    e.loop = false;
+    e.addEventListener("canplay", function() {
+      setTimeout(function() {
+        x(k)
+      }, 500);
+      setTimeout(function() {
+        N();
+        p();
+        for (var e = 0; e < O.length; e++) {
+          T(O[e])
+        }
+      }, 15500)
+    }, true);
+    e.addEventListener("ended", function() {
+      N();
+      h()
+    }, true);
+    e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+    document.body.appendChild(e);
+    e.play()
+  }
+ 
+  function x(e) {
+    e.className += " " + s + " " + o
+  }
+ 
+  function T(e) {
+    e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+  }
+ 
+  function N() {
+    var e = document.getElementsByClassName(s);
+    var t = new RegExp("\\b" + s + "\\b");
+    for (var n = 0; n < e.length; ) {
+      e[n].className = e[n].className.replace(t, "")
+    }
+  }
+ 
+  var e = 30;
+  var t = 30;
+  var n = 350;
+  var r = 350;
+  var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+  var s = "mw-harlem_shake_me";
+  var o = "im_first";
+  var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+  var a = "mw-strobe_light";
+  var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+  var l = "mw_added_css";
+  var b = g();
+  var w = y();
+  var C = document.getElementsByTagName("*");
+  var k = null;
+  for (var L = 0; L < C.length; L++) {
+    var A = C[L];
+    if (v(A)) {
+      if (E(A)) {
+        k = A;
+        break
+      }
+    }
+  }
+  if (A === null) {
+    console.warn("Could not find a node of the right size. Please try a different page.");
+    return
+  }
+  c();
+  S();
+  var O = [];
+  for (var L = 0; L < C.length; L++) {
+    var A = C[L];
+    if (v(A)) {
+      O.push(A)
+    }
+  }
+})()    '>Don't quit medicine!</a> </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="clearfix"></div>
+
+      <div id='content' class="container">
+
+        <div class="page-header-wrapper">
+          <!--[if lt IE 9]><div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>提示:</strong>您的浏览器版本太低了,建议升级到 <strong><a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" title="IE9">IE9</a></strong> 以上,本站使用<a href="https://www.google.com/intl/zh-CN/chrome/">Chrome浏览器</a>可以获得最好的显示效果.</div><![endif]-->
+          <div class="page-header">
+            <h1 class="title">
+          
+            配置mod_cluster与tomcat
+          
+            </h1>
+        </div>
+      </div>
+      
+      <section id="main"
+        
+      ><article id="post-0f3npf24dc2kxrxa" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc"><span class="toc-header">Contents</span><ol class="article-toc"><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#配置mod_cluster"><span class="article-toc-text">配置mod_cluster</span></a><ol class="article-toc-child"><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#下载mod_cluster"><span class="article-toc-text">下载mod_cluster</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#安装步骤"><span class="article-toc-text">安装步骤</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#修改配置文件"><span class="article-toc-text">修改配置文件</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#生成证书"><span class="article-toc-text">生成证书</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#配置ssl"><span class="article-toc-text">配置SSL</span></a></li></ol></li><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#配置tomcat"><span class="article-toc-text">配置Tomcat</span></a><ol class="article-toc-child"><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#下载jar包"><span class="article-toc-text">下载jar包</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#安装插件"><span class="article-toc-text">安装插件</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#修改配置文件"><span class="article-toc-text">修改配置文件</span></a></li></ol></li><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#启动"><span class="article-toc-text">启动</span></a><ol class="article-toc-child"><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#启动mod_cluster"><span class="article-toc-text">启动mod_cluster</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#启动tomcat"><span class="article-toc-text">启动tomcat</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#添加应用服务器"><span class="article-toc-text">添加应用服务器</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#检查运行状况"><span class="article-toc-text">检查运行状况</span></a></li></ol></li></ol></div><blockquote>
+
+<p>mod_cluster 和mod_jk,mod_proxy类似，是一个基于httpd的负载均衡项目。能够代理请求给基于Tomcat的网络服务器集群(支持任何独立的Tomcat，JBoss Web或者JBoss AS)。mod_cluster与 mod_jk和mod_proxy的区别是，mod_cluster为web服务器和httpd服务器之间提供后台通道。web服务器使用后台通道给httpd端提供当前负载信息。 </p>
+</blockquote>
+
+
+
+<h1 id="配置mod_cluster">配置mod_cluster</h1><h2 id="下载mod_cluster">下载mod_cluster</h2><p>下载集成了mod_cluster模块的apache httpd server <a href="http://downloads.jboss.org/mod_cluster/1.2.6.Final/linux-x86_64/mod_cluster-1.2.6.Final-linux2-x64-ssl.tar.gz" target="_blank" rel="external">mod_cluster-1.2.6.Final-linux2-x64-ssl.tar.gz</a></p>
+<h2 id="安装步骤">安装步骤</h2><ul>
+<li>mkdir -p /tmp/apache</li>
+<li>tar -xzvf mod_cluster-1.2.6.Final-linux2-x64-ssl.tar.gz -C /tmp/apache</li>
+<li>cd /tmp/apache</li>
+<li>cp -r opt/* /opt</li>
+</ul>
+<a id="more"></a>
+<h2 id="修改配置文件">修改配置文件</h2><ul>
+<li>打开配置文件/opt/jboss/httpd/httpd/conf/httpd.conf</li>
+<li>移动到文件末尾</li>
+<li>修改标签&lt;IfModule manager_module&gt;&lt;/IfModule&gt;中的内容</li>
+</ul>
+<figure class="highlight"><pre><div class="line"><span class="tag">&lt;IfModule manager_module&gt;</span></div><div class="line">	<span class="keyword"><span class="common">Listen</span></span> $ip:$port</div><div class="line">	<span class="keyword">ManagerBalancerName</span> mycluster</div><div class="line">	<span class="tag">&lt;VirtualHost $ip:$port&gt;</span></div><div class="line">		<span class="tag">&lt;Location /&gt;</span></div><div class="line">			<span class="keyword"><span class="common">Order</span></span> deny,allow</div><div class="line">			<span class="keyword"><span class="common">Deny</span></span> from <span class="literal">all</span></div><div class="line">			<span class="keyword"><span class="common">Allow</span></span> from <span class="literal">all</span></div><div class="line">		<span class="tag">&lt;/Location&gt;</span></div><div class="line"></div><div class="line">		<span class="keyword">KeepAliveTimeout</span> 300</div><div class="line">		<span class="keyword">MaxKeepAliveRequests</span> 0</div><div class="line">		<span class="keyword">ServerAdvertise</span> <span class="literal">on</span></div><div class="line">		<span class="keyword">EnableMCPMReceive</span></div><div class="line">		<span class="keyword">AllowDisplay</span> <span class="literal">on</span></div><div class="line"></div><div class="line">		<span class="tag">&lt;Location /mod_cluster_manager&gt;</span></div><div class="line">			<span class="keyword"><span class="common">SetHandler</span></span> mod_cluster-manager</div><div class="line">			<span class="keyword"><span class="common">Order</span></span> deny,allow</div><div class="line">			<span class="keyword"><span class="common">Deny</span></span> from <span class="literal">all</span></div><div class="line">			<span class="keyword"><span class="common">Allow</span></span> from <span class="literal">all</span></div><div class="line">		<span class="tag">&lt;/Location&gt;</span></div><div class="line">	<span class="tag">&lt;/VirtualHost&gt;</span></div><div class="line"><span class="tag">&lt;/IfModule&gt;</span></div></pre></figure>
+
+
+<ul>
+<li>根据你的机器情况，更改ip和port</li>
+</ul>
+<h2 id="生成证书">生成证书</h2><ul>
+<li>总共需要生成三个证书文件<ul>
+<li>server.crt</li>
+<li>server.key</li>
+<li>server-ca.crt</li>
+</ul>
+</li>
+<li>将这些证书文件置于/opt/jboss/httpd/httpd/conf/</li>
+</ul>
+<h2 id="配置ssl">配置SSL</h2><ul>
+<li>打开/opt/jboss/httpd/httpd/conf/httpd.conf</li>
+<li>移动至文件末尾</li>
+<li>增加两个VirtualHost，其中一个用来将http请求redirect到https请求，另一个用来处理SSL连接</li>
+</ul>
+<figure class="highlight"><pre><div class="line"><span class="keyword"><span class="common">Listen</span></span> 80</div><div class="line"><span class="tag">&lt;VirtualHost *:80&gt;</span></div><div class="line">	<span class="keyword"><span class="common">RewriteEngine</span></span> <span class="literal">on</span></div><div class="line">	<span class="keyword"><span class="common">RewriteCond</span></span> <span class="cbracket">%{SERVER_PORT}</span> 80</div><div class="line">	<span class="keyword"><span class="common">RewriteRule</span></span> ^{.*} https://<span class="cbracket">%{SERVER_NAME}</span><span class="cbracket">%{REQUEST_URI}</span><span class="sqbracket"> [R,L]</span></div><div class="line"><span class="tag">&lt;/VirtualHost&gt;</span></div><div class="line"></div><div class="line"><span class="keyword"><span class="common">Listen</span></span> 443</div><div class="line"><span class="tag">&lt;VirtualHost *:443&gt;</span></div><div class="line">	<span class="tag">&lt;Location /&gt;</span></div><div class="line">		<span class="keyword"><span class="common">Order</span></span> deny,allow</div><div class="line">		<span class="keyword"><span class="common">Deny</span></span> from <span class="literal">all</span></div><div class="line">		<span class="keyword"><span class="common">Allow</span></span> from <span class="literal">all</span></div><div class="line">	<span class="tag">&lt;/Location&gt;</span></div><div class="line"></div><div class="line">	<span class="keyword">SSLEngine</span> <span class="literal">on</span></div><div class="line">	<span class="keyword">SSLCertificateFile</span> conf/server.crt</div><div class="line">	<span class="keyword">SSLCertificateKeyFile</span> conf/server.key</div><div class="line">	<span class="keyword">SSLCACertificateFile</span> conf/server-ca.crt</div><div class="line"><span class="tag">&lt;/VirtualHost&gt;</span></div></pre></figure>
+
+<h1 id="配置tomcat">配置Tomcat</h1><h2 id="下载jar包">下载jar包</h2><p>下载mod_cluster提供的java bundles <a href="http://downloads.jboss.org/mod_cluster/1.2.6.Final/linux-x86_64/mod_cluster-parent-1.2.6.Final-bin.tar.gz" target="_blank" rel="external">mod_cluster-parent-1.2.6.Final-bin.tar.gz</a></p>
+<h2 id="安装插件">安装插件</h2><ul>
+<li>mkdir -p /tmp/bundles</li>
+<li>tar -xzvf mod_cluster-parent-1.2.6.Final-bin.tar.gz -C /tmp/bundles</li>
+<li>cd /tmp/bundles</li>
+<li>cp JBossWeb-Tomcat/lib/*.jar $CATALINA_BASE/lib</li>
+<li>cd $CATALINA_BASE/lib</li>
+<li>删除无用jar包<ul>
+<li>如果你的tomcat版本是6<br>rm mod_cluster-container-tomcat7-1.2.6.Final.jar</li>
+<li>如果你的tomcat版本是7<br>rm mod_cluster-container-tomcat6-1.2.6.Final.jar</li>
+</ul>
+</li>
+</ul>
+<h2 id="修改配置文件">修改配置文件</h2><ul>
+<li>打开$CATALINA_BASE/conf/server.xml</li>
+<li>在标签&lt;Server&gt;&lt;/Server&gt;中，加入一个Listener</li>
+</ul>
+<figure class="highlight"><pre><div class="line">&lt;Listener className=<span class="string">"org.jboss.modcluster.container.catalina.standalone.ModClusterListener"</span> proxyList=<span class="string">"<span class="variable">$load_balancer_ip</span>:<span class="variable">$load_balancer_port</span>"</span> /&gt;</div></pre></figure>
+
+<ul>
+<li>根据mod_cluster宿主机器信息更改$load_balancer_ip和$load_balancer_port</li>
+<li>通过在&lt;Engine&gt;&lt;/Engine&gt;标签中添加属性jvmRoute，可以指定该server的名称</li>
+</ul>
+<figure class="highlight"><pre><div class="line">&lt;Engine <span class="variable">name=</span><span class="string">"Catalina"</span> <span class="variable">defaultHost=</span><span class="string">"localhost"</span> <span class="variable">jvmRoute=</span><span class="string">"myTomcat"</span>&gt;</div></pre></figure>
+
+<h1 id="启动">启动</h1><h2 id="启动mod_cluster">启动mod_cluster</h2><p>/opt/jboss/httpd/sbin/apachectl start</p>
+<h2 id="启动tomcat">启动tomcat</h2><p>$CATALINA_BASE/bin/startup.sh</p>
+<h2 id="添加应用服务器">添加应用服务器</h2><p>如果你想为这个负载均衡器添加更多的应用服务器，即tomcat实例，你只需要简单的重复<strong>配置Tomcat </strong>一节的步骤。mod_cluster这边不需要做任何事情，它会自动检测到新添加的应用服务器</p>
+<h2 id="检查运行状况">检查运行状况</h2><p>启动之后，可以在浏览器中输入$load_balancer_ip:load_balancer_port/mod_cluster_manager来查看整个系统的运行状况，如下图所示</p>
+<img src="/img/mod_cluster.jpg" width="900">
+
+      
+    </div>
+  </div>
+</article>
+
+
+
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-title="配置mod_cluster与tomcat" data-url="http://andimeo.info/2014/06/27/配置mod_cluster与tomcat/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"andimeo"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+        
+          
+<aside id="sidebar">
+  
+    
+      
+<div class="widget-wrap center">
+  <ul class="pagination">
+    <li>
+      
+        <a href="/2014/07/20/四星德国/" class="nav-prev">Prev</a>
+      
+    </li>
+    <li>
+      <a data-url="http://andimeo.info/2014/06/27/配置mod_cluster与tomcat/" data-id="0f3npf24dc2kxrxa" data_title="配置mod_cluster与tomcat"
+        data_summary="
+
+mod_cluster 和mod_jk,mod_proxy类似，是一个基于httpd的负载均衡项目。能够代理请求给基于Tomcat的网络服务器集群(支持任何独立的Tomcat，JBoss Web或者JBoss AS)。mod_..." class="article-share-link">Share</a>
+    </li>
+    <li>
+      
+        <a href="/2014/06/21/理解Node.js中的事件轮询/" class="nav-next">Next</a>
+      
+    </li>
+  </ul>
+</div>
+
+
+    
+      <div class="widget-wrap">
+  <div class="post-widget">
+    <i class="fa fa-clock-o"></i>
+    <time datetime="2014-06-27T15:33:40.000Z" itemprop="datePublished">Jun 27 2014</time>
+  </div>
+</div>
+
+    
+      
+  <div class="widget-wrap">
+    <div class="post-widget">
+      <i class="fa fa-folder"></i>
+      <a class="category-link" href="/categories/Java/">Java<span class="category-count">3</span></a>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="post-widget">
+      <i class="fa fa-tags"></i>
+      <a class="tag-link" href="/tags/mod-cluster/">mod_cluster<span class="tag-count">1</span></a><a class="tag-link" href="/tags/tomcat/">tomcat<span class="tag-count">1</span></a><a class="tag-link" href="/tags/分布式/">分布式<span class="tag-count">1</span></a><a class="tag-link" href="/tags/负载均衡/">负载均衡<span class="tag-count">1</span></a>
+    </div>
+  </div>
+
+
+    
+  
+</aside>
+
+
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer container">
+    <div id="footer-info" class="inner">
+      <a href="/">Andimeo&#39;s Blog</a> &copy; 2016 Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and Theme by <a href="https://github.com/seff/nut" target="_blank">Nut</a>
+    </div>
+  </div>
+</footer>
+<a id="gotop" href="#">
+  <i class="fa fa-chevron-up"></i>
+</a>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="[object Object]" class="mobile-nav-link">0</a>
+  
+    <a href="[object Object]" class="mobile-nav-link">1</a>
+  
+    <a href="[object Object]" class="mobile-nav-link">2</a>
+  
+    <a href="[object Object]" class="mobile-nav-link">3</a>
+  
+</nav>
+
+    
+
+<script src="/js/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script src="/js/jquery.fitvids.js" type="text/javascript"></script>
+
+<script src="/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+<script type="text/x-mathjax-config"> 
+MathJax.Hub.Config({ 
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} 
+}); 
+</script>
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </div>
+</body>
+</html>
