@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: Mathematics | Andimeo&#39;s Blog</title>
+  <title>Tag: PEM | Andimeo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Andimeo's Blog">
-<meta property="og:url" content="http://andimeo.info/tags/Mathematics/">
+<meta property="og:url" content="http://andimeo.info/tags/PEM/">
 <meta property="og:site_name" content="Andimeo's Blog">
 <meta property="og:description">
 <meta name="twitter:card" content="summary">
@@ -267,7 +267,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
             <h1 class="title">
           
             
-              Mathematics
+              PEM
             
           
             </h1>
@@ -279,7 +279,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       >
   
   
-    <article id="post-w2vj8t4km09bom1x" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-wan5s53nz65ofaxn" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -289,13 +289,13 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
         
   
     <h1 class="archive-title" itemprop="name">
-      <a class="article-title" href="/2014/11/07/生成圆内随机点/">生成圆内随机点</a>
+      <a class="article-title" href="/2016/06/11/Certificate/">Certificate</a>
     </h1>
   
 
 
         <div class="article-date">
-  <time datetime="2014-11-07T09:10:00.000Z" itemprop="datePublished">Nov 7 2014</time>
+  <time datetime="2016-06-11T10:17:53.000Z" itemprop="datePublished">Jun 11 2016</time>
 </div>
 
       </header>
@@ -303,33 +303,20 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
     <div class="article-entry" itemprop="articleBody">
       
         
-          <!--<div class="thumbnail"><img src="/img/mathematica1.jpg" width="300"></div>-->
-          <p>今天小伙伴去网易游戏面试。有一个题目是要求在直径为1的圆内随机生成若干个点。
-他给出的算法是在边长为1的圆外接正方形内随机生成一个点，如果在圆内即采用，否则抛弃。面试官说要求一次成功。
-于是问题就来了。</p>
-<p>一个直观的想法是采用极坐标表示圆内的任意一点，在$0-r$的范围内生成半径长度，在$0-2\pi$的范围内生成角度。那我们看一下用Mathematica模拟生成的这些点是不是符合直觉呢。</p>
-<figure class="highlight"><pre><div class="line"> </div><div class="line">r = <span class="number">0.5</span>;</div><div class="line">num = <span class="number">500</span>;</div><div class="line">tu[<span class="number">0</span>] = <span class="keyword">ParametricPlot</span>[<span class="list">{r*Sin[u], r*Cos[u]}</span>, <span class="list">{u, 0, 2 Pi}</span>];</div><div class="line"><span class="keyword">For</span>[i = <span class="number">1</span>, i &lt;= num, i++, u = r*<span class="keyword">Random</span>[];</div><div class="line">  v = <span class="number">2</span> <span class="keyword">Pi</span>*<span class="keyword">Random</span>[];</div><div class="line">  tu[i] = <span class="keyword">ListPlot</span>[<span class="list">{{u*Sin[v], u*Cos[v]}</span>}];];</div><div class="line"><span class="keyword">Show</span>[<span class="keyword">Table</span>[tu[i], <span class="list">{i, 0, num}</span>], <span class="keyword">Axes</span> -&gt; <span class="keyword">None</span>]</div></pre></figure>
-
-
-          
-            <p class="article-more-link">
-              <a href="/2014/11/07/生成圆内随机点/#more">Read More</a>
-            </p>
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2014/11/07/生成圆内随机点/" data-id="w2vj8t4km09bom1x" data_title="生成圆内随机点"
-          data_summary="今天小伙伴去网易游戏面试。有一个题目是要求在直径为1的圆内随机生成若干个点。
-他给出的算法是在边长为1的圆外接正方形内随机生成一个点，如果在圆内即采用，否则抛弃。面..." class="article-share-link">Share</a>
+          <a data-url="http://andimeo.info/2016/06/11/Certificate/" data-id="wan5s53nz65ofaxn" data_title="Certificate"
+          data_summary="" class="article-share-link">Share</a>
           
           
   <div class="article-category">
-    <a class="article-category-link" href="/categories/概率/">概率</a>
+    <a class="article-category-link" href="/categories/密码学/">密码学</a>
   </div>
 
 
           
-<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Mathematics/">Mathematics</a></li></ul>
+<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Certificate/">Certificate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-success" href="/tags/DER/">DER</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-info" href="/tags/PEM/">PEM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-warning" href="/tags/openssl/">openssl</a></li></ul>
 
 
         </footer>
