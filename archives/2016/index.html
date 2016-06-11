@@ -283,7 +283,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
   
-    <article id="post-wan5s53nz65ofaxn" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-6w039rmh1w67q72t" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -307,11 +307,20 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
     <div class="article-entry" itemprop="articleBody">
       
         
+          <!---->
+          <p>在Luminate里接手的第一个项目，是做一个IPsec的客户端，来测试已有的IPsec gateway。在这个项目中，已经快把<a href="https://tools.ietf.org/html/rfc7296" target="_blank" rel="external">RFC7296</a>翻烂了，在这中间学习了C++，学习了emacs。接下来要做的支持在IKE negotiation中的Certificate Payload，之前对证书等加密的概念都是一知半解，今天发现一篇<a href="https://support.ssl.com/Knowledgebase/Article/View/19/0/der-vs-crt-vs-cer-vs-pem-certificates-and-how-to-convert-them" target="_blank" rel="external">文章</a>阐述了各种证书格式的异同，翻译于此。</p>
+<h1 id="证书与编码">证书与编码</h1><p>X.509本质上是按照RFC 5280编码或签名的一个数字文件。</p>
+<p>实际上，X.509这个词是指X.509 v3标准的IETF’s PKIX Certificate and CRL Profile，在RFC 5280中说明，通常被称作PKIX for Public Key Infrastructure (X.509)</p>
+
+          
+            <p class="article-more-link">
+              <a href="/2016/06/11/Certificate/#more">Read More</a>
+            </p>
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2016/06/11/Certificate/" data-id="wan5s53nz65ofaxn" data_title="Certificate"
-          data_summary="" class="article-share-link">Share</a>
+          <a data-url="http://andimeo.info/2016/06/11/Certificate/" data-id="6w039rmh1w67q72t" data_title="Certificate"
+          data_summary="在Luminate里接手的第一个项目，是做一个IPsec的客户端，来测试已有的IPsec gateway。在这个项目中，已经快把RFC7296翻烂了，在这中间学习了C++，学习了emacs。接下来要做的..." class="article-share-link">Share</a>
           
           
   <div class="article-category">
@@ -320,7 +329,63 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
           
-<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Certificate/">Certificate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-success" href="/tags/DER/">DER</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-info" href="/tags/PEM/">PEM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-warning" href="/tags/openssl/">openssl</a></li></ul>
+<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Certificate/">Certificate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-success" href="/tags/DER/">DER</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-info" href="/tags/OpenSSL/">OpenSSL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-warning" href="/tags/PEM/">PEM</a></li></ul>
+
+
+        </footer>
+      
+    </div>
+  </div>
+</article>
+
+
+  
+    <article id="post-ov2cvybfa4vmcn4t" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        <i class="fa fa-file-text-o"></i>
+        
+  
+    <h1 class="archive-title" itemprop="name">
+      <a class="article-title" href="/2016/06/11/从Tango到Luminate/">从Tango到Luminate</a>
+    </h1>
+  
+
+
+        <div class="article-date">
+  <time datetime="2016-06-11T07:29:02.000Z" itemprop="datePublished">Jun 11 2016</time>
+</div>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <!--<div class="thumbnail"><img src="/img/Cupertino_City_Center.jpg" alt="Cupertino Center, Calif."></div>-->
+          <p>写Blog这件事总是时断时续，距离上一篇Blog已经过去半年了。最近godaddy又开始催收域名费用了，大概120人民币，奇怪的是一年前觉得这个贵到不可接受，现在却觉得略便宜。人就是这样在潜移默化中一点点改变的，消费观、人生观乃至世界观。</p>
+<p>加入Luminate Wireless已经快两个月了，以为会像离开MicroStrategy时一样写一篇吐槽的帖子，再展望一下未来，然而并没有。如同我姐上次在微信中问我新公司怎么样，我说还不错啊，能学到不少新东西。她说你在上个公司不也是这么说么。想了想的确如此，呵呵。在Tango这一年零两个月的时间里，确实看到了不少东西，也学到了不少东西，认识了不少的牛人。也对在这个圈子里怎么找到自己的安身立命之本有一点点顿悟。有人网络知识精通，只用Linux自身的工具就可以创造自己的协议，游刃于UDP与IPsec之间。有人熟习Git各种使用场景，设计模式信手拈来。有人博学多闻，轻松可以出任一个规模略小公司的CTO。</p>
+
+          
+            <p class="article-more-link">
+              <a href="/2016/06/11/从Tango到Luminate/#more">Read More</a>
+            </p>
+          
+        
+        <footer class="article-footer">
+          <a data-url="http://andimeo.info/2016/06/11/从Tango到Luminate/" data-id="ov2cvybfa4vmcn4t" data_title="从Tango到Luminate"
+          data_summary="写Blog这件事总是时断时续，距离上一篇Blog已经过去半年了。最近godaddy又开始催收域名费用了，大概120人民币，奇怪的是一年前觉得这个贵到不可接受，现在却觉得略便宜。人..." class="article-share-link">Share</a>
+          
+          
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/心情/">心情</a>
+  </div>
+
+
+          
+<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Luminate/">Luminate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-success" href="/tags/Tango/">Tango</a></li></ul>
 
 
         </footer>
@@ -359,6 +424,10 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
           </li>
         
           <li class="recent-list">
+            <a href="/2016/06/11/从Tango到Luminate/">从Tango到Luminate</a>
+          </li>
+        
+          <li class="recent-list">
             <a href="/2015/12/05/切尔诺贝利的回忆/">切尔诺贝利的回忆</a>
           </li>
         
@@ -368,10 +437,6 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
         
           <li class="recent-list">
             <a href="/2015/05/12/Java Generics/">Java Generics</a>
-          </li>
-        
-          <li class="recent-list">
-            <a href="/2015/05/03/几种教科书里没有的排序/">几种教科书里没有的排序</a>
           </li>
         
       </ul>

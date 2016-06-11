@@ -283,7 +283,63 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
   
-    <article id="post-h24tparh8h40t9zs" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-z7aazplhjwnmwmiy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        <i class="fa fa-file-text-o"></i>
+        
+  
+    <h1 class="archive-title" itemprop="name">
+      <a class="article-title" href="/2015/05/03/几种教科书里没有的排序/">几种教科书里没有的排序</a>
+    </h1>
+  
+
+
+        <div class="article-date">
+  <time datetime="2015-05-03T14:04:56.000Z" itemprop="datePublished">May 3 2015</time>
+</div>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <!--<div class="thumbnail"><img src="/img/galloping_mode_timsort.svg.png" width="400"></div>-->
+          <p>今天开始看Lucene的源码了，从core模块的util开始看起。发现其中有几个排序的方法名字都没有听过，比如introsort、timsort。结合lucene的代码，又在网上进行了相关知识的搜索，发现在比较新的语言中，比如Java 7和python中，默认的排序算法已经不是教科书中的quicksort了。今天就记录一下新学到的这三个算法。</p>
+<h2 id="inplace-merge-sort">Inplace Merge Sort</h2><p>还记得年初去Google面试的时候，一个北欧的面试官问过我，为什么大部分库函数实现排序时都选择了quicksort，而不是mergesort。当时临场反应，给出了面试官想要的答案，即quicksort可以in place执行，而mergesort需要额外的空间。可是今天看Lucene的代码时，在org.apache.lucene.util.Sorter中，看到了一个函数名叫mergeInPlace。难道被Google的面试官骗了，话说我面试别人的时候，还出过这道题。好的，看看Lucene是怎么做到in place的吧。</p>
+
+          
+            <p class="article-more-link">
+              <a href="/2015/05/03/几种教科书里没有的排序/#more">Read More</a>
+            </p>
+          
+        
+        <footer class="article-footer">
+          <a data-url="http://andimeo.info/2015/05/03/几种教科书里没有的排序/" data-id="z7aazplhjwnmwmiy" data_title="几种教科书里没有的排序"
+          data_summary="今天开始看Lucene的源码了，从core模块的util开始看起。发现其中有几个排序的方法名字都没有听过，比如introsort、timsort。结合lucene的代码，又在网上进行了相关知识的搜..." class="article-share-link">Share</a>
+          
+          
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/算法/">算法</a>
+  </div>
+
+
+          
+<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Lucene/">Lucene</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-success" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-info" href="/tags/算法/">算法</a></li></ul>
+
+
+        </footer>
+      
+    </div>
+  </div>
+</article>
+
+
+  
+    <article id="post-6x5z9k1ac4db48oe" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -321,7 +377,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2014/12/31/2014，再见！MicroStrategy-再见！/" data-id="h24tparh8h40t9zs" data_title="2014，再见！MicroStrategy 再见！"
+          <a data-url="http://andimeo.info/2014/12/31/2014，再见！MicroStrategy-再见！/" data-id="6x5z9k1ac4db48oe" data_title="2014，再见！MicroStrategy 再见！"
           data_summary="2014最后一天，天很蓝。
 告别，在这一天，2014！MicroStrategy！
 初识MicroStrategy2012年的秋季，和所有毕业季的学生一样，我也踏上了找工作的旅程。海投简历、不分白天晚..." class="article-share-link">Share</a>
@@ -344,7 +400,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
   
-    <article id="post-0a4md0do5d1sermx" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-8iex4x1ef6m3n8df" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -395,7 +451,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2014/11/24/多线程写文件/" data-id="0a4md0do5d1sermx" data_title="多线程写文件"
+          <a data-url="http://andimeo.info/2014/11/24/多线程写文件/" data-id="8iex4x1ef6m3n8df" data_title="多线程写文件"
           data_summary="最近在准备Tango的面试，猎头给的参考资料中有这么一道题目：
 
 
@@ -419,7 +475,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
   
-    <article id="post-w2vj8t4km09bom1x" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-5nae50tt8fcolhgz" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -458,7 +514,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2014/11/07/生成圆内随机点/" data-id="w2vj8t4km09bom1x" data_title="生成圆内随机点"
+          <a data-url="http://andimeo.info/2014/11/07/生成圆内随机点/" data-id="5nae50tt8fcolhgz" data_title="生成圆内随机点"
           data_summary="今天小伙伴去网易游戏面试。有一个题目是要求在直径为1的圆内随机生成若干个点。
 他给出的算法是在边长为1的圆外接正方形内随机生成一个点，如果在圆内即采用，否则抛弃。面..." class="article-share-link">Share</a>
           
@@ -480,7 +536,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
   
-    <article id="post-cqrfjhfro5k7e4bg" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-p7bsuvjzd8498oun" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -526,7 +582,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2014/08/23/Git工作模式/" data-id="cqrfjhfro5k7e4bg" data_title="Git工作模式"
+          <a data-url="http://andimeo.info/2014/08/23/Git工作模式/" data-id="p7bsuvjzd8498oun" data_title="Git工作模式"
           data_summary="昨天晚上小伙伴问到我，如何回滚git repository的远程版本。折腾了近一个小时后，发现需要做的是，
 
 git reset --hard $version_number
@@ -542,64 +598,6 @@ git push -f
 
           
 <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-success" href="/tags/译文/">译文</a></li></ul>
-
-
-        </footer>
-      
-    </div>
-  </div>
-</article>
-
-
-  
-    <article id="post-kcehr2b9lcvzh661" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-
-    
-      <header class="article-header">
-        <i class="fa fa-file-text-o"></i>
-        
-  
-    <h1 class="archive-title" itemprop="name">
-      <a class="article-title" href="/2014/07/27/Arrow's-Impossibility-Theorem/">Arrow&#39;s Impossibility Theorem</a>
-    </h1>
-  
-
-
-        <div class="article-date">
-  <time datetime="2014-07-26T16:03:07.000Z" itemprop="datePublished">Jul 27 2014</time>
-</div>
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-          <!--<div class="thumbnail"><img src="/img/microeconomics.jpg" title="Principles of Economics, Microeconomics"></div>-->
-          <p>最近刚刚看完了曼昆N.Gregory Mankiw的经济学原理，微观经济学分册。这本书是典型的西式教科书，文中穿插着各种真实世界中的事例以及类似纽约时报等媒体在当时的评论。读起来很轻松，如同读故事一般，也许是其中涉及的数学并不很高深，所以不怎么困难就读完了。</p>
-<p>整本书描写了很多如何使用需求与供给来分析各种经济活动，在书末的最后一章中，作者抛出了经济学前沿中的三个主题，分别是<em>不对称信息经济学</em>、<em>政治经济学</em>以及<em>行为经济学</em>。其中在政治经济学中阐述了一个定理，阿罗不可能性定理。这个定理在讨论是否存在一种完美的投票制度。</p>
-<img src="/img/microeconomics.jpg" title="Principles of Economics, Microeconomics">
-
-
-          
-            <p class="article-more-link">
-              <a href="/2014/07/27/Arrow's-Impossibility-Theorem/#more">Read More</a>
-            </p>
-          
-        
-        <footer class="article-footer">
-          <a data-url="http://andimeo.info/2014/07/27/Arrow's-Impossibility-Theorem/" data-id="kcehr2b9lcvzh661" data_title="Arrow's Impossibility Theorem"
-          data_summary="最近刚刚看完了曼昆N.Gregory Mankiw的经济学原理，微观经济学分册。这本书是典型的西式教科书，文中穿插着各种真实世界中的事例以及类似纽约时报等媒体在当时的评论。读起..." class="article-share-link">Share</a>
-          
-          
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/经济学/">经济学</a>
-  </div>
-
-
-          
-<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/微观经济学/">微观经济学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-success" href="/tags/政治经济学/">政治经济学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-info" href="/tags/译文/">译文</a></li></ul>
 
 
         </footer>
@@ -656,6 +654,10 @@ git push -f
           </li>
         
           <li class="recent-list">
+            <a href="/2016/06/11/从Tango到Luminate/">从Tango到Luminate</a>
+          </li>
+        
+          <li class="recent-list">
             <a href="/2015/12/05/切尔诺贝利的回忆/">切尔诺贝利的回忆</a>
           </li>
         
@@ -665,10 +667,6 @@ git push -f
         
           <li class="recent-list">
             <a href="/2015/05/12/Java Generics/">Java Generics</a>
-          </li>
-        
-          <li class="recent-list">
-            <a href="/2015/05/03/几种教科书里没有的排序/">几种教科书里没有的排序</a>
           </li>
         
       </ul>

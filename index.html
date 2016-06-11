@@ -276,7 +276,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
         
       >
   
-    <article id="post-wan5s53nz65ofaxn" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-6w039rmh1w67q72t" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -300,11 +300,20 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
     <div class="article-entry" itemprop="articleBody">
       
         
+          <!---->
+          <p>在Luminate里接手的第一个项目，是做一个IPsec的客户端，来测试已有的IPsec gateway。在这个项目中，已经快把<a href="https://tools.ietf.org/html/rfc7296" target="_blank" rel="external">RFC7296</a>翻烂了，在这中间学习了C++，学习了emacs。接下来要做的支持在IKE negotiation中的Certificate Payload，之前对证书等加密的概念都是一知半解，今天发现一篇<a href="https://support.ssl.com/Knowledgebase/Article/View/19/0/der-vs-crt-vs-cer-vs-pem-certificates-and-how-to-convert-them" target="_blank" rel="external">文章</a>阐述了各种证书格式的异同，翻译于此。</p>
+<h1 id="证书与编码">证书与编码</h1><p>X.509本质上是按照RFC 5280编码或签名的一个数字文件。</p>
+<p>实际上，X.509这个词是指X.509 v3标准的IETF’s PKIX Certificate and CRL Profile，在RFC 5280中说明，通常被称作PKIX for Public Key Infrastructure (X.509)</p>
+
+          
+            <p class="article-more-link">
+              <a href="/2016/06/11/Certificate/#more">Read More</a>
+            </p>
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2016/06/11/Certificate/" data-id="wan5s53nz65ofaxn" data_title="Certificate"
-          data_summary="" class="article-share-link">Share</a>
+          <a data-url="http://andimeo.info/2016/06/11/Certificate/" data-id="6w039rmh1w67q72t" data_title="Certificate"
+          data_summary="在Luminate里接手的第一个项目，是做一个IPsec的客户端，来测试已有的IPsec gateway。在这个项目中，已经快把RFC7296翻烂了，在这中间学习了C++，学习了emacs。接下来要做的..." class="article-share-link">Share</a>
           
           
   <div class="article-category">
@@ -313,7 +322,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
           
-<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Certificate/">Certificate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-success" href="/tags/DER/">DER</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-info" href="/tags/PEM/">PEM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-warning" href="/tags/openssl/">openssl</a></li></ul>
+<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Certificate/">Certificate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-success" href="/tags/DER/">DER</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-info" href="/tags/OpenSSL/">OpenSSL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-warning" href="/tags/PEM/">PEM</a></li></ul>
 
 
         </footer>
@@ -324,7 +333,63 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
   
-    <article id="post-ahit1lekjgf9fibl" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-ov2cvybfa4vmcn4t" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        <i class="fa fa-file-text-o"></i>
+        
+  
+    <h1 class="archive-title" itemprop="name">
+      <a class="article-title" href="/2016/06/11/从Tango到Luminate/">从Tango到Luminate</a>
+    </h1>
+  
+
+
+        <div class="article-date">
+  <time datetime="2016-06-11T07:29:02.000Z" itemprop="datePublished">Jun 11 2016</time>
+</div>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <!--<div class="thumbnail"><img src="/img/Cupertino_City_Center.jpg" alt="Cupertino Center, Calif."></div>-->
+          <p>写Blog这件事总是时断时续，距离上一篇Blog已经过去半年了。最近godaddy又开始催收域名费用了，大概120人民币，奇怪的是一年前觉得这个贵到不可接受，现在却觉得略便宜。人就是这样在潜移默化中一点点改变的，消费观、人生观乃至世界观。</p>
+<p>加入Luminate Wireless已经快两个月了，以为会像离开MicroStrategy时一样写一篇吐槽的帖子，再展望一下未来，然而并没有。如同我姐上次在微信中问我新公司怎么样，我说还不错啊，能学到不少新东西。她说你在上个公司不也是这么说么。想了想的确如此，呵呵。在Tango这一年零两个月的时间里，确实看到了不少东西，也学到了不少东西，认识了不少的牛人。也对在这个圈子里怎么找到自己的安身立命之本有一点点顿悟。有人网络知识精通，只用Linux自身的工具就可以创造自己的协议，游刃于UDP与IPsec之间。有人熟习Git各种使用场景，设计模式信手拈来。有人博学多闻，轻松可以出任一个规模略小公司的CTO。</p>
+
+          
+            <p class="article-more-link">
+              <a href="/2016/06/11/从Tango到Luminate/#more">Read More</a>
+            </p>
+          
+        
+        <footer class="article-footer">
+          <a data-url="http://andimeo.info/2016/06/11/从Tango到Luminate/" data-id="ov2cvybfa4vmcn4t" data_title="从Tango到Luminate"
+          data_summary="写Blog这件事总是时断时续，距离上一篇Blog已经过去半年了。最近godaddy又开始催收域名费用了，大概120人民币，奇怪的是一年前觉得这个贵到不可接受，现在却觉得略便宜。人..." class="article-share-link">Share</a>
+          
+          
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/心情/">心情</a>
+  </div>
+
+
+          
+<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Luminate/">Luminate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-success" href="/tags/Tango/">Tango</a></li></ul>
+
+
+        </footer>
+      
+    </div>
+  </div>
+</article>
+
+
+  
+    <article id="post-amka6f7txeqvxlq8" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -381,7 +446,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2015/12/05/切尔诺贝利的回忆/" data-id="ahit1lekjgf9fibl" data_title="切尔诺贝利的回忆"
+          <a data-url="http://andimeo.info/2015/12/05/切尔诺贝利的回忆/" data-id="amka6f7txeqvxlq8" data_title="切尔诺贝利的回忆"
           data_summary="最近读完了Svetlana Alexievich的《切尔诺贝利的回忆：核灾难口述史》,了解了发生在我出生前两年的那场人祸。
 最新版改名为《我不知道该说什么,关于死亡还是爱情》，初时是..." class="article-share-link">Share</a>
           
@@ -403,7 +468,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
   
-    <article id="post-4o2erti3mk4hwvja" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-ob7g999vbpv7pa97" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -438,7 +503,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2015/06/28/一个商品搜索排序问题/" data-id="4o2erti3mk4hwvja" data_title="一个商品排序搜索问题"
+          <a data-url="http://andimeo.info/2015/06/28/一个商品搜索排序问题/" data-id="ob7g999vbpv7pa97" data_title="一个商品排序搜索问题"
           data_summary="上周被经理召集过去，大家一起开了个会，讨论如何结合商品的销售排名来提升搜索效果这件事。因为这边自己建立搜索而不用合作方提供的搜索API相关的事情，从一开始的snapdea..." class="article-share-link">Share</a>
           
           
@@ -459,7 +524,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
   
-    <article id="post-eks0bv7fvyewt761" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-wjovtb0g3zxhemtd" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -503,7 +568,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2015/05/12/Java Generics/" data-id="eks0bv7fvyewt761" data_title="Java Generics"
+          <a data-url="http://andimeo.info/2015/05/12/Java Generics/" data-id="wjovtb0g3zxhemtd" data_title="Java Generics"
           data_summary="今天看了下Java的官方教程中关于泛型的部分。泛型引起我的注意是因为微博上一篇比较List&lt;?&gt;和List&lt;Object&gt;的文章。最近看Lucene的代码，其中Util部分大量的使用..." class="article-share-link">Share</a>
           
           
@@ -514,62 +579,6 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
           
 <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Generics/">Generics</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-success" href="/tags/Wildcard/">Wildcard</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-info" href="/tags/泛型/">泛型</a></li></ul>
-
-
-        </footer>
-      
-    </div>
-  </div>
-</article>
-
-
-  
-    <article id="post-4wpgemun8jf4zel9" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-
-    
-      <header class="article-header">
-        <i class="fa fa-file-text-o"></i>
-        
-  
-    <h1 class="archive-title" itemprop="name">
-      <a class="article-title" href="/2015/05/03/几种教科书里没有的排序/">几种教科书里没有的排序</a>
-    </h1>
-  
-
-
-        <div class="article-date">
-  <time datetime="2015-05-03T14:04:56.000Z" itemprop="datePublished">May 3 2015</time>
-</div>
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-          <!--<div class="thumbnail"><img src="/img/galloping_mode_timsort.svg.png" width="400"></div>-->
-          <p>今天开始看Lucene的源码了，从core模块的util开始看起。发现其中有几个排序的方法名字都没有听过，比如introsort、timsort。结合lucene的代码，又在网上进行了相关知识的搜索，发现在比较新的语言中，比如Java 7和python中，默认的排序算法已经不是教科书中的quicksort了。今天就记录一下新学到的这三个算法。</p>
-<h2 id="inplace-merge-sort">Inplace Merge Sort</h2><p>还记得年初去Google面试的时候，一个北欧的面试官问过我，为什么大部分库函数实现排序时都选择了quicksort，而不是mergesort。当时临场反应，给出了面试官想要的答案，即quicksort可以in place执行，而mergesort需要额外的空间。可是今天看Lucene的代码时，在org.apache.lucene.util.Sorter中，看到了一个函数名叫mergeInPlace。难道被Google的面试官骗了，话说我面试别人的时候，还出过这道题。好的，看看Lucene是怎么做到in place的吧。</p>
-
-          
-            <p class="article-more-link">
-              <a href="/2015/05/03/几种教科书里没有的排序/#more">Read More</a>
-            </p>
-          
-        
-        <footer class="article-footer">
-          <a data-url="http://andimeo.info/2015/05/03/几种教科书里没有的排序/" data-id="4wpgemun8jf4zel9" data_title="几种教科书里没有的排序"
-          data_summary="今天开始看Lucene的源码了，从core模块的util开始看起。发现其中有几个排序的方法名字都没有听过，比如introsort、timsort。结合lucene的代码，又在网上进行了相关知识的搜..." class="article-share-link">Share</a>
-          
-          
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/算法/">算法</a>
-  </div>
-
-
-          
-<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Lucene/">Lucene</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-success" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-info" href="/tags/算法/">算法</a></li></ul>
 
 
         </footer>
@@ -619,7 +628,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <a class="category-link" href="/categories/Java/">Java<span class="category-count">3</span></a><a class="category-link" href="/categories/Node-js/">Node.js<span class="category-count">1</span></a><a class="category-link" href="/categories/书摘/">书摘<span class="category-count">1</span></a><a class="category-link" href="/categories/密码学/">密码学<span class="category-count">1</span></a><a class="category-link" href="/categories/工具/">工具<span class="category-count">1</span></a><a class="category-link" href="/categories/心情/">心情<span class="category-count">3</span></a><a class="category-link" href="/categories/搜索/">搜索<span class="category-count">1</span></a><a class="category-link" href="/categories/概率/">概率<span class="category-count">1</span></a><a class="category-link" href="/categories/算法/">算法<span class="category-count">1</span></a><a class="category-link" href="/categories/经济学/">经济学<span class="category-count">1</span></a>
+      <a class="category-link" href="/categories/Java/">Java<span class="category-count">3</span></a><a class="category-link" href="/categories/Node-js/">Node.js<span class="category-count">1</span></a><a class="category-link" href="/categories/书摘/">书摘<span class="category-count">1</span></a><a class="category-link" href="/categories/密码学/">密码学<span class="category-count">1</span></a><a class="category-link" href="/categories/工具/">工具<span class="category-count">1</span></a><a class="category-link" href="/categories/心情/">心情<span class="category-count">4</span></a><a class="category-link" href="/categories/搜索/">搜索<span class="category-count">1</span></a><a class="category-link" href="/categories/概率/">概率<span class="category-count">1</span></a><a class="category-link" href="/categories/算法/">算法<span class="category-count">1</span></a><a class="category-link" href="/categories/经济学/">经济学<span class="category-count">1</span></a>
     </div>
   </div>
 
@@ -629,7 +638,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <a class="tag-link" href="/tags/Certificate/">Certificate<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Concurrency/">Concurrency<span class="tag-count">1</span></a><a class="tag-link" href="/tags/DER/">DER<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Generics/">Generics<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Git/">Git<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Information-Retrieval-Evaluating/">Information Retrieval Evaluating<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Lucene/">Lucene<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Mathematics/">Mathematics<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Node-js/">Node.js<span class="tag-count">1</span></a><a class="tag-link" href="/tags/PEM/">PEM<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Wildcard/">Wildcard<span class="tag-count">1</span></a><a class="tag-link" href="/tags/mod-cluster/">mod_cluster<span class="tag-count">1</span></a><a class="tag-link" href="/tags/openssl/">openssl<span class="tag-count">1</span></a><a class="tag-link" href="/tags/tomcat/">tomcat<span class="tag-count">1</span></a><a class="tag-link" href="/tags/世界杯/">世界杯<span class="tag-count">1</span></a><a class="tag-link" href="/tags/事件轮询/">事件轮询<span class="tag-count">1</span></a><a class="tag-link" href="/tags/信息检索/">信息检索<span class="tag-count">1</span></a><a class="tag-link" href="/tags/分布式/">分布式<span class="tag-count">1</span></a><a class="tag-link" href="/tags/切尔诺贝利/">切尔诺贝利<span class="tag-count">1</span></a><a class="tag-link" href="/tags/历史/">历史<span class="tag-count">1</span></a><a class="tag-link" href="/tags/商品搜索/">商品搜索<span class="tag-count">1</span></a><a class="tag-link" href="/tags/回忆/">回忆<span class="tag-count">2</span></a><a class="tag-link" href="/tags/大学/">大学<span class="tag-count">1</span></a><a class="tag-link" href="/tags/工作/">工作<span class="tag-count">1</span></a><a class="tag-link" href="/tags/微观经济学/">微观经济学<span class="tag-count">1</span></a><a class="tag-link" href="/tags/德国/">德国<span class="tag-count">1</span></a><a class="tag-link" href="/tags/排序/">排序<span class="tag-count">1</span></a><a class="tag-link" href="/tags/政治经济学/">政治经济学<span class="tag-count">1</span></a><a class="tag-link" href="/tags/核灾难/">核灾难<span class="tag-count">1</span></a><a class="tag-link" href="/tags/泛型/">泛型<span class="tag-count">1</span></a><a class="tag-link" href="/tags/算法/">算法<span class="tag-count">1</span></a><a class="tag-link" href="/tags/译文/">译文<span class="tag-count">3</span></a><a class="tag-link" href="/tags/负载均衡/">负载均衡<span class="tag-count">1</span></a>
+      <a class="tag-link" href="/tags/Certificate/">Certificate<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Concurrency/">Concurrency<span class="tag-count">1</span></a><a class="tag-link" href="/tags/DER/">DER<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Generics/">Generics<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Git/">Git<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Information-Retrieval-Evaluating/">Information Retrieval Evaluating<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Lucene/">Lucene<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Luminate/">Luminate<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Mathematics/">Mathematics<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Node-js/">Node.js<span class="tag-count">1</span></a><a class="tag-link" href="/tags/OpenSSL/">OpenSSL<span class="tag-count">1</span></a><a class="tag-link" href="/tags/PEM/">PEM<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Tango/">Tango<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Wildcard/">Wildcard<span class="tag-count">1</span></a><a class="tag-link" href="/tags/mod-cluster/">mod_cluster<span class="tag-count">1</span></a><a class="tag-link" href="/tags/tomcat/">tomcat<span class="tag-count">1</span></a><a class="tag-link" href="/tags/世界杯/">世界杯<span class="tag-count">1</span></a><a class="tag-link" href="/tags/事件轮询/">事件轮询<span class="tag-count">1</span></a><a class="tag-link" href="/tags/信息检索/">信息检索<span class="tag-count">1</span></a><a class="tag-link" href="/tags/分布式/">分布式<span class="tag-count">1</span></a><a class="tag-link" href="/tags/切尔诺贝利/">切尔诺贝利<span class="tag-count">1</span></a><a class="tag-link" href="/tags/历史/">历史<span class="tag-count">1</span></a><a class="tag-link" href="/tags/商品搜索/">商品搜索<span class="tag-count">1</span></a><a class="tag-link" href="/tags/回忆/">回忆<span class="tag-count">2</span></a><a class="tag-link" href="/tags/大学/">大学<span class="tag-count">1</span></a><a class="tag-link" href="/tags/工作/">工作<span class="tag-count">1</span></a><a class="tag-link" href="/tags/微观经济学/">微观经济学<span class="tag-count">1</span></a><a class="tag-link" href="/tags/德国/">德国<span class="tag-count">1</span></a><a class="tag-link" href="/tags/排序/">排序<span class="tag-count">1</span></a><a class="tag-link" href="/tags/政治经济学/">政治经济学<span class="tag-count">1</span></a><a class="tag-link" href="/tags/核灾难/">核灾难<span class="tag-count">1</span></a><a class="tag-link" href="/tags/泛型/">泛型<span class="tag-count">1</span></a><a class="tag-link" href="/tags/算法/">算法<span class="tag-count">1</span></a><a class="tag-link" href="/tags/译文/">译文<span class="tag-count">3</span></a><a class="tag-link" href="/tags/负载均衡/">负载均衡<span class="tag-count">1</span></a>
     </div>
   </div>
 
@@ -639,7 +648,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
