@@ -278,7 +278,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       
       <section id="main"
         
-      ><article id="post-ecd286365lc4c635" class="article article-type-post" itemscope itemprop="blogPost">
+      ><article id="post-lelrwn62fygy5tyk" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -287,6 +287,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       
         <div id="toc"><span class="toc-header">Contents</span><ol class="article-toc"><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#tango"><span class="article-toc-text">Tango</span></a><ol class="article-toc-child"><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#git"><span class="article-toc-text">Git</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#设计模式"><span class="article-toc-text">设计模式</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#技术之外"><span class="article-toc-text">技术之外</span></a></li></ol></li><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#luminate-wireless"><span class="article-toc-text">Luminate Wireless</span></a></li></ol></div><p>写Blog这件事总是时断时续，距离上一篇Blog已经过去半年了。最近godaddy又开始催收域名费用了，大概120人民币，奇怪的是一年前觉得这个贵到不可接受，现在却觉得略便宜。人就是这样在潜移默化中一点点改变的，消费观、人生观乃至世界观。</p>
 <p>加入Luminate Wireless已经快两个月了，以为会像离开MicroStrategy时一样写一篇吐槽的帖子，再展望一下未来，然而并没有。如同我姐上次在微信中问我新公司怎么样，我说还不错啊，能学到不少新东西。她说你在上个公司不也是这么说么。想了想的确如此，呵呵。在Tango这一年零两个月的时间里，确实看到了不少东西，也学到了不少东西，认识了不少的牛人。也对在这个圈子里怎么找到自己的安身立命之本有一点点顿悟。有人网络知识精通，只用Linux自身的工具就可以创造自己的协议，游刃于UDP与IPsec之间。有人熟习Git各种使用场景，设计模式信手拈来。有人博学多闻，轻松可以出任一个规模略小公司的CTO。</p>
+<a id="more"></a>
 <h1 id="tango">Tango</h1><p>话既然说到了这里，还是总结一下自己在Tango的收获吧。</p>
 <h2 id="git">Git</h2><p>对Git的理解更深一步，借此对Continue Integration也有了认识。以至于现在对svn，perforce等centralized的版本控制工具都嗤之以鼻。凡是碰到有现有工具解决不了的问题，回头想想Git，总能找到一个比较好的解决方法。列举一二心得于此：</p>
 <ul>
@@ -315,6 +316,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <li>Java的所有对象都是引用计数，传值和返回都是引用，在函数中所有对象几乎都在堆里，在栈里只能看到基础类型的身影，这得益于GC。起初觉得这理所当然，回到C++才发现这是多么难得且珍贵的特性</li>
 <li>C++中函数里声明的对象，返回时要格外小心，因为内存的ownership随时可能不吻合你的直觉。而且能在栈里分配的内存绝不要在堆里分配，这是C++的best practice。因为C++没有GC，过多小的内存申请与回收，会导致内存碎片问题。</li>
 </ul>
+<p>在Luminate还学到了一个很好的玩意儿<code>emacs</code>，在Java的世界中，eclipse太优秀了，以至于没有别的东西可以撼动，也没有给vim、emacs、sublime和Atom任何机会。但是在C++的世界中，情况相反，除了win下的VS，没有好用的IDE。所以这个问题每个人都会有自己的选择，我一开始想打造自己的vim环境来完成这个任务，后来发现即使用clang的YouCompleteMe，vim也会被托的很慢，和eclipse无法同日而语。其实emacs也无法很好的完成这些任务，但是在emacs下，会发现有些需求其实是不需要的。比如自动补全，其实不需要那么复杂的基于语义的补全，emacs对buffer中基于tag的补全足够好用了。另外emacs中内嵌可以执行各种命令，更是一个神器，几乎所有事情你都可以不离开emacs，就可以完成。gdb调试，bazel编译，都可以。据说emacs海可以煮咖啡，哈哈！虽说如此，emacs仍然不是完美的，在实现和定义之间的跳转，查看一个变量的call hirarchy等，在emacs中仍然无法满足。以至于我在更改我不熟悉的别人的模块时，还是会去eclipse下操作。但是对于从头写的东西，emacs就太爽了。尤其结合公司内部已有的一些YASnippets，可以避免很多boiler plate。现在的这篇博客就是在emacs中写的，markdown-mode。</p>
 <hr>
 <p>Luminate来到北京，据说是因为硅谷超不到合适的人。因为在硅谷的用人环境与国内恰好相反。硅谷的大公司如Google和Facebook之流给人才的薪水，是创业公司望尘莫及的，尤其像Luminate这种融资不过数千万美元的公司。而在国内，创业公司更舍得给钱，希望招到更优秀的人来restructure the market。国内的大公司占据了垄断地位，就开始剥削人才，强调loyalty了。Ugly！</p>
 <p>这边有Google出来的软件工程师，Cisco出来的网络工程师，也有传统通信行业出来的。与他们的工作中，发现互联网行业的公司更强调Coding Style，Review Process，写出漂亮的代码，而不只是能工作的代码。而传统行业的人，在设计上的sense真的只有cs大二大三的水平。他们也懂很多，说的时候可以头头是道，但是在做的上面，则不尽如人意。</p>
@@ -362,7 +364,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       
     </li>
     <li>
-      <a data-url="http://andimeo.info/2016/06/11/从Tango到Luminate/" data-id="ecd286365lc4c635" data_title="从Tango到Luminate"
+      <a data-url="http://andimeo.info/2016/06/11/从Tango到Luminate/" data-id="lelrwn62fygy5tyk" data_title="从Tango到Luminate"
         data_summary="写Blog这件事总是时断时续，距离上一篇Blog已经过去半年了。最近godaddy又开始催收域名费用了，大概120人民币，奇怪的是一年前觉得这个贵到不可接受，现在却觉得略便宜。人..." class="article-share-link">Share</a>
     </li>
     <li>
