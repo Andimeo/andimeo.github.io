@@ -283,7 +283,63 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
   
-    <article id="post-wrqwvuomfw4rsjkt" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-hlhhqd9c50brwbha" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        <i class="fa fa-file-text-o"></i>
+        
+  
+    <h1 class="archive-title" itemprop="name">
+      <a class="article-title" href="/2015/06/28/一个商品搜索排序问题/">一个商品排序搜索问题</a>
+    </h1>
+  
+
+
+        <div class="article-date">
+  <time datetime="2015-06-27T16:35:24.000Z" itemprop="datePublished">Jun 28 2015</time>
+</div>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <!---->
+          <p>上周被经理召集过去，大家一起开了个会，讨论如何结合商品的销售排名来提升搜索效果这件事。因为这边自己建立搜索而不用合作方提供的搜索API相关的事情，从一开始的snapdeal到现在的lazada都是我在负责，所以这件事情当然也交给了我。在会上，大家拍脑门，提出将商品的match score和rank score线性组合，然后用logistic regression来训练参数，最后用MAP来评价结果。今天仔细一想，发现这根本是不可能的。</p>
+<p>因为对于一组参数，首先要获得在这组参数下的商品排序结果，然后再计算MAP值。因为这里有排序这个步骤，所以back propagation是做不到的。这里我突然想到我那篇讲引文推荐的文章里也涉及参数调优，究竟当时是怎么做的呢。不得已，又翻了翻曾经的论文。发现那里关于smooth parameter和self boost parameter的调优完全是试出来的。这也相当的make sense，因为叫parameter tuning么，自然就是小一点大一点的tuning。若能建立一个框架，自动计算出最优的参数选择，那应该就进入了learning to rank的领域。这里发现曾经的东西对现在也有指导作用，还是很开心的。</p>
+
+          
+            <p class="article-more-link">
+              <a href="/2015/06/28/一个商品搜索排序问题/#more">Read More</a>
+            </p>
+          
+        
+        <footer class="article-footer">
+          <a data-url="http://andimeo.info/2015/06/28/一个商品搜索排序问题/" data-id="hlhhqd9c50brwbha" data_title="一个商品排序搜索问题"
+          data_summary="上周被经理召集过去，大家一起开了个会，讨论如何结合商品的销售排名来提升搜索效果这件事。因为这边自己建立搜索而不用合作方提供的搜索API相关的事情，从一开始的snapdea..." class="article-share-link">Share</a>
+          
+          
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/搜索/">搜索</a>
+  </div>
+
+
+          
+<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Information-Retrieval-Evaluating/">Information Retrieval Evaluating</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-success" href="/tags/信息检索/">信息检索</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-info" href="/tags/商品搜索/">商品搜索</a></li></ul>
+
+
+        </footer>
+      
+    </div>
+  </div>
+</article>
+
+
+  
+    <article id="post-llybn5a9p9flbhx1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -327,7 +383,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2015/05/12/Java Generics/" data-id="wrqwvuomfw4rsjkt" data_title="Java Generics"
+          <a data-url="http://andimeo.info/2015/05/12/Java Generics/" data-id="llybn5a9p9flbhx1" data_title="Java Generics"
           data_summary="今天看了下Java的官方教程中关于泛型的部分。泛型引起我的注意是因为微博上一篇比较List&lt;?&gt;和List&lt;Object&gt;的文章。最近看Lucene的代码，其中Util部分大量的使用..." class="article-share-link">Share</a>
           
           
@@ -348,7 +404,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
   
-    <article id="post-cmfd248duz6evj63" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-7fbdqgoiecz19hfz" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -383,7 +439,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2015/05/03/几种教科书里没有的排序/" data-id="cmfd248duz6evj63" data_title="几种教科书里没有的排序"
+          <a data-url="http://andimeo.info/2015/05/03/几种教科书里没有的排序/" data-id="7fbdqgoiecz19hfz" data_title="几种教科书里没有的排序"
           data_summary="今天开始看Lucene的源码了，从core模块的util开始看起。发现其中有几个排序的方法名字都没有听过，比如introsort、timsort。结合lucene的代码，又在网上进行了相关知识的搜..." class="article-share-link">Share</a>
           
           
@@ -404,7 +460,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
   
-    <article id="post-3npb8xogwmlkb3r4" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-edudnwpjfcy3clb0" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -442,7 +498,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2014/12/31/2014，再见！MicroStrategy-再见！/" data-id="3npb8xogwmlkb3r4" data_title="2014，再见！MicroStrategy 再见！"
+          <a data-url="http://andimeo.info/2014/12/31/2014，再见！MicroStrategy-再见！/" data-id="edudnwpjfcy3clb0" data_title="2014，再见！MicroStrategy 再见！"
           data_summary="2014最后一天，天很蓝。
 告别，在这一天，2014！MicroStrategy！
 初识MicroStrategy2012年的秋季，和所有毕业季的学生一样，我也踏上了找工作的旅程。海投简历、不分白天晚..." class="article-share-link">Share</a>
@@ -465,7 +521,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
   
-    <article id="post-s6alijymrtsrgd3q" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-8q6qz8hatjfraldz" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -516,7 +572,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2014/11/24/多线程写文件/" data-id="s6alijymrtsrgd3q" data_title="多线程写文件"
+          <a data-url="http://andimeo.info/2014/11/24/多线程写文件/" data-id="8q6qz8hatjfraldz" data_title="多线程写文件"
           data_summary="最近在准备Tango的面试，猎头给的参考资料中有这么一道题目：
 
 
@@ -530,67 +586,6 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
           
 <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Concurrency/">Concurrency</a></li></ul>
-
-
-        </footer>
-      
-    </div>
-  </div>
-</article>
-
-
-  
-    <article id="post-6rzgxhfdwc0uwi89" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-
-    
-      <header class="article-header">
-        <i class="fa fa-file-text-o"></i>
-        
-  
-    <h1 class="archive-title" itemprop="name">
-      <a class="article-title" href="/2014/11/07/生成圆内随机点/">生成圆内随机点</a>
-    </h1>
-  
-
-
-        <div class="article-date">
-  <time datetime="2014-11-07T09:10:00.000Z" itemprop="datePublished">Nov 7 2014</time>
-</div>
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-          <!--<div class="thumbnail"><img src="/img/mathematica1.jpg" width="300"></div>-->
-          <p>今天小伙伴去网易游戏面试。有一个题目是要求在直径为1的圆内随机生成若干个点。
-他给出的算法是在边长为1的圆外接正方形内随机生成一个点，如果在圆内即采用，否则抛弃。面试官说要求一次成功。
-于是问题就来了。</p>
-<p>一个直观的想法是采用极坐标表示圆内的任意一点，在$0-r$的范围内生成半径长度，在$0-2\pi$的范围内生成角度。那我们看一下用Mathematica模拟生成的这些点是不是符合直觉呢。</p>
-<figure class="highlight"><pre><div class="line"> </div><div class="line">r = <span class="number">0.5</span>;</div><div class="line">num = <span class="number">500</span>;</div><div class="line">tu[<span class="number">0</span>] = <span class="keyword">ParametricPlot</span>[<span class="list">{r*Sin[u], r*Cos[u]}</span>, <span class="list">{u, 0, 2 Pi}</span>];</div><div class="line"><span class="keyword">For</span>[i = <span class="number">1</span>, i &lt;= num, i++, u = r*<span class="keyword">Random</span>[];</div><div class="line">  v = <span class="number">2</span> <span class="keyword">Pi</span>*<span class="keyword">Random</span>[];</div><div class="line">  tu[i] = <span class="keyword">ListPlot</span>[<span class="list">{{u*Sin[v], u*Cos[v]}</span>}];];</div><div class="line"><span class="keyword">Show</span>[<span class="keyword">Table</span>[tu[i], <span class="list">{i, 0, num}</span>], <span class="keyword">Axes</span> -&gt; <span class="keyword">None</span>]</div></pre></figure>
-
-
-          
-            <p class="article-more-link">
-              <a href="/2014/11/07/生成圆内随机点/#more">Read More</a>
-            </p>
-          
-        
-        <footer class="article-footer">
-          <a data-url="http://andimeo.info/2014/11/07/生成圆内随机点/" data-id="6rzgxhfdwc0uwi89" data_title="生成圆内随机点"
-          data_summary="今天小伙伴去网易游戏面试。有一个题目是要求在直径为1的圆内随机生成若干个点。
-他给出的算法是在边长为1的圆外接正方形内随机生成一个点，如果在圆内即采用，否则抛弃。面..." class="article-share-link">Share</a>
-          
-          
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/概率/">概率</a>
-  </div>
-
-
-          
-<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Mathematics/">Mathematics</a></li></ul>
 
 
         </footer>
@@ -643,6 +638,10 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       <ul>
         
           <li class="recent-list">
+            <a href="/2016/12/25/在Google-Cloud上搭建VPN/">在Google Cloud上搭建VPN</a>
+          </li>
+        
+          <li class="recent-list">
             <a href="/2016/09/04/美国之行/">美国之行</a>
           </li>
         
@@ -656,10 +655,6 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
         
           <li class="recent-list">
             <a href="/2015/12/05/切尔诺贝利的回忆/">切尔诺贝利的回忆</a>
-          </li>
-        
-          <li class="recent-list">
-            <a href="/2015/06/28/一个商品搜索排序问题/">一个商品排序搜索问题</a>
           </li>
         
       </ul>

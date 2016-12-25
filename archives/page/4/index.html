@@ -283,7 +283,90 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
   
-    <article id="post-zovb34usqj749ifs" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-42ubipfc3sjzfaoj" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        <i class="fa fa-file-text-o"></i>
+        
+  
+    <h1 class="archive-title" itemprop="name">
+      <a class="article-title" href="/2014/06/21/理解Node.js中的事件轮询/">理解Node.js中的事件轮询</a>
+    </h1>
+  
+
+
+        <div class="article-date">
+  <time datetime="2014-06-20T16:34:00.000Z" itemprop="datePublished">Jun 21 2014</time>
+</div>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <!--<div class="thumbnail"><img src="/img/Memory_Apache_Nginx_Comparison.jpg" width="500" title="Memory Usage among Lighttpd, Ngnix And Apache"></div>-->
+          <blockquote>
+
+<p>本文翻译自Mixu的文章<a href="http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/" target="_blank" rel="external">Understanding the Node.js event loop</a></p>
+</blockquote>
+
+<p><strong>Node.js的第一个基本观点是，I/O是昂贵的。</strong>  </p>
+<ul>
+<li>L1-cache: 3 cycles</li>
+<li>L2-cache: 14 cycles</li>
+<li>RAM: 250 cycles</li>
+<li>Disk: 41 000 000 cycles</li>
+<li>Network: 240 000 000 cycles</li>
+</ul>
+<p>所以现在编程技术中最大的浪费来自对I/O的等待。我们有几种方法用来可以应对I/O：</p>
+<ol>
+<li>同步：按序执行每一个请求。优点：简单。缺点：任何一个请求都可能会阻塞其他请求。</li>
+<li>进程：对每个请求，我们都开一个新的进程来处理。优点：容易。缺点：扩展性不好，有几百个请求的话，就需要几百个进程来处理。fork()是Unix程序员的万精油。因为它的使用，所有问题看起来都微不足道。但是往往并不需要这么“重”的解决方法。</li>
+<li>线程：对每个请求，开一个新的线程进行处理。优点：容易，而且相比进程而言，对内核更加友好，因为线程使用的系统资源往往比进程要少。缺点：首先你的机器可能不支持线程。其次因为要考虑对共享资源的访问控制，很快线程编程就会变得非常复杂。</li>
+</ol>
+
+          
+            <p class="article-more-link">
+              <a href="/2014/06/21/理解Node.js中的事件轮询/#more">Read More</a>
+            </p>
+          
+        
+        <footer class="article-footer">
+          <a data-url="http://andimeo.info/2014/06/21/理解Node.js中的事件轮询/" data-id="42ubipfc3sjzfaoj" data_title="理解Node.js中的事件轮询"
+          data_summary="
+
+本文翻译自Mixu的文章Understanding the Node.js event loop
+
+
+Node.js的第一个基本观点是，I/O是昂贵的。  
+
+L1-cache: 3 cycles
+L2-cache: 14 cycles
+RAM: 250 cycles
+..." class="article-share-link">Share</a>
+          
+          
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
+  </div>
+
+
+          
+<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Node-js/">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-success" href="/tags/事件轮询/">事件轮询</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-info" href="/tags/译文/">译文</a></li></ul>
+
+
+        </footer>
+      
+    </div>
+  </div>
+</article>
+
+
+  
+    <article id="post-l9f7kofncw6gzjbi" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -323,7 +406,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2014/06/14/大学之美/" data-id="zovb34usqj749ifs" data_title="大学之美"
+          <a data-url="http://andimeo.info/2014/06/14/大学之美/" data-id="l9f7kofncw6gzjbi" data_title="大学之美"
           data_summary="
 
 今夜从矿大走过，看到学生们三两成群，或是刚下课，或是刚下自习。不禁让我想起了八年前刚到川大。刚刚报完名，还没开学的晚上，漫步在江安校区，恰巧在长桥东侧，碰到了..." class="article-share-link">Share</a>
@@ -388,6 +471,10 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       <ul>
         
           <li class="recent-list">
+            <a href="/2016/12/25/在Google-Cloud上搭建VPN/">在Google Cloud上搭建VPN</a>
+          </li>
+        
+          <li class="recent-list">
             <a href="/2016/09/04/美国之行/">美国之行</a>
           </li>
         
@@ -401,10 +488,6 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
         
           <li class="recent-list">
             <a href="/2015/12/05/切尔诺贝利的回忆/">切尔诺贝利的回忆</a>
-          </li>
-        
-          <li class="recent-list">
-            <a href="/2015/06/28/一个商品搜索排序问题/">一个商品排序搜索问题</a>
           </li>
         
       </ul>

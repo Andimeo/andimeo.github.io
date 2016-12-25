@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>在Google Cloud上搭建VPN | Andimeo&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="之前在Google Cloud上申请过一个VPS，在Free trial期间使用了一个月，后来就关掉了。当时发现自己搭建VPN好容易啊。
+直到这次，想重新激活上次那个instance来做VPN的时候，VPN已链接，但是data plane的traffic却始终发送不出去。
+于是重新搜索了教程，才搞定这件事情。这里主要针对Google Cloud总结一下一些重要步骤。
+关于StrongSwan的配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Google Cloud上搭建VPN">
+<meta property="og:url" content="http://andimeo.info/2016/12/25/在Google-Cloud上搭建VPN/">
+<meta property="og:site_name" content="Andimeo's Blog">
+<meta property="og:description" content="之前在Google Cloud上申请过一个VPS，在Free trial期间使用了一个月，后来就关掉了。当时发现自己搭建VPN好容易啊。
+直到这次，想重新激活上次那个instance来做VPN的时候，VPN已链接，但是data plane的traffic却始终发送不出去。
+于是重新搜索了教程，才搞定这件事情。这里主要针对Google Cloud总结一下一些重要步骤。
+关于StrongSwan的配置">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在Google Cloud上搭建VPN">
+<meta name="twitter:description" content="之前在Google Cloud上申请过一个VPS，在Free trial期间使用了一个月，后来就关掉了。当时发现自己搭建VPN好容易啊。
+直到这次，想重新激活上次那个instance来做VPN的时候，VPN已链接，但是data plane的traffic却始终发送不出去。
+于是重新搜索了教程，才搞定这件事情。这里主要针对Google Cloud总结一下一些重要步骤。
+关于StrongSwan的配置">
+<meta name="twitter:creator" content="@https://twitter.com/Andimeo">
+<link rel="publisher" href="https://plus.google.com/108731813092358327718/posts">
+
+  
+    <link rel="alternative" href="/atom.xml" title="Andimeo&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-51886409-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+<meta name="baidu-site-verification" content="uOXemKmg1J" />
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fd2101ee427cf5a274a307e4dd6701133' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/">Andimeo&#39;s Blog</a>
+    <div class="collapse navbar-collapse nav-menu">
+      <ul class="nav navbar-nav">
+      
+        <li>
+          <a href="/archives">
+            <i class="fa fa-archive"></i>
+            Archives
+          </a>
+        </li>
+      
+        <li>
+          <a href="/categories">
+            <i class="fa fa-folder"></i>
+            Categories
+          </a>
+        </li>
+      
+        <li>
+          <a href="/tags">
+            <i class="fa fa-tags"></i>
+            Tags
+          </a>
+        </li>
+      
+        <li>
+          <a href="/about">
+            <i class="fa fa-user"></i>
+            About
+          </a>
+        </li>
+      
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+          <li><a id="rss-link" href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+        <li> 
+      <a title="Don't quit medicine!" href='javascript:(function() {
+  function c() {
+    var e = document.createElement("link");
+    e.setAttribute("type", "text/css");
+    e.setAttribute("rel", "stylesheet");
+    e.setAttribute("href", f);
+    e.setAttribute("class", l);
+    document.body.appendChild(e)
+  }
+ 
+  function h() {
+    var e = document.getElementsByClassName(l);
+    for (var t = 0; t < e.length; t++) {
+      document.body.removeChild(e[t])
+    }
+  }
+ 
+  function p() {
+    var e = document.createElement("div");
+    e.setAttribute("class", a);
+    document.body.appendChild(e);
+    setTimeout(function() {
+      document.body.removeChild(e)
+    }, 100)
+  }
+ 
+  function d(e) {
+    return {
+      height : e.offsetHeight,
+      width : e.offsetWidth
+    }
+  }
+ 
+  function v(i) {
+    var s = d(i);
+    return s.height > e && s.height < n && s.width > t && s.width < r
+  }
+ 
+  function m(e) {
+    var t = e;
+    var n = 0;
+    while (!!t) {
+      n += t.offsetTop;
+      t = t.offsetParent
+    }
+    return n
+  }
+ 
+  function g() {
+    var e = document.documentElement;
+    if (!!window.innerWidth) {
+      return window.innerHeight
+    } else if (e && !isNaN(e.clientHeight)) {
+      return e.clientHeight
+    }
+    return 0
+  }
+ 
+  function y() {
+    if (window.pageYOffset) {
+      return window.pageYOffset
+    }
+    return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+  }
+ 
+  function E(e) {
+    var t = m(e);
+    return t >= w && t <= b + w
+  }
+ 
+  function S() {
+    var e = document.createElement("audio");
+    e.setAttribute("class", l);
+    e.src = i;
+    e.loop = false;
+    e.addEventListener("canplay", function() {
+      setTimeout(function() {
+        x(k)
+      }, 500);
+      setTimeout(function() {
+        N();
+        p();
+        for (var e = 0; e < O.length; e++) {
+          T(O[e])
+        }
+      }, 15500)
+    }, true);
+    e.addEventListener("ended", function() {
+      N();
+      h()
+    }, true);
+    e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+    document.body.appendChild(e);
+    e.play()
+  }
+ 
+  function x(e) {
+    e.className += " " + s + " " + o
+  }
+ 
+  function T(e) {
+    e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+  }
+ 
+  function N() {
+    var e = document.getElementsByClassName(s);
+    var t = new RegExp("\\b" + s + "\\b");
+    for (var n = 0; n < e.length; ) {
+      e[n].className = e[n].className.replace(t, "")
+    }
+  }
+ 
+  var e = 30;
+  var t = 30;
+  var n = 350;
+  var r = 350;
+  var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+  var s = "mw-harlem_shake_me";
+  var o = "im_first";
+  var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+  var a = "mw-strobe_light";
+  var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+  var l = "mw_added_css";
+  var b = g();
+  var w = y();
+  var C = document.getElementsByTagName("*");
+  var k = null;
+  for (var L = 0; L < C.length; L++) {
+    var A = C[L];
+    if (v(A)) {
+      if (E(A)) {
+        k = A;
+        break
+      }
+    }
+  }
+  if (A === null) {
+    console.warn("Could not find a node of the right size. Please try a different page.");
+    return
+  }
+  c();
+  S();
+  var O = [];
+  for (var L = 0; L < C.length; L++) {
+    var A = C[L];
+    if (v(A)) {
+      O.push(A)
+    }
+  }
+})()    '>Don't quit medicine!</a> </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="clearfix"></div>
+
+      <div id='content' class="container">
+
+        <div class="page-header-wrapper">
+          <!--[if lt IE 9]><div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>提示:</strong>您的浏览器版本太低了,建议升级到 <strong><a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" title="IE9">IE9</a></strong> 以上,本站使用<a href="https://www.google.com/intl/zh-CN/chrome/">Chrome浏览器</a>可以获得最好的显示效果.</div><![endif]-->
+          <div class="page-header">
+            <h1 class="title">
+          
+            在Google Cloud上搭建VPN
+          
+            </h1>
+        </div>
+      </div>
+      
+      <section id="main"
+        
+      ><article id="post-rqajrl189h4jhyu0" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc"><span class="toc-header">Contents</span><ol class="article-toc"><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#google-cloud配置"><span class="article-toc-text">Google Cloud配置</span></a></li><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#安装strongswan"><span class="article-toc-text">安装StrongSwan</span></a><ol class="article-toc-child"><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#准备工作"><span class="article-toc-text">准备工作</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#下载strongswan的源码并编译"><span class="article-toc-text">下载StrongSwan的源码并编译</span></a></li></ol></li><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#生成证书"><span class="article-toc-text">生成证书</span></a><ol class="article-toc-child"><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#生成ca私钥"><span class="article-toc-text">生成CA私钥</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#利用私钥签名ca证书"><span class="article-toc-text">利用私钥签名CA证书</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#生成server端私钥"><span class="article-toc-text">生成server端私钥</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#用ca证书签发server端证书"><span class="article-toc-text">用CA证书签发server端证书</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#生成client端私钥"><span class="article-toc-text">生成client端私钥</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#利用ca证书签发client端证书"><span class="article-toc-text">利用CA证书签发client端证书</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#生成client端p12证书"><span class="article-toc-text">生成client端p12证书</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#安装证书"><span class="article-toc-text">安装证书</span></a></li></ol></li><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#配置strongswan"><span class="article-toc-text">配置StrongSwan</span></a><ol class="article-toc-child"><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#配置ipsec.conf"><span class="article-toc-text">配置ipsec.conf</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#配置strongswan.conf"><span class="article-toc-text">配置strongswan.conf</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#配置ipsec.secrets"><span class="article-toc-text">配置ipsec.secrets</span></a></li></ol></li><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#配置iptables"><span class="article-toc-text">配置iptables</span></a><ol class="article-toc-child"><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#修改sysctrl.conf"><span class="article-toc-text">修改sysctrl.conf</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#修改iptables"><span class="article-toc-text">修改iptables</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#保存iptables且开机自动启动"><span class="article-toc-text">保存iptables且开机自动启动</span></a></li><li class="article-toc-item article-toc-level-2"><a class="article-toc-link" href="#重启ipsec服务"><span class="article-toc-text">重启ipsec服务</span></a></li></ol></li></ol></div><p>之前在Google Cloud上申请过一个VPS，在Free trial期间使用了一个月，后来就关掉了。当时发现自己搭建VPN好容易啊。
+直到这次，想重新激活上次那个instance来做VPN的时候，VPN已链接，但是data plane的traffic却始终发送不出去。
+于是重新搜索了教程，才搞定这件事情。这里主要针对Google Cloud总结一下一些重要步骤。</p>
+<p>关于StrongSwan的配置部分主要参考下面这篇文章：
+<a href="http://hjc.im/shi-yong-strongswanda-jian-ipsecikev2-vpn/" target="_blank" rel="external">使用Strongswan搭建IPSec/IKEv2 VPN</a></p>
+<h1 id="google-cloud配置">Google Cloud配置</h1><p>建立好Compute Engine后，申请一个永久静态地址，然后配置SSH登录证书等内容。
+这里不再赘述，Google自己的文档里已经交代的很清楚怎么做。</p>
+<a id="more"></a>
+<p>主要配置是在Google的Firewall rules里，这里决定了什么包可以访问到内部的instance，其后才是instance内部的iptables的配置。</p>
+<p>这里我们建立一条新的rule，source filter填写<code>0.0.0.0/0</code>，代表任何地方发出的包，除非你只想在特定IP上访问，否则就填写这个。
+然后在Allowed protocols and ports里添加<code>udp:500;udp:4500;esp</code>。</p>
+<ul>
+<li>这里<code>udp:500</code>是<code>IKE</code>协议指定的端口，会通过这个端口来发送Control plane的包</li>
+<li><code>udp:4500</code>是当source或者destination在<code>NAT</code>后时转而使用的端口，另外当<code>NAT</code>被检测到后，Data plane的数据包也会被使用端口，这个时候<code>ESP</code>的数据包会被包含在<code>UDP</code>包中，端口也是这个</li>
+<li>最后<code>esp</code>就是允许Data plane的数据包通过</li>
+</ul>
+<p>另外需要勾选允许<code>ip forwarding</code>。</p>
+<p>至此Google Cloud的配置就完成了。</p>
+<h1 id="安装strongswan">安装StrongSwan</h1><p>这里假设使用的是Ubuntu作为操作系统，其他OS请参考相应教程。</p>
+<h2 id="准备工作">准备工作</h2><p>安装PAM库和SSL库，以及make和gcc</p>
+<figure class="highlight"><pre><div class="line">apt-<span class="built_in">get</span> <span class="keyword">update</span></div><div class="line">apt-<span class="built_in">get</span> install libpam0g-dev libssl-dev <span class="keyword">make</span> gcc</div></pre></figure>
+
+<h2 id="下载strongswan的源码并编译">下载StrongSwan的源码并编译</h2><figure class="highlight"><pre><div class="line"><span class="comment">#下载</span></div><div class="line"><span class="comment">wget</span> <span class="comment">http://download</span><span class="string">.</span><span class="comment">strongswan</span><span class="string">.</span><span class="comment">org/strongswan</span><span class="string">.</span><span class="comment">tar</span><span class="string">.</span><span class="comment">gz</span></div><div class="line"><span class="comment">tar</span> <span class="comment">xzf</span> <span class="comment">strongswan</span><span class="string">.</span><span class="comment">tar</span><span class="string">.</span><span class="comment">gz</span></div><div class="line"><span class="comment">cd</span> <span class="comment">strongswan</span><span class="literal">-</span><span class="comment">*</span></div><div class="line"></div><div class="line"><span class="comment">#编译</span></div><div class="line"><span class="string">.</span><span class="comment">/configure</span>  <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">eap</span><span class="literal">-</span><span class="comment">identity</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">eap</span><span class="literal">-</span><span class="comment">md5</span> <span class="comment">\</span></div><div class="line"><span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">eap</span><span class="literal">-</span><span class="comment">mschapv2</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">eap</span><span class="literal">-</span><span class="comment">tls</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">eap</span><span class="literal">-</span><span class="comment">ttls</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">eap</span><span class="literal">-</span><span class="comment">peap</span>  <span class="comment">\</span></div><div class="line"><span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">eap</span><span class="literal">-</span><span class="comment">tnc</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">eap</span><span class="literal">-</span><span class="comment">dynamic</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">eap</span><span class="literal">-</span><span class="comment">radius</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">xauth</span><span class="literal">-</span><span class="comment">eap</span>  <span class="comment">\</span></div><div class="line"><span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">xauth</span><span class="literal">-</span><span class="comment">pam</span>  <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">dhcp</span>  <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">openssl</span>  <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">addrblock</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">unity</span>  <span class="comment">\</span></div><div class="line"><span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">certexpire</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">radattr</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">tools</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">openssl</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">disable</span><span class="literal">-</span><span class="comment">gmp</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">kernel</span><span class="literal">-</span><span class="comment">libipsec</span></div><div class="line"><span class="comment">make</span></div><div class="line"></div><div class="line"><span class="comment">#安装</span></div><div class="line"><span class="comment">make</span> <span class="comment">install</span> <span class="comment">#</span> <span class="comment">if</span> <span class="comment">not</span> <span class="comment">root</span> <span class="comment">please</span> <span class="comment">prepend</span> <span class="comment">sudo</span></div></pre></figure>
+
+<p>完成后执行<code>ipsec version</code>查看是否安装成功。</p>
+<h1 id="生成证书">生成证书</h1><h2 id="生成ca私钥">生成CA私钥</h2><figure class="highlight"><pre><div class="line"><span class="input"><span class="prompt">ipsec pki --gen --outform pem &gt;</span> ca.pem</span></div></pre></figure>
+
+<h2 id="利用私钥签名ca证书">利用私钥签名CA证书</h2><figure class="highlight"><pre><div class="line"><span class="comment">ipsec</span> <span class="comment">pki</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">self</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">in</span> <span class="comment">ca</span><span class="string">.</span><span class="comment">pem</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">dn</span> <span class="comment">"C=com</span><span class="string">,</span> <span class="comment">O=myvpn</span><span class="string">,</span> <span class="comment">CN=VPN</span> <span class="comment">CA"</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">ca</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">outform</span> <span class="comment">pem</span> &gt;<span class="comment">ca</span><span class="string">.</span><span class="comment">cert</span><span class="string">.</span><span class="comment">pem</span></div></pre></figure>
+
+<h2 id="生成server端私钥">生成server端私钥</h2><figure class="highlight"><pre><div class="line"><span class="input"><span class="prompt">ipsec pki --gen --outform pem &gt;</span> server.pem</span></div></pre></figure>
+
+<h2 id="用ca证书签发server端证书">用CA证书签发server端证书</h2><p>这里需要将下面的地址更换为我们刚才申请到的永久IP地址。</p>
+<figure class="highlight"><pre><div class="line"><span class="comment">SERVER_ADDR="</span><span class="title">[</span><span class="comment">REPLACE_WITH_YOUR_OWN_IP_ADDRESS</span><span class="title">]</span><span class="comment">"</span></div><div class="line"><span class="comment">ipsec</span> <span class="comment">pki</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">pub</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">in</span> <span class="comment">server</span><span class="string">.</span><span class="comment">pem</span> <span class="comment">|</span> <span class="comment">ipsec</span> <span class="comment">pki</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">issue</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">cacert</span> <span class="comment">ca</span><span class="string">.</span><span class="comment">cert</span><span class="string">.</span><span class="comment">pem</span> <span class="comment">\</span></div><div class="line"><span class="literal">-</span><span class="literal">-</span><span class="comment">cakey</span> <span class="comment">ca</span><span class="string">.</span><span class="comment">pem</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">dn</span> <span class="comment">"C=com</span><span class="string">,</span> <span class="comment">O=myvpn</span><span class="string">,</span> <span class="comment">CN=$SERVER_ADDR"</span> <span class="comment">\</span></div><div class="line"><span class="literal">-</span><span class="literal">-</span><span class="comment">san="$SERVER_ADDR"</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">flag</span> <span class="comment">serverAuth</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">flag</span> <span class="comment">ikeIntermediate</span> <span class="comment">\</span></div><div class="line"><span class="literal">-</span><span class="literal">-</span><span class="comment">outform</span> <span class="comment">pem</span> &gt; <span class="comment">server</span><span class="string">.</span><span class="comment">cert</span><span class="string">.</span><span class="comment">pem</span></div></pre></figure>
+
+<h2 id="生成client端私钥">生成client端私钥</h2><figure class="highlight"><pre><div class="line"><span class="input"><span class="prompt">ipsec pki --gen --outform pem &gt;</span> client.pem</span></div></pre></figure>
+
+<h2 id="利用ca证书签发client端证书">利用CA证书签发client端证书</h2><figure class="highlight"><pre><div class="line"><span class="comment">ipsec</span> <span class="comment">pki</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">pub</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">in</span> <span class="comment">client</span><span class="string">.</span><span class="comment">pem</span> <span class="comment">|</span> <span class="comment">ipsec</span> <span class="comment">pki</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">issue</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">cacert</span> <span class="comment">ca</span><span class="string">.</span><span class="comment">cert</span><span class="string">.</span><span class="comment">pem</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">cakey</span> <span class="comment">ca</span><span class="string">.</span><span class="comment">pem</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">dn</span> <span class="comment">"C=com</span><span class="string">,</span> <span class="comment">O=myvpn</span><span class="string">,</span> <span class="comment">CN=VPN</span> <span class="comment">Client"</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">outform</span> <span class="comment">pem</span> &gt; <span class="comment">client</span><span class="string">.</span><span class="comment">cert</span><span class="string">.</span><span class="comment">pem</span></div></pre></figure>
+
+<h2 id="生成client端p12证书">生成client端p12证书</h2><figure class="highlight"><pre><div class="line">openssl pkcs12 -<span class="keyword">export</span> -inkey client.pem -<span class="keyword">in</span> client.cert.pem -name <span class="string">"client"</span> -certfile ca.cert.pem -caname <span class="string">"VPN CA"</span>  -<span class="keyword">out</span> client.cert.p12</div></pre></figure>
+
+<h2 id="安装证书">安装证书</h2><figure class="highlight"><pre><div class="line"># <span class="keyword">if</span> not root probably you need to prepend sudo in front of the following commands</div><div class="line">cp -r ca.cert.pem <span class="regexp">/usr/</span>local<span class="regexp">/etc/i</span>psec.d<span class="regexp">/cacerts/</span></div><div class="line">cp -r server.cert.pem <span class="regexp">/usr/</span>local<span class="regexp">/etc/i</span>psec.d<span class="regexp">/certs/</span></div><div class="line">cp -r server.pem <span class="regexp">/usr/</span>local<span class="regexp">/etc/i</span>psec.d<span class="regexp">/private/</span></div><div class="line">cp -r client.cert.pem <span class="regexp">/usr/</span>local<span class="regexp">/etc/i</span>psec.d<span class="regexp">/certs/</span></div><div class="line">cp -r client.pem  <span class="regexp">/usr/</span>local<span class="regexp">/etc/i</span>psec.d<span class="regexp">/private/</span></div></pre></figure>
+
+<h1 id="配置strongswan">配置StrongSwan</h1><h2 id="配置ipsec.conf">配置ipsec.conf</h2><p>将<code>/usr/local/etc/ipsec.conf</code>替换为如下内容：</p>
+<figure class="highlight"><pre><div class="line">config setup</div><div class="line">    <span class="variable">uniqueids=</span>never</div><div class="line"></div><div class="line">conn iOS_cert</div><div class="line">    <span class="variable">keyexchange=</span>ikev1</div><div class="line">    <span class="comment"># strongswan version &gt;= 5.0.2, compatible with iOS 6.0,6.0.1</span></div><div class="line">    <span class="variable">fragmentation=</span>yes</div><div class="line">    <span class="variable">left=</span>%defaultroute</div><div class="line">    <span class="variable">leftauth=</span>pubkey</div><div class="line">    <span class="variable">leftsubnet=</span><span class="number">0.0</span>.<span class="number">0.0</span>/<span class="number">0</span></div><div class="line">    <span class="variable">leftcert=</span>server.cert.pem</div><div class="line">    <span class="variable">right=</span>%any</div><div class="line">    <span class="variable">rightauth=</span>pubkey</div><div class="line">    <span class="variable">rightauth2=</span>xauth</div><div class="line">    <span class="variable">rightsourceip=</span><span class="number">10.31</span>.<span class="number">2.0</span>/<span class="number">24</span></div><div class="line">    <span class="variable">rightcert=</span>client.cert.pem</div><div class="line">    <span class="variable">auto=</span>add</div><div class="line"></div><div class="line">conn android_xauth_psk</div><div class="line">    <span class="variable">keyexchange=</span>ikev1</div><div class="line">    <span class="variable">left=</span>%defaultroute</div><div class="line">    <span class="variable">leftauth=</span>psk</div><div class="line">    <span class="variable">leftsubnet=</span><span class="number">0.0</span>.<span class="number">0.0</span>/<span class="number">0</span></div><div class="line">    <span class="variable">right=</span>%any</div><div class="line">    <span class="variable">rightauth=</span>psk</div><div class="line">    <span class="variable">rightauth2=</span>xauth</div><div class="line">    <span class="variable">rightsourceip=</span><span class="number">10.31</span>.<span class="number">2.0</span>/<span class="number">24</span></div><div class="line">    <span class="variable">auto=</span>add</div><div class="line"></div><div class="line">conn networkmanager-strongswan</div><div class="line">    <span class="variable">keyexchange=</span>ikev2</div><div class="line">    <span class="variable">left=</span>%defaultroute</div><div class="line">    <span class="variable">leftauth=</span>pubkey</div><div class="line">    <span class="variable">leftsubnet=</span><span class="number">0.0</span>.<span class="number">0.0</span>/<span class="number">0</span></div><div class="line">    <span class="variable">leftcert=</span>server.cert.pem</div><div class="line">    <span class="variable">right=</span>%any</div><div class="line">    <span class="variable">rightauth=</span>pubkey</div><div class="line">    <span class="variable">rightsourceip=</span><span class="number">10.31</span>.<span class="number">2.0</span>/<span class="number">24</span></div><div class="line">    <span class="variable">rightcert=</span>client.cert.pem</div><div class="line">    <span class="variable">auto=</span>add</div><div class="line"></div><div class="line">conn windows7</div><div class="line">    <span class="variable">keyexchange=</span>ikev2</div><div class="line">    <span class="variable">ike=</span>aes256-sha1-modp1024!</div><div class="line">    <span class="variable">rekey=</span>no</div><div class="line">    <span class="variable">left=</span>%defaultroute</div><div class="line">    <span class="variable">leftauth=</span>pubkey</div><div class="line">    <span class="variable">leftsubnet=</span><span class="number">0.0</span>.<span class="number">0.0</span>/<span class="number">0</span></div><div class="line">    <span class="variable">leftcert=</span>server.cert.pem</div><div class="line">    <span class="variable">right=</span>%any</div><div class="line">    <span class="variable">rightauth=</span>eap-mschapv2</div><div class="line">    <span class="variable">rightsourceip=</span><span class="number">10.31</span>.<span class="number">2.0</span>/<span class="number">24</span></div><div class="line">    <span class="variable">rightsendcert=</span>never</div><div class="line">    <span class="variable">eap_identity=</span>%any</div><div class="line">    <span class="variable">auto=</span>add</div></pre></figure>
+
+<h2 id="配置strongswan.conf">配置strongswan.conf</h2><p>将<code>/usr/local/etc/strongswan.conf</code>替换为如下内容：</p>
+<figure class="highlight"><pre><div class="line"><span class="title">charon</span> {</div><div class="line">         <span class="title">load_modular</span> = <span class="built_in">yes</span></div><div class="line">         duplicheck.enable = <span class="built_in">no</span></div><div class="line">         compress = <span class="built_in">yes</span></div><div class="line">         plugins {</div><div class="line">                 <span class="title">include</span> strongswan.d/charon/<span class="regexp">*.conf</span></div><div class="line">         }</div><div class="line">         dns1 = <span class="number">8.8.8.8</span></div><div class="line">         dns2 = <span class="number">8.8.4.4</span></div><div class="line">         nbns1 = <span class="number">8.8.8.8</span></div><div class="line">         nbns2 = <span class="number">8.8.4.4</span></div><div class="line"> }</div><div class="line"> include strongswan.d/<span class="regexp">*.conf</span></div></pre></figure>
+
+<h2 id="配置ipsec.secrets">配置ipsec.secrets</h2><p>将<code>/usr/loca/etc/ipsec/ipsec.secrets</code>内容替换为如下内容：</p>
+<figure class="highlight"><pre><div class="line">: <span class="type">RSA</span> server.pem</div><div class="line">: <span class="type">PSK</span> <span class="string">"mykey"</span></div><div class="line">: <span class="type">XAUTH</span> <span class="string">"mykey"</span></div><div class="line">[用户名] %<span class="type">any</span> : <span class="type">EAP</span> <span class="string">"[密码]"</span></div></pre></figure>
+
+<p>注意将PSK、XAUTH处的&quot;mykey&quot;编辑为唯一且私密的字符串，并且将[用户名]改为自己想要的登录名，[密码]改为自己想要的密码（[]符号去掉），可以添加多行，得到多个用户。</p>
+<h1 id="配置iptables">配置iptables</h1><h2 id="修改sysctrl.conf">修改sysctrl.conf</h2><p>打开<code>/etc/sysctrl.conf</code>，然后uncomment包含<code>net.ipv4.ip_forward=1</code>的这一行。</p>
+<p>保存后，执行<code>sysctrl -p</code>。</p>
+<h2 id="修改iptables">修改iptables</h2><p>将<code>INF</code>替换为自己的网络接口.</p>
+<figure class="highlight"><pre><div class="line">INF=<span class="string">"Your own network interface"</span></div><div class="line">iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT</div><div class="line">iptables -A FORWARD <span class="operator">-s</span> <span class="number">10.31</span>.<span class="number">2.0</span>/<span class="number">24</span>  -j ACCEPT</div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p esp -j ACCEPT</div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p udp --dport <span class="number">500</span> -j ACCEPT</div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p tcp --dport <span class="number">500</span> -j ACCEPT</div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p udp --dport <span class="number">4500</span> -j ACCEPT</div><div class="line"><span class="comment"># for l2tp</span></div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p udp --dport <span class="number">1701</span> -j ACCEPT</div><div class="line"><span class="comment"># for pptp</span></div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p tcp --dport <span class="number">1723</span> -j ACCEPT</div><div class="line">iptables -A FORWARD -j REJECT</div><div class="line">iptables -t nat -A POSTROUTING <span class="operator">-s</span> <span class="number">10.31</span>.<span class="number">2.0</span>/<span class="number">24</span> -o <span class="variable">$INF</span> -j MASQUERADE</div></pre></figure>
+
+<h2 id="保存iptables且开机自动启动">保存iptables且开机自动启动</h2><figure class="highlight"><pre><div class="line">iptables-save &gt; /etc/iptables.rules</div><div class="line">cat &gt; /etc/network/<span class="keyword">if</span>-up.d/iptables&lt;&lt;EOF</div><div class="line"><span class="shebang">#!/bin/sh</span></div><div class="line">iptables-restore &lt; /etc/iptables.rules</div><div class="line">EOF</div><div class="line">chmod +x /etc/network/<span class="keyword">if</span>-up.d/iptables</div></pre></figure>
+
+<h2 id="重启ipsec服务">重启ipsec服务</h2><figure class="highlight"><pre><div class="line"><span class="title">ipsec</span> restart</div></pre></figure>
+
+<p>至此大功告成。</p>
+<p>WP8.1手机安装<code>ca.cert.pem</code>，进入设置<code>VPN</code>添加<code>IKEv2</code>连接，地址为证书中的地址或IP，通过用户名-密码连接。
+Windows连接也是一样，但注意将证书导入本地计算机而不是当前用户的“受信任的证书颁发机构”。
+iOS/Android/Mac OS X设备添加<code>Cisco IPSec PSK</code>验证方式，预共享密钥是<code>/usr/local/etc/ipsec.secrets</code>中PSK后的字符串（不含引号），用户名密码同上，可以通过任意域名或IP连接，不需要证书.</p>
+<p>接下来有时间我会试图把整个安装过程配置为一个Docker Build file，这样以后配置新的instance就跟方便了。</p>
+
+      
+    </div>
+  </div>
+</article>
+
+
+
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-title="在Google Cloud上搭建VPN" data-url="http://andimeo.info/2016/12/25/在Google-Cloud上搭建VPN/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"andimeo"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+        
+          
+<aside id="sidebar">
+  
+    
+      
+<div class="widget-wrap center">
+  <ul class="pagination">
+    <li>
+      
+        <span class="nav-prev disabled">Prev</span>
+      
+    </li>
+    <li>
+      <a data-url="http://andimeo.info/2016/12/25/在Google-Cloud上搭建VPN/" data-id="rqajrl189h4jhyu0" data_title="在Google Cloud上搭建VPN"
+        data_summary="之前在Google Cloud上申请过一个VPS，在Free trial期间使用了一个月，后来就关掉了。当时发现自己搭建VPN好容易啊。
+直到这次，想重新激活上次那个instance来做VPN的时候，..." class="article-share-link">Share</a>
+    </li>
+    <li>
+      
+        <a href="/2016/09/04/美国之行/" class="nav-next">Next</a>
+      
+    </li>
+  </ul>
+</div>
+
+
+    
+      <div class="widget-wrap">
+  <div class="post-widget">
+    <i class="fa fa-clock-o"></i>
+    <time datetime="2016-12-25T07:34:20.000Z" itemprop="datePublished">Dec 25 2016</time>
+  </div>
+</div>
+
+    
+      
+  <div class="widget-wrap">
+    <div class="post-widget">
+      <i class="fa fa-folder"></i>
+      <a class="category-link" href="/categories/VPS/">VPS<span class="category-count">1</span></a>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="post-widget">
+      <i class="fa fa-tags"></i>
+      <a class="tag-link" href="/tags/Google-Cloud/">Google Cloud<span class="tag-count">1</span></a><a class="tag-link" href="/tags/IPsec/">IPsec<span class="tag-count">1</span></a><a class="tag-link" href="/tags/StrongSwan/">StrongSwan<span class="tag-count">1</span></a><a class="tag-link" href="/tags/VPN/">VPN<span class="tag-count">1</span></a>
+    </div>
+  </div>
+
+
+    
+  
+</aside>
+
+
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer container">
+    <div id="footer-info" class="inner">
+      <a href="/">Andimeo&#39;s Blog</a> &copy; 2016 Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and Theme by <a href="https://github.com/seff/nut" target="_blank">Nut</a>
+    </div>
+  </div>
+</footer>
+<a id="gotop" href="#">
+  <i class="fa fa-chevron-up"></i>
+</a>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="[object Object]" class="mobile-nav-link">0</a>
+  
+    <a href="[object Object]" class="mobile-nav-link">1</a>
+  
+    <a href="[object Object]" class="mobile-nav-link">2</a>
+  
+    <a href="[object Object]" class="mobile-nav-link">3</a>
+  
+</nav>
+
+    
+
+<script src="/js/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script src="/js/jquery.fitvids.js" type="text/javascript"></script>
+
+<script src="/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+<script type="text/x-mathjax-config"> 
+MathJax.Hub.Config({ 
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} 
+}); 
+</script>
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </div>
+</body>
+</html>
