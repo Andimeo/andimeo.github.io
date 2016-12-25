@@ -276,7 +276,82 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
         
       >
   
-    <article id="post-6uzzc64j7yl03njb" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-1b10tbzv1816808s" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        <i class="fa fa-file-text-o"></i>
+        
+  
+    <h1 class="archive-title" itemprop="name">
+      <a class="article-title" href="/2014/11/24/多线程写文件/">多线程写文件</a>
+    </h1>
+  
+
+
+        <div class="article-date">
+  <time datetime="2014-11-24T07:31:22.000Z" itemprop="datePublished">Nov 24 2014</time>
+</div>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <!--<div class="thumbnail"><img src="/img/javaconcurrencyinpractice.jpg"></div>-->
+          <p>最近在准备Tango的面试，猎头给的参考资料中有这么一道题目：</p>
+<blockquote>
+
+<p>四个线程，一线程输出1，二线程输出2，三线程输出3，四线程输出4。分别向四个文件输出，使文件的内容如下：</p>
+<ul>
+<li>file1：123412341234…………</li>
+<li>file2：234123412341…………</li>
+<li>file3：341234123412…………</li>
+<li>file4：412341234123…………</li>
+</ul>
+</blockquote>
+
+
+<p>后来查了一下，发现这又是一道早些年Google的经典面试题。</p>
+<p>为了解决这道题目，也弥补一下自己稀缺的并发知识，于是在一周内啃完了《Java Concurrency in Practice》这本书。后来在面试中，和面试官聊到并发的话题时，随便扯扯书中说的CAS，面试官就不问什么了，呵呵。</p>
+<img src="/img/javaconcurrencyinpractice.jpg">
+
+<p>好了，言归正传，下面就来给出我对这道题目的三个解法：</p>
+
+          
+            <p class="article-more-link">
+              <a href="/2014/11/24/多线程写文件/#more">Read More</a>
+            </p>
+          
+        
+        <footer class="article-footer">
+          <a data-url="http://andimeo.info/2014/11/24/多线程写文件/" data-id="1b10tbzv1816808s" data_title="多线程写文件"
+          data_summary="最近在准备Tango的面试，猎头给的参考资料中有这么一道题目：
+
+
+四个线程，一线程输出1，二线程输出2，三线程输出3，四线程输出4。分别向四个文件输出，使文件的内容如下：..." class="article-share-link">Share</a>
+          
+          
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+
+          
+<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/Concurrency/">Concurrency</a></li></ul>
+
+
+        </footer>
+      
+    </div>
+  </div>
+</article>
+
+
+  
+    <article id="post-h8fkr45z9ald85wd" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -315,7 +390,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2014/11/07/生成圆内随机点/" data-id="6uzzc64j7yl03njb" data_title="生成圆内随机点"
+          <a data-url="http://andimeo.info/2014/11/07/生成圆内随机点/" data-id="h8fkr45z9ald85wd" data_title="生成圆内随机点"
           data_summary="今天小伙伴去网易游戏面试。有一个题目是要求在直径为1的圆内随机生成若干个点。
 他给出的算法是在边长为1的圆外接正方形内随机生成一个点，如果在圆内即采用，否则抛弃。面..." class="article-share-link">Share</a>
           
@@ -337,7 +412,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
   
-    <article id="post-w4q0ials1y41jr4t" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-eunqcs9k4q0km3or" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -383,7 +458,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2014/08/23/Git工作模式/" data-id="w4q0ials1y41jr4t" data_title="Git工作模式"
+          <a data-url="http://andimeo.info/2014/08/23/Git工作模式/" data-id="eunqcs9k4q0km3or" data_title="Git工作模式"
           data_summary="昨天晚上小伙伴问到我，如何回滚git repository的远程版本。折腾了近一个小时后，发现需要做的是，
 
 git reset --hard $version_number
@@ -409,7 +484,7 @@ git push -f
 
 
   
-    <article id="post-nwz6jngkz93bea4y" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-jg60sid55v397cll" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -446,7 +521,7 @@ git push -f
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2014/07/27/Arrow's-Impossibility-Theorem/" data-id="nwz6jngkz93bea4y" data_title="Arrow's Impossibility Theorem"
+          <a data-url="http://andimeo.info/2014/07/27/Arrow's-Impossibility-Theorem/" data-id="jg60sid55v397cll" data_title="Arrow's Impossibility Theorem"
           data_summary="最近刚刚看完了曼昆N.Gregory Mankiw的经济学原理，微观经济学分册。这本书是典型的西式教科书，文中穿插着各种真实世界中的事例以及类似纽约时报等媒体在当时的评论。读起..." class="article-share-link">Share</a>
           
           
@@ -467,7 +542,7 @@ git push -f
 
 
   
-    <article id="post-nh3xmixrp70b5a16" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-877akw6tkx52qc6b" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
 
@@ -507,7 +582,7 @@ git push -f
           
         
         <footer class="article-footer">
-          <a data-url="http://andimeo.info/2014/07/20/四星德国/" data-id="nh3xmixrp70b5a16" data_title="四星德国"
+          <a data-url="http://andimeo.info/2014/07/20/四星德国/" data-id="877akw6tkx52qc6b" data_title="四星德国"
           data_summary="
 
 2002年到2014年，四届世界杯，十二年，一次亚军，两次四强。从卡恩、巴拉克、坐冷板凳的光头扬克尔到克洛泽、拉姆、施魏因施泰格、波多尔斯基，诺伊尔，再到穆勒、格策，..." class="article-share-link">Share</a>
@@ -520,76 +595,6 @@ git push -f
 
           
 <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/世界杯/">世界杯</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-success" href="/tags/回忆/">回忆</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-info" href="/tags/德国/">德国</a></li></ul>
-
-
-        </footer>
-      
-    </div>
-  </div>
-</article>
-
-
-  
-    <article id="post-sajsdibwqsctt1ur" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-
-    
-      <header class="article-header">
-        <i class="fa fa-file-text-o"></i>
-        
-  
-    <h1 class="archive-title" itemprop="name">
-      <a class="article-title" href="/2014/06/27/配置mod_cluster与tomcat/">配置mod_cluster与tomcat</a>
-    </h1>
-  
-
-
-        <div class="article-date">
-  <time datetime="2014-06-27T15:33:40.000Z" itemprop="datePublished">Jun 27 2014</time>
-</div>
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-          <!--<div class="thumbnail"><img src="/img/mod_cluster.jpg" width="900"></div>-->
-          <blockquote>
-
-<p>mod_cluster 和mod_jk,mod_proxy类似，是一个基于httpd的负载均衡项目。能够代理请求给基于Tomcat的网络服务器集群(支持任何独立的Tomcat，JBoss Web或者JBoss AS)。mod_cluster与 mod_jk和mod_proxy的区别是，mod_cluster为web服务器和httpd服务器之间提供后台通道。web服务器使用后台通道给httpd端提供当前负载信息。 </p>
-</blockquote>
-
-
-
-<h1 id="配置mod_cluster">配置mod_cluster</h1><h2 id="下载mod_cluster">下载mod_cluster</h2><p>下载集成了mod_cluster模块的apache httpd server <a href="http://downloads.jboss.org/mod_cluster/1.2.6.Final/linux-x86_64/mod_cluster-1.2.6.Final-linux2-x64-ssl.tar.gz" target="_blank" rel="external">mod_cluster-1.2.6.Final-linux2-x64-ssl.tar.gz</a></p>
-<h2 id="安装步骤">安装步骤</h2><ul>
-<li>mkdir -p /tmp/apache</li>
-<li>tar -xzvf mod_cluster-1.2.6.Final-linux2-x64-ssl.tar.gz -C /tmp/apache</li>
-<li>cd /tmp/apache</li>
-<li>cp -r opt/* /opt</li>
-</ul>
-
-          
-            <p class="article-more-link">
-              <a href="/2014/06/27/配置mod_cluster与tomcat/#more">Read More</a>
-            </p>
-          
-        
-        <footer class="article-footer">
-          <a data-url="http://andimeo.info/2014/06/27/配置mod_cluster与tomcat/" data-id="sajsdibwqsctt1ur" data_title="配置mod_cluster与tomcat"
-          data_summary="
-
-mod_cluster 和mod_jk,mod_proxy类似，是一个基于httpd的负载均衡项目。能够代理请求给基于Tomcat的网络服务器集群(支持任何独立的Tomcat，JBoss Web或者JBoss AS)。mod_..." class="article-share-link">Share</a>
-          
-          
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java/">Java</a>
-  </div>
-
-
-          
-<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link label label-primary" href="/tags/mod-cluster/">mod_cluster</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-success" href="/tags/tomcat/">tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-info" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link label label-warning" href="/tags/负载均衡/">负载均衡</a></li></ul>
 
 
         </footer>
@@ -639,7 +644,7 @@ mod_cluster 和mod_jk,mod_proxy类似，是一个基于httpd的负载均衡项�
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <a class="category-link" href="/categories/Java/">Java<span class="category-count">3</span></a><a class="category-link" href="/categories/Node-js/">Node.js<span class="category-count">1</span></a><a class="category-link" href="/categories/VPS/">VPS<span class="category-count">1</span></a><a class="category-link" href="/categories/书摘/">书摘<span class="category-count">1</span></a><a class="category-link" href="/categories/密码学/">密码学<span class="category-count">1</span></a><a class="category-link" href="/categories/工具/">工具<span class="category-count">1</span></a><a class="category-link" href="/categories/心情/">心情<span class="category-count">4</span></a><a class="category-link" href="/categories/搜索/">搜索<span class="category-count">1</span></a><a class="category-link" href="/categories/概率/">概率<span class="category-count">1</span></a><a class="category-link" href="/categories/游记/">游记<span class="category-count">1</span></a><a class="category-link" href="/categories/算法/">算法<span class="category-count">1</span></a><a class="category-link" href="/categories/经济学/">经济学<span class="category-count">1</span></a>
+      <a class="category-link" href="/categories/Java/">Java<span class="category-count">3</span></a><a class="category-link" href="/categories/Music/">Music<span class="category-count">1</span></a><a class="category-link" href="/categories/Node-js/">Node.js<span class="category-count">1</span></a><a class="category-link" href="/categories/VPS/">VPS<span class="category-count">1</span></a><a class="category-link" href="/categories/书摘/">书摘<span class="category-count">1</span></a><a class="category-link" href="/categories/密码学/">密码学<span class="category-count">1</span></a><a class="category-link" href="/categories/工具/">工具<span class="category-count">1</span></a><a class="category-link" href="/categories/心情/">心情<span class="category-count">4</span></a><a class="category-link" href="/categories/搜索/">搜索<span class="category-count">1</span></a><a class="category-link" href="/categories/概率/">概率<span class="category-count">1</span></a><a class="category-link" href="/categories/游记/">游记<span class="category-count">1</span></a><a class="category-link" href="/categories/算法/">算法<span class="category-count">1</span></a><a class="category-link" href="/categories/经济学/">经济学<span class="category-count">1</span></a>
     </div>
   </div>
 
@@ -649,7 +654,7 @@ mod_cluster 和mod_jk,mod_proxy类似，是一个基于httpd的负载均衡项�
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <a class="tag-link" href="/tags/Bay-area/">Bay area<span class="tag-count">1</span></a><a class="tag-link" href="/tags/California/">California<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Certificate/">Certificate<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Concurrency/">Concurrency<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Cupertino/">Cupertino<span class="tag-count">1</span></a><a class="tag-link" href="/tags/DER/">DER<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Generics/">Generics<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Git/">Git<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Google-Cloud/">Google Cloud<span class="tag-count">1</span></a><a class="tag-link" href="/tags/IPsec/">IPsec<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Information-Retrieval-Evaluating/">Information Retrieval Evaluating<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Las-Vegas/">Las Vegas<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Lucene/">Lucene<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Luminate/">Luminate<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Mathematics/">Mathematics<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Node-js/">Node.js<span class="tag-count">1</span></a><a class="tag-link" href="/tags/OpenSSL/">OpenSSL<span class="tag-count">1</span></a><a class="tag-link" href="/tags/PEM/">PEM<span class="tag-count">1</span></a><a class="tag-link" href="/tags/StrongSwan/">StrongSwan<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Tango/">Tango<span class="tag-count">1</span></a><a class="tag-link" href="/tags/US/">US<span class="tag-count">1</span></a><a class="tag-link" href="/tags/VPN/">VPN<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Wildcard/">Wildcard<span class="tag-count">1</span></a><a class="tag-link" href="/tags/mod-cluster/">mod_cluster<span class="tag-count">1</span></a><a class="tag-link" href="/tags/tomcat/">tomcat<span class="tag-count">1</span></a><a class="tag-link" href="/tags/世界杯/">世界杯<span class="tag-count">1</span></a><a class="tag-link" href="/tags/事件轮询/">事件轮询<span class="tag-count">1</span></a><a class="tag-link" href="/tags/信息检索/">信息检索<span class="tag-count">1</span></a><a class="tag-link" href="/tags/分布式/">分布式<span class="tag-count">1</span></a><a class="tag-link" href="/tags/切尔诺贝利/">切尔诺贝利<span class="tag-count">1</span></a><a class="tag-link" href="/tags/历史/">历史<span class="tag-count">1</span></a><a class="tag-link" href="/tags/商品搜索/">商品搜索<span class="tag-count">1</span></a><a class="tag-link" href="/tags/回忆/">回忆<span class="tag-count">2</span></a><a class="tag-link" href="/tags/大学/">大学<span class="tag-count">1</span></a><a class="tag-link" href="/tags/工作/">工作<span class="tag-count">1</span></a><a class="tag-link" href="/tags/微观经济学/">微观经济学<span class="tag-count">1</span></a><a class="tag-link" href="/tags/德国/">德国<span class="tag-count">1</span></a><a class="tag-link" href="/tags/排序/">排序<span class="tag-count">1</span></a><a class="tag-link" href="/tags/政治经济学/">政治经济学<span class="tag-count">1</span></a><a class="tag-link" href="/tags/核灾难/">核灾难<span class="tag-count">1</span></a><a class="tag-link" href="/tags/泛型/">泛型<span class="tag-count">1</span></a><a class="tag-link" href="/tags/算法/">算法<span class="tag-count">1</span></a><a class="tag-link" href="/tags/译文/">译文<span class="tag-count">3</span></a><a class="tag-link" href="/tags/负载均衡/">负载均衡<span class="tag-count">1</span></a>
+      <a class="tag-link" href="/tags/Bay-area/">Bay area<span class="tag-count">1</span></a><a class="tag-link" href="/tags/California/">California<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Certificate/">Certificate<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Concurrency/">Concurrency<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Cupertino/">Cupertino<span class="tag-count">1</span></a><a class="tag-link" href="/tags/DER/">DER<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Generics/">Generics<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Git/">Git<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Google-Cloud/">Google Cloud<span class="tag-count">1</span></a><a class="tag-link" href="/tags/IPsec/">IPsec<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Information-Retrieval-Evaluating/">Information Retrieval Evaluating<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Las-Vegas/">Las Vegas<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Lucene/">Lucene<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Luminate/">Luminate<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Mathematics/">Mathematics<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Node-js/">Node.js<span class="tag-count">1</span></a><a class="tag-link" href="/tags/OpenSSL/">OpenSSL<span class="tag-count">1</span></a><a class="tag-link" href="/tags/PEM/">PEM<span class="tag-count">1</span></a><a class="tag-link" href="/tags/StrongSwan/">StrongSwan<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Tango/">Tango<span class="tag-count">1</span></a><a class="tag-link" href="/tags/US/">US<span class="tag-count">1</span></a><a class="tag-link" href="/tags/VPN/">VPN<span class="tag-count">1</span></a><a class="tag-link" href="/tags/Wildcard/">Wildcard<span class="tag-count">1</span></a><a class="tag-link" href="/tags/mod-cluster/">mod_cluster<span class="tag-count">1</span></a><a class="tag-link" href="/tags/tomcat/">tomcat<span class="tag-count">1</span></a><a class="tag-link" href="/tags/世界杯/">世界杯<span class="tag-count">1</span></a><a class="tag-link" href="/tags/事件轮询/">事件轮询<span class="tag-count">1</span></a><a class="tag-link" href="/tags/信息检索/">信息检索<span class="tag-count">1</span></a><a class="tag-link" href="/tags/分布式/">分布式<span class="tag-count">1</span></a><a class="tag-link" href="/tags/切尔诺贝利/">切尔诺贝利<span class="tag-count">1</span></a><a class="tag-link" href="/tags/历史/">历史<span class="tag-count">1</span></a><a class="tag-link" href="/tags/商品搜索/">商品搜索<span class="tag-count">1</span></a><a class="tag-link" href="/tags/回忆/">回忆<span class="tag-count">2</span></a><a class="tag-link" href="/tags/大学/">大学<span class="tag-count">1</span></a><a class="tag-link" href="/tags/工作/">工作<span class="tag-count">1</span></a><a class="tag-link" href="/tags/微观经济学/">微观经济学<span class="tag-count">1</span></a><a class="tag-link" href="/tags/德国/">德国<span class="tag-count">1</span></a><a class="tag-link" href="/tags/心情/">心情<span class="tag-count">1</span></a><a class="tag-link" href="/tags/总结/">总结<span class="tag-count">1</span></a><a class="tag-link" href="/tags/排序/">排序<span class="tag-count">1</span></a><a class="tag-link" href="/tags/政治经济学/">政治经济学<span class="tag-count">1</span></a><a class="tag-link" href="/tags/核灾难/">核灾难<span class="tag-count">1</span></a><a class="tag-link" href="/tags/泛型/">泛型<span class="tag-count">1</span></a><a class="tag-link" href="/tags/算法/">算法<span class="tag-count">1</span></a><a class="tag-link" href="/tags/译文/">译文<span class="tag-count">3</span></a><a class="tag-link" href="/tags/负载均衡/">负载均衡<span class="tag-count">1</span></a><a class="tag-link" href="/tags/音乐/">音乐<span class="tag-count">1</span></a>
     </div>
   </div>
 
@@ -659,7 +664,7 @@ mod_cluster 和mod_jk,mod_proxy类似，是一个基于httpd的负载均衡项�
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
