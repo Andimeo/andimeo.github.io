@@ -4,7 +4,7 @@
   <subtitle><![CDATA[今年26了]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://andimeo.info/"/>
-  <updated>2016-12-25T11:35:50.082Z</updated>
+  <updated>2016-12-31T11:39:59.958Z</updated>
   <id>http://andimeo.info/</id>
   
   <author>
@@ -176,7 +176,7 @@
     <link href="http://andimeo.info/2016/12/25/%E5%9C%A8Google-Cloud%E4%B8%8A%E6%90%AD%E5%BB%BAVPN/"/>
     <id>http://andimeo.info/2016/12/25/在Google-Cloud上搭建VPN/</id>
     <published>2016-12-25T07:34:20.000Z</published>
-    <updated>2016-12-25T08:41:13.000Z</updated>
+    <updated>2016-12-31T11:39:25.000Z</updated>
     <content type="html"><![CDATA[<p>之前在Google Cloud上申请过一个VPS，在Free trial期间使用了一个月，后来就关掉了。当时发现自己搭建VPN好容易啊。
 直到这次，想重新激活上次那个instance来做VPN的时候，VPN已链接，但是data plane的traffic却始终发送不出去。
 于是重新搜索了教程，才搞定这件事情。这里主要针对Google Cloud总结一下一些重要步骤。</p>
@@ -232,7 +232,7 @@
 <h1 id="配置iptables">配置iptables</h1><h2 id="修改sysctrl.conf">修改sysctrl.conf</h2><p>打开<code>/etc/sysctrl.conf</code>，然后uncomment包含<code>net.ipv4.ip_forward=1</code>的这一行。</p>
 <p>保存后，执行<code>sysctrl -p</code>。</p>
 <h2 id="修改iptables">修改iptables</h2><p>将<code>INF</code>替换为自己的网络接口.</p>
-<figure class="highlight"><pre><div class="line">INF=<span class="string">"Your own network interface"</span></div><div class="line">iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT</div><div class="line">iptables -A FORWARD <span class="operator">-s</span> <span class="number">10.31</span>.<span class="number">2.0</span>/<span class="number">24</span>  -j ACCEPT</div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p esp -j ACCEPT</div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p udp --dport <span class="number">500</span> -j ACCEPT</div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p tcp --dport <span class="number">500</span> -j ACCEPT</div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p udp --dport <span class="number">4500</span> -j ACCEPT</div><div class="line"><span class="comment"># for l2tp</span></div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p udp --dport <span class="number">1701</span> -j ACCEPT</div><div class="line"><span class="comment"># for pptp</span></div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p tcp --dport <span class="number">1723</span> -j ACCEPT</div><div class="line">iptables -A FORWARD -j REJECT</div><div class="line">iptables -t nat -A POSTROUTING <span class="operator">-s</span> <span class="number">10.31</span>.<span class="number">2.0</span>/<span class="number">24</span> -o <span class="variable">$INF</span> -j MASQUERADE</div></pre></figure>
+<figure class="highlight"><pre><div class="line">INF=<span class="string">"Your own network interface"</span></div><div class="line">iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT</div><div class="line">iptables -A FORWARD <span class="operator">-s</span> <span class="number">10.31</span>.<span class="number">2.0</span>/<span class="number">24</span>  -j ACCEPT</div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p esp -j ACCEPT</div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p udp --dport <span class="number">500</span> -j ACCEPT</div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p tcp --dport <span class="number">500</span> -j ACCEPT</div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p udp --dport <span class="number">4500</span> -j ACCEPT</div><div class="line"><span class="comment"># for l2tp</span></div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p udp --dport <span class="number">1701</span> -j ACCEPT</div><div class="line"><span class="comment"># for pptp</span></div><div class="line">iptables -A INPUT -i <span class="variable">$INF</span> -p tcp --dport <span class="number">1723</span> -j ACCEPT</div><div class="line">iptables -A FORWARD -j REJECT</div><div class="line">iptables -t nat -A POSTROUTING <span class="operator">-s</span> <span class="number">10.31</span>.<span class="number">2.0</span>/<span class="number">24</span> -o <span class="variable">$INF</span> -j MASQUERADE</div><div class="line">iptables -t nat -A POSTROUTING <span class="operator">-s</span> <span class="number">10.31</span>.<span class="number">2.1</span>/<span class="number">24</span> -o <span class="variable">$INF</span> -j MASQUERADE</div><div class="line">iptables -t nat -A POSTROUTING <span class="operator">-s</span> <span class="number">10.31</span>.<span class="number">2.2</span>/<span class="number">24</span> -o <span class="variable">$INF</span> -j MASQUERADE</div></pre></figure>
 
 <h2 id="保存iptables且开机自动启动">保存iptables且开机自动启动</h2><figure class="highlight"><pre><div class="line">iptables-save &gt; /etc/iptables.rules</div><div class="line">cat &gt; /etc/network/<span class="keyword">if</span>-up.d/iptables&lt;&lt;EOF</div><div class="line"><span class="shebang">#!/bin/sh</span></div><div class="line">iptables-restore &lt; /etc/iptables.rules</div><div class="line">EOF</div><div class="line">chmod +x /etc/network/<span class="keyword">if</span>-up.d/iptables</div></pre></figure>
 
