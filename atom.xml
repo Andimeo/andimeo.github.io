@@ -3,11 +3,11 @@
   <title>Andimeo&#39;s Blog</title>
   
   <subtitle>今年26了</subtitle>
-  <link href="http://andimeo.us.kg/atom.xml" rel="self"/>
+  <link href="https://andimeo.us.kg/atom.xml" rel="self"/>
   
-  <link href="http://andimeo.us.kg/"/>
+  <link href="https://andimeo.us.kg/"/>
   <updated>2024-09-07T08:31:27.518Z</updated>
-  <id>http://andimeo.us.kg/</id>
+  <id>https://andimeo.us.kg/</id>
   
   <author>
     <name>Andimeo</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>2016 AMA</title>
-    <link href="http://andimeo.us.kg/2016/12/25/2016-AMA/"/>
-    <id>http://andimeo.us.kg/2016/12/25/2016-AMA/</id>
+    <link href="https://andimeo.us.kg/2016/12/25/2016-AMA/"/>
+    <id>https://andimeo.us.kg/2016/12/25/2016-AMA/</id>
     <published>2016-12-25T09:17:22.000Z</published>
     <updated>2024-09-07T08:31:27.518Z</updated>
     
@@ -35,21 +35,21 @@
     
     
     
-    <category term="Music" scheme="http://andimeo.us.kg/categories/Music/"/>
+    <category term="Music" scheme="https://andimeo.us.kg/categories/Music/"/>
     
     
-    <category term="心情" scheme="http://andimeo.us.kg/tags/%E5%BF%83%E6%83%85/"/>
+    <category term="心情" scheme="https://andimeo.us.kg/tags/%E5%BF%83%E6%83%85/"/>
     
-    <category term="总结" scheme="http://andimeo.us.kg/tags/%E6%80%BB%E7%BB%93/"/>
+    <category term="总结" scheme="https://andimeo.us.kg/tags/%E6%80%BB%E7%BB%93/"/>
     
-    <category term="音乐" scheme="http://andimeo.us.kg/tags/%E9%9F%B3%E4%B9%90/"/>
+    <category term="音乐" scheme="https://andimeo.us.kg/tags/%E9%9F%B3%E4%B9%90/"/>
     
   </entry>
   
   <entry>
     <title>在Google Cloud上搭建VPN</title>
-    <link href="http://andimeo.us.kg/2016/12/25/%E5%9C%A8Google-Cloud%E4%B8%8A%E6%90%AD%E5%BB%BAVPN/"/>
-    <id>http://andimeo.us.kg/2016/12/25/%E5%9C%A8Google-Cloud%E4%B8%8A%E6%90%AD%E5%BB%BAVPN/</id>
+    <link href="https://andimeo.us.kg/2016/12/25/%E5%9C%A8Google-Cloud%E4%B8%8A%E6%90%AD%E5%BB%BAVPN/"/>
+    <id>https://andimeo.us.kg/2016/12/25/%E5%9C%A8Google-Cloud%E4%B8%8A%E6%90%AD%E5%BB%BAVPN/</id>
     <published>2016-12-25T07:34:20.000Z</published>
     <updated>2024-09-07T07:25:33.406Z</updated>
     
@@ -66,23 +66,23 @@
     
     
     
-    <category term="VPS" scheme="http://andimeo.us.kg/categories/VPS/"/>
+    <category term="VPS" scheme="https://andimeo.us.kg/categories/VPS/"/>
     
     
-    <category term="VPN" scheme="http://andimeo.us.kg/tags/VPN/"/>
+    <category term="VPN" scheme="https://andimeo.us.kg/tags/VPN/"/>
     
-    <category term="Google Cloud" scheme="http://andimeo.us.kg/tags/Google-Cloud/"/>
+    <category term="Google Cloud" scheme="https://andimeo.us.kg/tags/Google-Cloud/"/>
     
-    <category term="IPsec" scheme="http://andimeo.us.kg/tags/IPsec/"/>
+    <category term="IPsec" scheme="https://andimeo.us.kg/tags/IPsec/"/>
     
-    <category term="StrongSwan" scheme="http://andimeo.us.kg/tags/StrongSwan/"/>
+    <category term="StrongSwan" scheme="https://andimeo.us.kg/tags/StrongSwan/"/>
     
   </entry>
   
   <entry>
     <title>美国之行</title>
-    <link href="http://andimeo.us.kg/2016/09/04/%E7%BE%8E%E5%9B%BD%E4%B9%8B%E8%A1%8C/"/>
-    <id>http://andimeo.us.kg/2016/09/04/%E7%BE%8E%E5%9B%BD%E4%B9%8B%E8%A1%8C/</id>
+    <link href="https://andimeo.us.kg/2016/09/04/%E7%BE%8E%E5%9B%BD%E4%B9%8B%E8%A1%8C/"/>
+    <id>https://andimeo.us.kg/2016/09/04/%E7%BE%8E%E5%9B%BD%E4%B9%8B%E8%A1%8C/</id>
     <published>2016-09-04T08:29:20.000Z</published>
     <updated>2024-09-07T07:27:42.163Z</updated>
     
@@ -95,25 +95,25 @@
     
     
     
-    <category term="游记" scheme="http://andimeo.us.kg/categories/%E6%B8%B8%E8%AE%B0/"/>
+    <category term="游记" scheme="https://andimeo.us.kg/categories/%E6%B8%B8%E8%AE%B0/"/>
     
     
-    <category term="US" scheme="http://andimeo.us.kg/tags/US/"/>
+    <category term="US" scheme="https://andimeo.us.kg/tags/US/"/>
     
-    <category term="Las Vegas" scheme="http://andimeo.us.kg/tags/Las-Vegas/"/>
+    <category term="Las Vegas" scheme="https://andimeo.us.kg/tags/Las-Vegas/"/>
     
-    <category term="Cupertino" scheme="http://andimeo.us.kg/tags/Cupertino/"/>
+    <category term="Cupertino" scheme="https://andimeo.us.kg/tags/Cupertino/"/>
     
-    <category term="California" scheme="http://andimeo.us.kg/tags/California/"/>
+    <category term="California" scheme="https://andimeo.us.kg/tags/California/"/>
     
-    <category term="Bay area" scheme="http://andimeo.us.kg/tags/Bay-area/"/>
+    <category term="Bay area" scheme="https://andimeo.us.kg/tags/Bay-area/"/>
     
   </entry>
   
   <entry>
     <title>Certificate</title>
-    <link href="http://andimeo.us.kg/2016/06/11/Certificate/"/>
-    <id>http://andimeo.us.kg/2016/06/11/Certificate/</id>
+    <link href="https://andimeo.us.kg/2016/06/11/Certificate/"/>
+    <id>https://andimeo.us.kg/2016/06/11/Certificate/</id>
     <published>2016-06-11T10:17:53.000Z</published>
     <updated>2024-09-07T07:25:33.407Z</updated>
     
@@ -126,23 +126,23 @@
     
     
     
-    <category term="密码学" scheme="http://andimeo.us.kg/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/"/>
+    <category term="密码学" scheme="https://andimeo.us.kg/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/"/>
     
     
-    <category term="Certificate" scheme="http://andimeo.us.kg/tags/Certificate/"/>
+    <category term="Certificate" scheme="https://andimeo.us.kg/tags/Certificate/"/>
     
-    <category term="DER" scheme="http://andimeo.us.kg/tags/DER/"/>
+    <category term="DER" scheme="https://andimeo.us.kg/tags/DER/"/>
     
-    <category term="PEM" scheme="http://andimeo.us.kg/tags/PEM/"/>
+    <category term="PEM" scheme="https://andimeo.us.kg/tags/PEM/"/>
     
-    <category term="OpenSSL" scheme="http://andimeo.us.kg/tags/OpenSSL/"/>
+    <category term="OpenSSL" scheme="https://andimeo.us.kg/tags/OpenSSL/"/>
     
   </entry>
   
   <entry>
     <title>从Tango到Luminate</title>
-    <link href="http://andimeo.us.kg/2016/06/11/%E4%BB%8ETango%E5%88%B0Luminate/"/>
-    <id>http://andimeo.us.kg/2016/06/11/%E4%BB%8ETango%E5%88%B0Luminate/</id>
+    <link href="https://andimeo.us.kg/2016/06/11/%E4%BB%8ETango%E5%88%B0Luminate/"/>
+    <id>https://andimeo.us.kg/2016/06/11/%E4%BB%8ETango%E5%88%B0Luminate/</id>
     <published>2016-06-11T07:29:02.000Z</published>
     <updated>2024-09-07T07:25:33.408Z</updated>
     
@@ -154,19 +154,19 @@
     
     
     
-    <category term="心情" scheme="http://andimeo.us.kg/categories/%E5%BF%83%E6%83%85/"/>
+    <category term="心情" scheme="https://andimeo.us.kg/categories/%E5%BF%83%E6%83%85/"/>
     
     
-    <category term="Tango" scheme="http://andimeo.us.kg/tags/Tango/"/>
+    <category term="Tango" scheme="https://andimeo.us.kg/tags/Tango/"/>
     
-    <category term="Luminate" scheme="http://andimeo.us.kg/tags/Luminate/"/>
+    <category term="Luminate" scheme="https://andimeo.us.kg/tags/Luminate/"/>
     
   </entry>
   
   <entry>
     <title>切尔诺贝利的回忆</title>
-    <link href="http://andimeo.us.kg/2015/12/05/%E5%88%87%E5%B0%94%E8%AF%BA%E8%B4%9D%E5%88%A9%E7%9A%84%E5%9B%9E%E5%BF%86/"/>
-    <id>http://andimeo.us.kg/2015/12/05/%E5%88%87%E5%B0%94%E8%AF%BA%E8%B4%9D%E5%88%A9%E7%9A%84%E5%9B%9E%E5%BF%86/</id>
+    <link href="https://andimeo.us.kg/2015/12/05/%E5%88%87%E5%B0%94%E8%AF%BA%E8%B4%9D%E5%88%A9%E7%9A%84%E5%9B%9E%E5%BF%86/"/>
+    <id>https://andimeo.us.kg/2015/12/05/%E5%88%87%E5%B0%94%E8%AF%BA%E8%B4%9D%E5%88%A9%E7%9A%84%E5%9B%9E%E5%BF%86/</id>
     <published>2015-12-05T15:50:11.000Z</published>
     <updated>2024-09-07T07:25:33.406Z</updated>
     
@@ -194,21 +194,21 @@
     
     
     
-    <category term="书摘" scheme="http://andimeo.us.kg/categories/%E4%B9%A6%E6%91%98/"/>
+    <category term="书摘" scheme="https://andimeo.us.kg/categories/%E4%B9%A6%E6%91%98/"/>
     
     
-    <category term="切尔诺贝利" scheme="http://andimeo.us.kg/tags/%E5%88%87%E5%B0%94%E8%AF%BA%E8%B4%9D%E5%88%A9/"/>
+    <category term="切尔诺贝利" scheme="https://andimeo.us.kg/tags/%E5%88%87%E5%B0%94%E8%AF%BA%E8%B4%9D%E5%88%A9/"/>
     
-    <category term="核灾难" scheme="http://andimeo.us.kg/tags/%E6%A0%B8%E7%81%BE%E9%9A%BE/"/>
+    <category term="核灾难" scheme="https://andimeo.us.kg/tags/%E6%A0%B8%E7%81%BE%E9%9A%BE/"/>
     
-    <category term="历史" scheme="http://andimeo.us.kg/tags/%E5%8E%86%E5%8F%B2/"/>
+    <category term="历史" scheme="https://andimeo.us.kg/tags/%E5%8E%86%E5%8F%B2/"/>
     
   </entry>
   
   <entry>
     <title>一个商品排序搜索问题</title>
-    <link href="http://andimeo.us.kg/2015/06/28/%E4%B8%80%E4%B8%AA%E5%95%86%E5%93%81%E6%90%9C%E7%B4%A2%E6%8E%92%E5%BA%8F%E9%97%AE%E9%A2%98/"/>
-    <id>http://andimeo.us.kg/2015/06/28/%E4%B8%80%E4%B8%AA%E5%95%86%E5%93%81%E6%90%9C%E7%B4%A2%E6%8E%92%E5%BA%8F%E9%97%AE%E9%A2%98/</id>
+    <link href="https://andimeo.us.kg/2015/06/28/%E4%B8%80%E4%B8%AA%E5%95%86%E5%93%81%E6%90%9C%E7%B4%A2%E6%8E%92%E5%BA%8F%E9%97%AE%E9%A2%98/"/>
+    <id>https://andimeo.us.kg/2015/06/28/%E4%B8%80%E4%B8%AA%E5%95%86%E5%93%81%E6%90%9C%E7%B4%A2%E6%8E%92%E5%BA%8F%E9%97%AE%E9%A2%98/</id>
     <published>2015-06-27T16:35:24.000Z</published>
     <updated>2024-09-07T07:25:33.406Z</updated>
     
@@ -220,21 +220,21 @@
     
     
     
-    <category term="搜索" scheme="http://andimeo.us.kg/categories/%E6%90%9C%E7%B4%A2/"/>
+    <category term="搜索" scheme="https://andimeo.us.kg/categories/%E6%90%9C%E7%B4%A2/"/>
     
     
-    <category term="商品搜索" scheme="http://andimeo.us.kg/tags/%E5%95%86%E5%93%81%E6%90%9C%E7%B4%A2/"/>
+    <category term="商品搜索" scheme="https://andimeo.us.kg/tags/%E5%95%86%E5%93%81%E6%90%9C%E7%B4%A2/"/>
     
-    <category term="信息检索" scheme="http://andimeo.us.kg/tags/%E4%BF%A1%E6%81%AF%E6%A3%80%E7%B4%A2/"/>
+    <category term="信息检索" scheme="https://andimeo.us.kg/tags/%E4%BF%A1%E6%81%AF%E6%A3%80%E7%B4%A2/"/>
     
-    <category term="Information Retrieval Evaluating" scheme="http://andimeo.us.kg/tags/Information-Retrieval-Evaluating/"/>
+    <category term="Information Retrieval Evaluating" scheme="https://andimeo.us.kg/tags/Information-Retrieval-Evaluating/"/>
     
   </entry>
   
   <entry>
     <title>Java Generics</title>
-    <link href="http://andimeo.us.kg/2015/05/12/Java%20Generics/"/>
-    <id>http://andimeo.us.kg/2015/05/12/Java%20Generics/</id>
+    <link href="https://andimeo.us.kg/2015/05/12/Java%20Generics/"/>
+    <id>https://andimeo.us.kg/2015/05/12/Java%20Generics/</id>
     <published>2015-05-12T13:39:00.000Z</published>
     <updated>2024-09-07T12:50:18.985Z</updated>
     
@@ -255,21 +255,21 @@
     
     
     
-    <category term="Java" scheme="http://andimeo.us.kg/categories/Java/"/>
+    <category term="Java" scheme="https://andimeo.us.kg/categories/Java/"/>
     
     
-    <category term="泛型" scheme="http://andimeo.us.kg/tags/%E6%B3%9B%E5%9E%8B/"/>
+    <category term="泛型" scheme="https://andimeo.us.kg/tags/%E6%B3%9B%E5%9E%8B/"/>
     
-    <category term="Generics" scheme="http://andimeo.us.kg/tags/Generics/"/>
+    <category term="Generics" scheme="https://andimeo.us.kg/tags/Generics/"/>
     
-    <category term="Wildcard" scheme="http://andimeo.us.kg/tags/Wildcard/"/>
+    <category term="Wildcard" scheme="https://andimeo.us.kg/tags/Wildcard/"/>
     
   </entry>
   
   <entry>
     <title>几种教科书里没有的排序</title>
-    <link href="http://andimeo.us.kg/2015/05/03/%E5%87%A0%E7%A7%8D%E6%95%99%E7%A7%91%E4%B9%A6%E9%87%8C%E6%B2%A1%E6%9C%89%E7%9A%84%E6%8E%92%E5%BA%8F/"/>
-    <id>http://andimeo.us.kg/2015/05/03/%E5%87%A0%E7%A7%8D%E6%95%99%E7%A7%91%E4%B9%A6%E9%87%8C%E6%B2%A1%E6%9C%89%E7%9A%84%E6%8E%92%E5%BA%8F/</id>
+    <link href="https://andimeo.us.kg/2015/05/03/%E5%87%A0%E7%A7%8D%E6%95%99%E7%A7%91%E4%B9%A6%E9%87%8C%E6%B2%A1%E6%9C%89%E7%9A%84%E6%8E%92%E5%BA%8F/"/>
+    <id>https://andimeo.us.kg/2015/05/03/%E5%87%A0%E7%A7%8D%E6%95%99%E7%A7%91%E4%B9%A6%E9%87%8C%E6%B2%A1%E6%9C%89%E7%9A%84%E6%8E%92%E5%BA%8F/</id>
     <published>2015-05-03T14:04:56.000Z</published>
     <updated>2024-09-07T07:25:33.406Z</updated>
     
@@ -281,21 +281,21 @@
     
     
     
-    <category term="算法" scheme="http://andimeo.us.kg/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="算法" scheme="https://andimeo.us.kg/categories/%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="排序" scheme="http://andimeo.us.kg/tags/%E6%8E%92%E5%BA%8F/"/>
+    <category term="排序" scheme="https://andimeo.us.kg/tags/%E6%8E%92%E5%BA%8F/"/>
     
-    <category term="算法" scheme="http://andimeo.us.kg/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="算法" scheme="https://andimeo.us.kg/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="Lucene" scheme="http://andimeo.us.kg/tags/Lucene/"/>
+    <category term="Lucene" scheme="https://andimeo.us.kg/tags/Lucene/"/>
     
   </entry>
   
   <entry>
     <title>2014，再见！MicroStrategy 再见！</title>
-    <link href="http://andimeo.us.kg/2014/12/31/2014%EF%BC%8C%E5%86%8D%E8%A7%81%EF%BC%81MicroStrategy-%E5%86%8D%E8%A7%81%EF%BC%81/"/>
-    <id>http://andimeo.us.kg/2014/12/31/2014%EF%BC%8C%E5%86%8D%E8%A7%81%EF%BC%81MicroStrategy-%E5%86%8D%E8%A7%81%EF%BC%81/</id>
+    <link href="https://andimeo.us.kg/2014/12/31/2014%EF%BC%8C%E5%86%8D%E8%A7%81%EF%BC%81MicroStrategy-%E5%86%8D%E8%A7%81%EF%BC%81/"/>
+    <id>https://andimeo.us.kg/2014/12/31/2014%EF%BC%8C%E5%86%8D%E8%A7%81%EF%BC%81MicroStrategy-%E5%86%8D%E8%A7%81%EF%BC%81/</id>
     <published>2014-12-31T13:40:23.000Z</published>
     <updated>2024-09-07T07:25:33.409Z</updated>
     
@@ -309,17 +309,17 @@
     
     
     
-    <category term="心情" scheme="http://andimeo.us.kg/categories/%E5%BF%83%E6%83%85/"/>
+    <category term="心情" scheme="https://andimeo.us.kg/categories/%E5%BF%83%E6%83%85/"/>
     
     
-    <category term="工作" scheme="http://andimeo.us.kg/tags/%E5%B7%A5%E4%BD%9C/"/>
+    <category term="工作" scheme="https://andimeo.us.kg/tags/%E5%B7%A5%E4%BD%9C/"/>
     
   </entry>
   
   <entry>
     <title>多线程写文件</title>
-    <link href="http://andimeo.us.kg/2014/11/24/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%86%99%E6%96%87%E4%BB%B6/"/>
-    <id>http://andimeo.us.kg/2014/11/24/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%86%99%E6%96%87%E4%BB%B6/</id>
+    <link href="https://andimeo.us.kg/2014/11/24/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%86%99%E6%96%87%E4%BB%B6/"/>
+    <id>https://andimeo.us.kg/2014/11/24/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%86%99%E6%96%87%E4%BB%B6/</id>
     <published>2014-11-24T07:31:22.000Z</published>
     <updated>2024-09-07T07:25:33.406Z</updated>
     
@@ -343,17 +343,17 @@
     
     
     
-    <category term="Java" scheme="http://andimeo.us.kg/categories/Java/"/>
+    <category term="Java" scheme="https://andimeo.us.kg/categories/Java/"/>
     
     
-    <category term="Concurrency" scheme="http://andimeo.us.kg/tags/Concurrency/"/>
+    <category term="Concurrency" scheme="https://andimeo.us.kg/tags/Concurrency/"/>
     
   </entry>
   
   <entry>
     <title>生成圆内随机点</title>
-    <link href="http://andimeo.us.kg/2014/11/07/%E7%94%9F%E6%88%90%E5%9C%86%E5%86%85%E9%9A%8F%E6%9C%BA%E7%82%B9/"/>
-    <id>http://andimeo.us.kg/2014/11/07/%E7%94%9F%E6%88%90%E5%9C%86%E5%86%85%E9%9A%8F%E6%9C%BA%E7%82%B9/</id>
+    <link href="https://andimeo.us.kg/2014/11/07/%E7%94%9F%E6%88%90%E5%9C%86%E5%86%85%E9%9A%8F%E6%9C%BA%E7%82%B9/"/>
+    <id>https://andimeo.us.kg/2014/11/07/%E7%94%9F%E6%88%90%E5%9C%86%E5%86%85%E9%9A%8F%E6%9C%BA%E7%82%B9/</id>
     <published>2014-11-07T09:10:00.000Z</published>
     <updated>2024-09-07T07:25:33.406Z</updated>
     
@@ -368,17 +368,17 @@
     
     
     
-    <category term="概率" scheme="http://andimeo.us.kg/categories/%E6%A6%82%E7%8E%87/"/>
+    <category term="概率" scheme="https://andimeo.us.kg/categories/%E6%A6%82%E7%8E%87/"/>
     
     
-    <category term="Mathematics" scheme="http://andimeo.us.kg/tags/Mathematics/"/>
+    <category term="Mathematics" scheme="https://andimeo.us.kg/tags/Mathematics/"/>
     
   </entry>
   
   <entry>
     <title>Git工作模式</title>
-    <link href="http://andimeo.us.kg/2014/08/23/Git%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://andimeo.us.kg/2014/08/23/Git%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/</id>
+    <link href="https://andimeo.us.kg/2014/08/23/Git%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://andimeo.us.kg/2014/08/23/Git%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/</id>
     <published>2014-08-23T06:14:50.000Z</published>
     <updated>2024-09-07T12:49:37.170Z</updated>
     
@@ -399,19 +399,19 @@
     
     
     
-    <category term="工具" scheme="http://andimeo.us.kg/categories/%E5%B7%A5%E5%85%B7/"/>
+    <category term="工具" scheme="https://andimeo.us.kg/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="译文" scheme="http://andimeo.us.kg/tags/%E8%AF%91%E6%96%87/"/>
+    <category term="译文" scheme="https://andimeo.us.kg/tags/%E8%AF%91%E6%96%87/"/>
     
-    <category term="Git" scheme="http://andimeo.us.kg/tags/Git/"/>
+    <category term="Git" scheme="https://andimeo.us.kg/tags/Git/"/>
     
   </entry>
   
   <entry>
     <title>Arrow&#39;s Impossibility Theorem</title>
-    <link href="http://andimeo.us.kg/2014/07/27/Arrow&#39;s-Impossibility-Theorem/"/>
-    <id>http://andimeo.us.kg/2014/07/27/Arrow&#39;s-Impossibility-Theorem/</id>
+    <link href="https://andimeo.us.kg/2014/07/27/Arrow&#39;s-Impossibility-Theorem/"/>
+    <id>https://andimeo.us.kg/2014/07/27/Arrow&#39;s-Impossibility-Theorem/</id>
     <published>2014-07-26T16:03:07.000Z</published>
     <updated>2024-09-07T12:56:41.092Z</updated>
     
@@ -424,21 +424,21 @@
     
     
     
-    <category term="经济学" scheme="http://andimeo.us.kg/categories/%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
+    <category term="经济学" scheme="https://andimeo.us.kg/categories/%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
     
     
-    <category term="微观经济学" scheme="http://andimeo.us.kg/tags/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
+    <category term="微观经济学" scheme="https://andimeo.us.kg/tags/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
     
-    <category term="政治经济学" scheme="http://andimeo.us.kg/tags/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
+    <category term="政治经济学" scheme="https://andimeo.us.kg/tags/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
     
-    <category term="译文" scheme="http://andimeo.us.kg/tags/%E8%AF%91%E6%96%87/"/>
+    <category term="译文" scheme="https://andimeo.us.kg/tags/%E8%AF%91%E6%96%87/"/>
     
   </entry>
   
   <entry>
     <title>四星德国</title>
-    <link href="http://andimeo.us.kg/2014/07/20/%E5%9B%9B%E6%98%9F%E5%BE%B7%E5%9B%BD/"/>
-    <id>http://andimeo.us.kg/2014/07/20/%E5%9B%9B%E6%98%9F%E5%BE%B7%E5%9B%BD/</id>
+    <link href="https://andimeo.us.kg/2014/07/20/%E5%9B%9B%E6%98%9F%E5%BE%B7%E5%9B%BD/"/>
+    <id>https://andimeo.us.kg/2014/07/20/%E5%9B%9B%E6%98%9F%E5%BE%B7%E5%9B%BD/</id>
     <published>2014-07-20T02:03:07.000Z</published>
     <updated>2024-09-07T07:25:33.406Z</updated>
     
@@ -452,21 +452,21 @@
     
     
     
-    <category term="心情" scheme="http://andimeo.us.kg/categories/%E5%BF%83%E6%83%85/"/>
+    <category term="心情" scheme="https://andimeo.us.kg/categories/%E5%BF%83%E6%83%85/"/>
     
     
-    <category term="回忆" scheme="http://andimeo.us.kg/tags/%E5%9B%9E%E5%BF%86/"/>
+    <category term="回忆" scheme="https://andimeo.us.kg/tags/%E5%9B%9E%E5%BF%86/"/>
     
-    <category term="世界杯" scheme="http://andimeo.us.kg/tags/%E4%B8%96%E7%95%8C%E6%9D%AF/"/>
+    <category term="世界杯" scheme="https://andimeo.us.kg/tags/%E4%B8%96%E7%95%8C%E6%9D%AF/"/>
     
-    <category term="德国" scheme="http://andimeo.us.kg/tags/%E5%BE%B7%E5%9B%BD/"/>
+    <category term="德国" scheme="https://andimeo.us.kg/tags/%E5%BE%B7%E5%9B%BD/"/>
     
   </entry>
   
   <entry>
     <title>配置mod_cluster与tomcat</title>
-    <link href="http://andimeo.us.kg/2014/06/27/%E9%85%8D%E7%BD%AEmod_cluster%E4%B8%8Etomcat/"/>
-    <id>http://andimeo.us.kg/2014/06/27/%E9%85%8D%E7%BD%AEmod_cluster%E4%B8%8Etomcat/</id>
+    <link href="https://andimeo.us.kg/2014/06/27/%E9%85%8D%E7%BD%AEmod_cluster%E4%B8%8Etomcat/"/>
+    <id>https://andimeo.us.kg/2014/06/27/%E9%85%8D%E7%BD%AEmod_cluster%E4%B8%8Etomcat/</id>
     <published>2014-06-27T15:33:40.000Z</published>
     <updated>2024-09-07T13:03:07.279Z</updated>
     
@@ -486,23 +486,23 @@
     
     
     
-    <category term="Java" scheme="http://andimeo.us.kg/categories/Java/"/>
+    <category term="Java" scheme="https://andimeo.us.kg/categories/Java/"/>
     
     
-    <category term="负载均衡" scheme="http://andimeo.us.kg/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
+    <category term="负载均衡" scheme="https://andimeo.us.kg/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
     
-    <category term="mod_cluster" scheme="http://andimeo.us.kg/tags/mod-cluster/"/>
+    <category term="mod_cluster" scheme="https://andimeo.us.kg/tags/mod-cluster/"/>
     
-    <category term="tomcat" scheme="http://andimeo.us.kg/tags/tomcat/"/>
+    <category term="tomcat" scheme="https://andimeo.us.kg/tags/tomcat/"/>
     
-    <category term="分布式" scheme="http://andimeo.us.kg/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    <category term="分布式" scheme="https://andimeo.us.kg/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>理解Node.js中的事件轮询</title>
-    <link href="http://andimeo.us.kg/2014/06/21/%E7%90%86%E8%A7%A3Node.js%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E8%BD%AE%E8%AF%A2/"/>
-    <id>http://andimeo.us.kg/2014/06/21/%E7%90%86%E8%A7%A3Node.js%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E8%BD%AE%E8%AF%A2/</id>
+    <link href="https://andimeo.us.kg/2014/06/21/%E7%90%86%E8%A7%A3Node.js%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E8%BD%AE%E8%AF%A2/"/>
+    <id>https://andimeo.us.kg/2014/06/21/%E7%90%86%E8%A7%A3Node.js%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E8%BD%AE%E8%AF%A2/</id>
     <published>2014-06-20T16:34:00.000Z</published>
     <updated>2024-09-07T07:25:33.408Z</updated>
     
@@ -529,21 +529,21 @@
     
     
     
-    <category term="Node.js" scheme="http://andimeo.us.kg/categories/Node-js/"/>
+    <category term="Node.js" scheme="https://andimeo.us.kg/categories/Node-js/"/>
     
     
-    <category term="译文" scheme="http://andimeo.us.kg/tags/%E8%AF%91%E6%96%87/"/>
+    <category term="译文" scheme="https://andimeo.us.kg/tags/%E8%AF%91%E6%96%87/"/>
     
-    <category term="Node.js" scheme="http://andimeo.us.kg/tags/Node-js/"/>
+    <category term="Node.js" scheme="https://andimeo.us.kg/tags/Node-js/"/>
     
-    <category term="事件轮询" scheme="http://andimeo.us.kg/tags/%E4%BA%8B%E4%BB%B6%E8%BD%AE%E8%AF%A2/"/>
+    <category term="事件轮询" scheme="https://andimeo.us.kg/tags/%E4%BA%8B%E4%BB%B6%E8%BD%AE%E8%AF%A2/"/>
     
   </entry>
   
   <entry>
     <title>大学之美</title>
-    <link href="http://andimeo.us.kg/2014/06/14/%E5%A4%A7%E5%AD%A6%E4%B9%8B%E7%BE%8E/"/>
-    <id>http://andimeo.us.kg/2014/06/14/%E5%A4%A7%E5%AD%A6%E4%B9%8B%E7%BE%8E/</id>
+    <link href="https://andimeo.us.kg/2014/06/14/%E5%A4%A7%E5%AD%A6%E4%B9%8B%E7%BE%8E/"/>
+    <id>https://andimeo.us.kg/2014/06/14/%E5%A4%A7%E5%AD%A6%E4%B9%8B%E7%BE%8E/</id>
     <published>2014-06-14T08:59:35.000Z</published>
     <updated>2024-09-07T07:25:33.408Z</updated>
     
@@ -557,12 +557,12 @@
     
     
     
-    <category term="心情" scheme="http://andimeo.us.kg/categories/%E5%BF%83%E6%83%85/"/>
+    <category term="心情" scheme="https://andimeo.us.kg/categories/%E5%BF%83%E6%83%85/"/>
     
     
-    <category term="回忆" scheme="http://andimeo.us.kg/tags/%E5%9B%9E%E5%BF%86/"/>
+    <category term="回忆" scheme="https://andimeo.us.kg/tags/%E5%9B%9E%E5%BF%86/"/>
     
-    <category term="大学" scheme="http://andimeo.us.kg/tags/%E5%A4%A7%E5%AD%A6/"/>
+    <category term="大学" scheme="https://andimeo.us.kg/tags/%E5%A4%A7%E5%AD%A6/"/>
     
   </entry>
   
