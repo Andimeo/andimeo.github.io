@@ -6,7 +6,7 @@
   <link href="https://andimeo.us.kg/atom.xml" rel="self"/>
   
   <link href="https://andimeo.us.kg/"/>
-  <updated>2024-09-23T16:21:14.418Z</updated>
+  <updated>2024-11-03T13:52:03.789Z</updated>
   <id>https://andimeo.us.kg/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>1到n的异或和</title>
+    <link href="https://andimeo.us.kg/2024/11/03/1%E5%88%B0n%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C/"/>
+    <id>https://andimeo.us.kg/2024/11/03/1%E5%88%B0n%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C/</id>
+    <published>2024-11-03T12:49:32.000Z</published>
+    <updated>2024-11-03T13:52:03.789Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近做codeforces的比赛时，发现一道<a href="https://codeforces.com/contest/2036/problem/F">题目</a>。题意是求区间$[l, r]$内，满足$x \not\equiv k \pmod {2^i}$的数的异或和。</p><p>整体思路是假设我们有函数$f(n)$表示$[0, n]$中所有数的异或和，有函数$g(n)$表示$[0, n]$中所有模$2^i$等于k的数的异或和，那么最终答案即为：</p><p>$$ f(r) \oplus f(l-1) \oplus g(r) \oplus g(l-1) $$</p><h2 id="函数f">函数f</h2><p>函数f的计算其实非常简单，</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">f</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n % <span class="number">4</span> == <span class="number">0</span>) <span class="keyword">return</span> n;</span><br><span class="line">    <span class="keyword">if</span> (n % <span class="number">4</span> == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (n % <span class="number">4</span> == <span class="number">2</span>) <span class="keyword">return</span> n + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>但为什么这样做是正确的，我找到一篇比较好的<a href="https://cs.stackexchange.com/a/157354">解释</a>。</p><h3 id="证明">证明</h3><p>对于一个偶数$x$而言，$x \oplus (x+1) = 1$，因为两个数只有最后一位不同。因此我们可以对$0 \oplus 1 \oplus 2 \oplus ... \oplus n$进行配对，$$0 \oplus 1 = 1 \2 \oplus 3 = 1 \4 \oplus 5 = 1 \...$$</p><p>这里我们有$\lfloor\frac{n+1}{2}\rfloor$个异或值为$1$的配对，而如果n为偶数则$n$没有被配对。</p><p>若$n \equiv 0 \pmod 4$，$n$没有被配对，而已经配对的$n$个数就构成了$\frac{n}{2}$组，其异或和为$\frac{n}{2}$个$1$的异或和，即为0，因为$\frac{n}{2}$为偶数。再加上最后没被配对的n，答案即为$n$。</p><p>若$n \equiv 1 \pmod 4$，则$f(n-1) = n-1$，再注意到$n-1$是个偶数，故答案即为$(n-1) \oplus n = 1$。</p><p>若$n \equiv 2 \pmod 4$，则$n$没有被配对，且$f(n-1)=1$，注意到$n$是一个偶数，故答案为$1 \oplus n$即为$n+1$。</p><p>最后，若$n \equiv 3 \pmod 4$，$f(n-1) = n$，故答案为$n \oplus n = 0$。</p><h2 id="函数g">函数g</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">g</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> i, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> pow = <span class="number">1</span> &lt;&lt; i;</span><br><span class="line">    <span class="type">int</span> u = n &gt;&gt; i;</span><br><span class="line">    <span class="type">int</span> cnt = u + <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> v = <span class="built_in">f</span>(u);</span><br><span class="line">    <span class="keyword">if</span> ((u &lt;&lt; i) + k &gt; n) &#123;</span><br><span class="line">        cnt--;</span><br><span class="line">        v = <span class="built_in">f</span>(u - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (cnt % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> v &lt;&lt; i;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">return</span> (v &lt;&lt; i) | k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这里，我们要找出$[0, n]$中满足$\pmod {2^i}$为$k$的数的异或和。这些数可以写为 $a*2^i+k$。当我们将其2进制表示中的后i位与前边分开，即得到如下数列，$$000000\ \underbrace{abcde}_\text{length of i} \000001\ abcde \000010\ abcde \...$$ 其中abcde是k的二进制表示。这些数的异或和分为两个部分计算，假设这个数列有cnt个数，那么前半部分的结果即为$f(cnt)$，后半部分的结果取决于cnt的奇偶，若cnt为奇数，结果为k，否则为0。</p><p>前面的代码就是实现了这个逻辑，其中需要注意的就是当$n / 2^i * 2^i + k &gt; n$时，$cnt=n/2^i-1$。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;最近做codeforces的比赛时，发现一道&lt;a href=&quot;https://codeforces.com/contest/2036/problem/F&quot;&gt;题目&lt;/a&gt;。题意是求区间$[l, r]$内，满足$x &#92;not&#92;equiv k &#92;pmod {2^i}$的数的异或和</summary>
+      
+    
+    
+    
+    <category term="Algorithm" scheme="https://andimeo.us.kg/categories/Algorithm/"/>
+    
+    
+    <category term="XOR" scheme="https://andimeo.us.kg/tags/XOR/"/>
+    
+  </entry>
   
   <entry>
     <title>XOR-hashing</title>
@@ -582,9 +606,9 @@ B再取一个数，交替进行直到结束，结束后谁取得的数之和较�
     <category term="心情" scheme="https://andimeo.us.kg/categories/%E5%BF%83%E6%83%85/"/>
     
     
-    <category term="回忆" scheme="https://andimeo.us.kg/tags/%E5%9B%9E%E5%BF%86/"/>
-    
     <category term="大学" scheme="https://andimeo.us.kg/tags/%E5%A4%A7%E5%AD%A6/"/>
+    
+    <category term="回忆" scheme="https://andimeo.us.kg/tags/%E5%9B%9E%E5%BF%86/"/>
     
   </entry>
   
